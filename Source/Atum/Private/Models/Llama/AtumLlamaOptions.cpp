@@ -13,6 +13,7 @@ void FAtumLlamaOptions::SetFrom(const LlamaConfig& Options) noexcept
 	IntermediateSize = Options.intermediate_size;
 	NumHiddenLayers = Options.num_hidden_layers;
 	NumAttentionHeads = Options.num_attention_heads;
+	NumKeyValueHeads = Options.num_key_value_heads;
 	HiddenAct = Options.hidden_act.c_str();
 	MaxPositionEmbeddings = Options.max_position_embeddings;
 	InitializerRange = Options.initializer_range;

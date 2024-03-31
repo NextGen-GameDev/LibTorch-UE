@@ -108,7 +108,7 @@ torch::Tensor LlamaCausalLMImpl::generate(
         
         
 
-        // get the preds for next token by slicing the last token
+        // get the preds for next token by slicing the last token 
         auto next_token = hidden_states.index({torch::indexing::Slice(), -1, torch::indexing::Slice()}).argmax();
         
         next_token = next_token.to(torch::kInt64).unsqueeze(0).unsqueeze(0);
