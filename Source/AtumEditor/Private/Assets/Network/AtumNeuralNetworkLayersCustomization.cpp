@@ -141,12 +141,17 @@ void FAtumNeuralNetworkLayersCustomization::LoadConfigurationFromFile(ULlamaUnre
                     Config.initializer_range = JsonObject->GetNumberField(TEXT("initializer_range"));
                     Config.rms_norm_eps = JsonObject->GetNumberField(TEXT("rms_norm_eps"));
                     Config.use_cache = JsonObject->GetBoolField(TEXT("use_cache"));
-                    Config.pad_token_id = JsonObject->GetIntegerField(TEXT("pad_token_id"));
-                    Config.bos_token_id = JsonObject->GetIntegerField(TEXT("bos_token_id"));
-                    Config.eos_token_id = JsonObject->GetIntegerField(TEXT("eos_token_id"));
-                    Config.tie_word_embeddings = JsonObject->GetBoolField(TEXT("tie_word_embeddings"));
-                    Config.output_hidden_states = JsonObject->GetBoolField(TEXT("output_hidden_states"));
-                    Config.output_attentions = JsonObject->GetBoolField(TEXT("output_attentions"));
+
+                    
+                    Config.pad_token_id = GetJsonIntField(JsonObject, TEXT("pad_token_id"), c10::nullopt);
+                    Config.bos_token_id = GetJsonIntField(JsonObject, TEXT("bos_token_id"), Config.bos_token_id).value();
+                    Config.eos_token_id = GetJsonIntField(JsonObject, TEXT("eos_token_id"), Config.eos_token_id).value();
+
+                    Config.tie_word_embeddings = GetJsonBoolField(JsonObject, TEXT("tie_word_embeddings"), Config.tie_word_embeddings);
+                    
+                    Config.output_hidden_states = GetJsonBoolField(JsonObject, TEXT("output_hidden_states"), Config.output_hidden_states);
+
+                    Config.output_attentions = GetJsonBoolField(JsonObject, TEXT("output_attentions"), Config.output_attentions);
 
                     // Apply the new Config to the LlamaUnreal instance
                     FAtumLlamaOptions NewOptions;
@@ -164,4 +169,25 @@ void FAtumNeuralNetworkLayersCustomization::LoadConfigurationFromFile(ULlamaUnre
             }
         }
     }
+}
+
+
+
+
+c10::optional<int32> FAtumNeuralNetworkLayersCustomization::GetJsonIntField(const TSharedPtr<FJsonObject>& JsonObject, const FString& FieldName, c10::optional<int32> DefaultValue)
+{
+    if (JsonObject->HasField(FieldName))
+    {
+        return JsonObject->GetIntegerField(FieldName);
+    }
+    return DefaultValue;
+}
+
+bool FAtumNeuralNetworkLayersCustomization::GetJsonBoolField(const TSharedPtr<FJsonObject>& JsonObject, const FString& FieldName, bool DefaultValue)
+{
+    if (JsonObject->HasField(FieldName))
+    {
+        return JsonObject->GetBoolField(FieldName);
+    }
+    return DefaultValue;
 }
