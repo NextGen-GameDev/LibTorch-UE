@@ -67,7 +67,7 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 ### Prerequisites
 
 * OS: Windows - 64 bit
-* UE: version 5.2+
+* UE: version 5.1 - 5.3
 * GPU support is currently CUDA-only
 
 <div id="installation"></div>
@@ -100,7 +100,11 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 
 ## Usage
 
-Check out the project at https://github.com/bUsernameIsUnavailable/CartPole
+### YouTube Tutorials
+
+[Setup and Basic Usage](https://youtu.be/dvGWUh4SPBY)
+
+[Working with Meta's Llama](https://youtu.be/0YI2O5uSuFw)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
