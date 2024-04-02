@@ -72,6 +72,11 @@ bool ULlamaUnreal::OnForward_Implementation(
 	return true;
 }
 
+void ULlamaUnreal::SetOptions(const FAtumLlamaOptions& NewOptions)
+{
+	Options = NewOptions;
+}
+
 bool ULlamaUnreal::Generate_Implementation(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output, const int32& NumNewTokens  = 10)
 {
 
@@ -105,8 +110,6 @@ bool ULlamaUnreal::Generate_Implementation(const TScriptInterface<IAtumTensor>& 
 
 bool ULlamaUnreal::LoadParams_Implementation(const FString& Path)
 {
-
-	
 
 	FString const FilePath = IAtumModule::GetContentDirectory(Path);
 	if (!FPaths::FileExists(FilePath))

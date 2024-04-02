@@ -28,7 +28,9 @@ public class AtumEditor : ModuleRules
 		{
 			"Atum",
 			"Core",
-			"CoreUObject"
+			"CoreUObject",
+			"Json",
+			"JsonUtilities" 
 		});
 		
 		PrivateDependencyModuleNames.AddRange(new[]
@@ -37,7 +39,8 @@ public class AtumEditor : ModuleRules
 			"GraphEditor",
 			"Slate",
 			"SlateCore",
-			"UnrealEd"
+			"UnrealEd", 
+			"DesktopWidgets"
 		});
 	}
 }

@@ -18,6 +18,8 @@ UCLASS(BlueprintType, EditInlineNew, DisplayName = "ATUM Neural Network Layers D
 class ATUM_API UAtumNeuralNetworkLayers : public UDataAsset
 {
 	GENERATED_BODY()
+
+	friend class FAtumNeuralNetworkLayersCustomization;
 	
 #if WITH_EDITORONLY_DATA
 	/**

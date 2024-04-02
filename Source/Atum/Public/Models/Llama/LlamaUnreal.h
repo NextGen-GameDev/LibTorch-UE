@@ -36,16 +36,16 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool LoadParams(const FString& Path);
 
-
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool ToArchive(const FString& InPath, const FString& OutPath);
+
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Layer")
+	void SetOptions(const FAtumLlamaOptions& NewOptions);
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLlamaOptions Options;
 
-	
-	
 };
 
 #undef LOCTEXT_NAMESPACE
