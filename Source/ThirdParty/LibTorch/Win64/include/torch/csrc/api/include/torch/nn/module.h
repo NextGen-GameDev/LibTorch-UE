@@ -81,6 +81,10 @@ class TORCH_API Module : public std::enable_shared_from_this<Module> {
   /// The name of the submodule is inferred via RTTI (if possible) the first
   /// time `.name()` is invoked.
   Module();
+  Module(const Module&) = default;
+  Module& operator=(const Module&) = default;
+  Module(Module&&) noexcept = default;
+  Module& operator=(Module&&) noexcept = default;
 
   virtual ~Module() = default;
 
@@ -550,8 +554,8 @@ class TORCH_API Module : public std::enable_shared_from_this<Module> {
 
  private:
   // Friend classes.
+  friend class IAtumLayer;
 
-    friend class IAtumLayer;
 
   template <typename Derived>
   friend class Cloneable;

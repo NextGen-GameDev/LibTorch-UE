@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor & channel_shuffle_out(at::Tensor & out, const at::Tensor & self, int64_t groups);
 TORCH_API at::Tensor & channel_shuffle_outf(const at::Tensor & self, int64_t groups, at::Tensor & out);
+TORCH_API at::Tensor & channel_shuffle_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymInt groups);
+TORCH_API at::Tensor & channel_shuffle_symint_outf(const at::Tensor & self, c10::SymInt groups, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

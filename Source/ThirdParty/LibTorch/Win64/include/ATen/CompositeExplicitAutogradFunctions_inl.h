@@ -198,6 +198,7 @@
 #include <ATen/ops/_triton_scaled_dot_attention_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_unique_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_unique2_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/_unsafe_index_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_unsafe_index_put_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_unsafe_view_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/_values_copy_compositeexplicitautograd_dispatch.h>
@@ -209,7 +210,9 @@
 #include <ATen/ops/affine_grid_generator_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/alias_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/alias_copy_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/all_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/allclose_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/any_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/arange_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/argsort_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/as_strided_copy_compositeexplicitautograd_dispatch.h>
@@ -299,6 +302,7 @@
 #include <ATen/ops/fft_rfftfreq_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/fill_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/flip_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/floor_divide_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/fmod_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/frexp_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/from_file_compositeexplicitautograd_dispatch.h>
@@ -349,6 +353,7 @@
 #include <ATen/ops/lstm_mps_backward_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/masked_fill_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/masked_scatter_compositeexplicitautograd_dispatch.h>
+#include <ATen/ops/masked_scatter_backward_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/matmul_backward_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/max_pool2d_backward_compositeexplicitautograd_dispatch.h>
 #include <ATen/ops/mean_compositeexplicitautograd_dispatch.h>

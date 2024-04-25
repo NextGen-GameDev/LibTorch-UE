@@ -20,6 +20,7 @@ namespace compositeexplicitautograd {
 TORCH_API at::Tensor bitwise_and(const at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor & bitwise_and_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor & bitwise_and_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out);
+TORCH_API at::Tensor & bitwise_and_(at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor bitwise_and(const at::Scalar & self, const at::Tensor & other);
 TORCH_API at::Tensor & bitwise_and_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & other);
 TORCH_API at::Tensor & bitwise_and_outf(const at::Scalar & self, const at::Tensor & other, at::Tensor & out);

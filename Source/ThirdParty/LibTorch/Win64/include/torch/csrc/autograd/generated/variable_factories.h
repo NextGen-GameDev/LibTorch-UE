@@ -47,6 +47,12 @@
 #include <ATen/ops/kaiser_window.h>
 #include <ATen/ops/kaiser_window.h>
 #include <ATen/ops/linspace.h>
+#include <ATen/ops/linspace.h>
+#include <ATen/ops/linspace.h>
+#include <ATen/ops/linspace.h>
+#include <ATen/ops/logspace.h>
+#include <ATen/ops/logspace.h>
+#include <ATen/ops/logspace.h>
 #include <ATen/ops/logspace.h>
 #include <ATen/ops/ones.h>
 #include <ATen/ops/ones.h>
@@ -382,7 +388,31 @@ inline at::Tensor linspace(const at::Scalar & start, const at::Scalar & end, int
   at::AutoDispatchBelowADInplaceOrView guard;
   return autograd::make_variable(at::linspace(start, end, steps, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
 }
+inline at::Tensor linspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, at::TensorOptions options = {}) {
+  at::AutoDispatchBelowADInplaceOrView guard;
+  return autograd::make_variable(at::linspace(start, end, steps, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
+}
+inline at::Tensor linspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, at::TensorOptions options = {}) {
+  at::AutoDispatchBelowADInplaceOrView guard;
+  return autograd::make_variable(at::linspace(start, end, steps, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
+}
+inline at::Tensor linspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, at::TensorOptions options = {}) {
+  at::AutoDispatchBelowADInplaceOrView guard;
+  return autograd::make_variable(at::linspace(start, end, steps, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
+}
 inline at::Tensor logspace(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base = 10.0, at::TensorOptions options = {}) {
+  at::AutoDispatchBelowADInplaceOrView guard;
+  return autograd::make_variable(at::logspace(start, end, steps, base, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
+}
+inline at::Tensor logspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, double base = 10.0, at::TensorOptions options = {}) {
+  at::AutoDispatchBelowADInplaceOrView guard;
+  return autograd::make_variable(at::logspace(start, end, steps, base, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
+}
+inline at::Tensor logspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, double base = 10.0, at::TensorOptions options = {}) {
+  at::AutoDispatchBelowADInplaceOrView guard;
+  return autograd::make_variable(at::logspace(start, end, steps, base, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
+}
+inline at::Tensor logspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, double base = 10.0, at::TensorOptions options = {}) {
   at::AutoDispatchBelowADInplaceOrView guard;
   return autograd::make_variable(at::logspace(start, end, steps, base, at::TensorOptions(options).requires_grad(c10::nullopt)), /*requires_grad=*/options.requires_grad());
 }

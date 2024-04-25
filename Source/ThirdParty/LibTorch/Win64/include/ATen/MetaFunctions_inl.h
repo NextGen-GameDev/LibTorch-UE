@@ -22,6 +22,7 @@
 #include <ATen/ops/_coalesced_meta_dispatch.h>
 #include <ATen/ops/_convert_indices_from_coo_to_csr_meta_dispatch.h>
 #include <ATen/ops/_convert_indices_from_csr_to_coo_meta_dispatch.h>
+#include <ATen/ops/_ctc_loss_meta_dispatch.h>
 #include <ATen/ops/_efficientzerotensor_meta_dispatch.h>
 #include <ATen/ops/_fill_mem_eff_dropout_mask_meta_dispatch.h>
 #include <ATen/ops/_fused_sdp_choice_meta_dispatch.h>

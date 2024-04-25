@@ -68,6 +68,7 @@ _(aten, _conj_physical) \
 _(aten, _conv_depthwise2d) \
 _(aten, _convert_indices_from_coo_to_csr) \
 _(aten, _convert_indices_from_csr_to_coo) \
+_(aten, _convert_weight_to_int4pack) \
 _(aten, _convolution) \
 _(aten, _convolution_double_backward) \
 _(aten, _convolution_mode) \
@@ -254,6 +255,7 @@ _(aten, _make_per_tensor_quantized_tensor) \
 _(aten, _masked_scale) \
 _(aten, _masked_softmax) \
 _(aten, _masked_softmax_backward) \
+_(aten, _mixed_dtypes_linear) \
 _(aten, _mkldnn_reshape) \
 _(aten, _mkldnn_transpose) \
 _(aten, _mkldnn_transpose_) \
@@ -412,6 +414,7 @@ _(aten, _validate_sparse_csr_tensor_args) \
 _(aten, _values) \
 _(aten, _values_copy) \
 _(aten, _version) \
+_(aten, _weight_int4pack_mm) \
 _(aten, _weight_norm) \
 _(aten, _weight_norm_differentiable_backward) \
 _(aten, _weight_norm_interface) \
@@ -1002,6 +1005,7 @@ _(aten, masked_fill) \
 _(aten, masked_fill_) \
 _(aten, masked_scatter) \
 _(aten, masked_scatter_) \
+_(aten, masked_scatter_backward) \
 _(aten, masked_select) \
 _(aten, masked_select_backward) \
 _(aten, matmul) \
@@ -1791,6 +1795,7 @@ _(attr, indexing) \
 _(attr, indices) \
 _(attr, info) \
 _(attr, initial) \
+_(attr, innerKTiles) \
 _(attr, input) \
 _(attr, input1) \
 _(attr, input2) \
@@ -1977,6 +1982,8 @@ _(attr, proj_bias) \
 _(attr, proj_size) \
 _(attr, proj_weight) \
 _(attr, q) \
+_(attr, qGroupSize) \
+_(attr, qScaleAndZeros) \
 _(attr, qkv) \
 _(attr, qkv_bias) \
 _(attr, qkv_weight) \
@@ -2128,6 +2135,7 @@ _(attr, unroll_dim) \
 _(attr, unsafe) \
 _(attr, upper) \
 _(attr, upscale_factor) \
+_(attr, use_fast_accum) \
 _(attr, use_gelu) \
 _(attr, use_input_stats) \
 _(attr, v) \

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2022 Intel Corporation
+* Copyright 2022-2023 Intel Corporation
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ extern "C" {
 /// @cond DO_NOT_DOCUMENT_THIS
 #include <stddef.h>
 #include <stdint.h>
+
+#include "oneapi/dnnl/dnnl_config.h"
+
 /// @endcond
 
 /// @addtogroup dnnl_api oneDNN API
@@ -87,6 +90,8 @@ typedef enum {
     dnnl_u8 = 6,
     /// 64-bit/double-precision floating point.
     dnnl_f64 = 7,
+    /// Boolean data type. Size is C++ implementation defined.
+    dnnl_boolean = 8,
 
     /// Parameter to allow internal only data_types without undefined behavior.
     /// This parameter is chosen to be valid for so long as sizeof(int) >= 2.
@@ -117,7 +122,7 @@ typedef enum {
     dnnl_fpmath_mode_bf16,
     /// Implicit f32->f16 conversions allowed
     dnnl_fpmath_mode_f16,
-    /// Implicit f32->f16 or f32->bf16 conversions allowed
+    /// Implicit f32->f16, f32->tf32 or f32->bf16 conversions allowed
     dnnl_fpmath_mode_any,
     /// Implicit f32->tf32 conversions allowed
     dnnl_fpmath_mode_tf32,
@@ -162,6 +167,10 @@ typedef enum {
     dnnl_stream_out_of_order = 0x2U,
     /// Default stream configuration.
     dnnl_stream_default_flags = dnnl_stream_in_order,
+#ifdef DNNL_EXPERIMENTAL_PROFILING
+    /// Enables profiling capabilities.
+    dnnl_stream_profiling = 0x4U,
+#endif
 } dnnl_stream_flags_t;
 
 /// @struct dnnl_stream
@@ -176,30 +185,6 @@ typedef const struct dnnl_stream *const_dnnl_stream_t;
 
 /// @addtogroup dnnl_api_service
 /// @{
-
-/// No runtime (disabled)
-#define DNNL_RUNTIME_NONE 0u
-
-/// Sequential runtime (CPU only)
-#define DNNL_RUNTIME_SEQ 1u
-
-/// OpenMP runtime (CPU only)
-#define DNNL_RUNTIME_OMP 2u
-
-/// TBB runtime (CPU only)
-#define DNNL_RUNTIME_TBB 4u
-
-/// Threadpool runtime (CPU only)
-#define DNNL_RUNTIME_THREADPOOL 8u
-
-/// OpenCL runtime
-#define DNNL_RUNTIME_OCL 256u
-
-/// SYCL runtime
-#define DNNL_RUNTIME_SYCL 512u
-
-/// DPC++ runtime
-#define DNNL_RUNTIME_DPCPP DNNL_RUNTIME_SYCL
 
 /// Structure containing version information as per [Semantic
 /// Versioning](https://semver.org)

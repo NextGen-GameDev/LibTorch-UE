@@ -25,6 +25,17 @@ struct TORCH_API any_dim {
   static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, bool keepdim);
 };
 
+struct TORCH_API any_dims {
+  using schema = at::Tensor (const at::Tensor &, at::OptionalIntArrayRef, bool);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::any")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "dims")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "any.dims(Tensor self, int[]? dim=None, bool keepdim=False) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim);
+};
+
 struct TORCH_API any_out {
   using schema = at::Tensor & (const at::Tensor &, int64_t, bool, at::Tensor &);
   using ptr_schema = schema*;
@@ -34,6 +45,17 @@ struct TORCH_API any_out {
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "any.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)")
   static at::Tensor & call(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out);
   static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out);
+};
+
+struct TORCH_API any_dims_out {
+  using schema = at::Tensor & (const at::Tensor &, at::OptionalIntArrayRef, bool, at::Tensor &);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::any")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "dims_out")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "any.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, at::Tensor & out);
 };
 
 struct TORCH_API any_dimname {

@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_out(const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,2> output_mask, at::Tensor & out0, at::Tensor & out1);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_out_symint(const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,2> output_mask, at::Tensor & out0, at::Tensor & out1);
 } // namespace native
 } // namespace at

@@ -17,6 +17,10 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
+TORCH_API at::Tensor special_hermite_polynomial_he(const at::Scalar & x, const at::Tensor & n);
+TORCH_API at::Tensor & special_hermite_polynomial_he_out(at::Tensor & out, const at::Scalar & x, const at::Tensor & n);
+TORCH_API at::Tensor & special_hermite_polynomial_he_outf(const at::Scalar & x, const at::Tensor & n, at::Tensor & out);
+TORCH_API at::Tensor special_hermite_polynomial_he(const at::Tensor & x, const at::Scalar & n);
 TORCH_API at::Tensor & special_hermite_polynomial_he_out(at::Tensor & out, const at::Tensor & x, const at::Scalar & n);
 TORCH_API at::Tensor & special_hermite_polynomial_he_outf(const at::Tensor & x, const at::Scalar & n, at::Tensor & out);
 

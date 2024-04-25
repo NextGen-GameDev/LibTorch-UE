@@ -19,5 +19,11 @@ namespace native {
 TORCH_API at::Tensor logspace(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base=10.0, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
 TORCH_API at::Tensor & logspace_out(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out);
 TORCH_API at::Tensor & logspace_cuda_out(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out);
+TORCH_API at::Tensor logspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, double base=10.0, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
+TORCH_API at::Tensor & logspace_out(const at::Tensor & start, const at::Tensor & end, int64_t steps, double base, at::Tensor & out);
+TORCH_API at::Tensor logspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, double base=10.0, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
+TORCH_API at::Tensor & logspace_out(const at::Tensor & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out);
+TORCH_API at::Tensor logspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, double base=10.0, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
+TORCH_API at::Tensor & logspace_out(const at::Scalar & start, const at::Tensor & end, int64_t steps, double base, at::Tensor & out);
 } // namespace native
 } // namespace at

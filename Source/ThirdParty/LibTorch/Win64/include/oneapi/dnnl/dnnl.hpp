@@ -146,6 +146,8 @@ struct primitive : public handle<dnnl_primitive_t> {
         softmax = dnnl_softmax,
         /// A layer normalization primitive.
         layer_normalization = dnnl_layer_normalization,
+        /// A group normalization primitive
+        group_normalization = dnnl_group_normalization,
     };
 
     using handle::handle;
@@ -1158,6 +1160,7 @@ struct memory : public handle<dnnl_memory_t> {
 
         AB16b16a = dnnl_AB16b16a,
         AB16b32a = dnnl_AB16b32a,
+        AB16b48a = dnnl_AB16b48a,
         AB16b64a = dnnl_AB16b64a,
         AB8b16a2b = dnnl_AB8b16a2b,
         AB8b32a2b = dnnl_AB8b32a2b,
@@ -1180,6 +1183,7 @@ struct memory : public handle<dnnl_memory_t> {
         aBc32b = dnnl_aBc32b,
         ABc16b16a = dnnl_ABc16b16a,
         ABc16b32a = dnnl_ABc16b32a,
+        ABc16b48a = dnnl_ABc16b48a,
         ABc16b64a = dnnl_ABc16b64a,
         Abc4a = dnnl_Abc4a,
         aBc4b = dnnl_aBc4b,
@@ -1213,6 +1217,7 @@ struct memory : public handle<dnnl_memory_t> {
         aBcd32b = dnnl_aBcd32b,
         ABcd16b16a = dnnl_ABcd16b16a,
         ABcd16b32a = dnnl_ABcd16b32a,
+        ABcd16b48a = dnnl_ABcd16b48a,
         ABcd16b64a = dnnl_ABcd16b64a,
         aBCd16b16c = dnnl_aBCd16b16c,
         aBCd16c16b = dnnl_aBCd16c16b,
@@ -1263,6 +1268,7 @@ struct memory : public handle<dnnl_memory_t> {
         aBcde32b = dnnl_aBcde32b,
         ABcde16b16a = dnnl_ABcde16b16a,
         ABcde16b32a = dnnl_ABcde16b32a,
+        ABcde16b48a = dnnl_ABcde16b48a,
         ABcde16b64a = dnnl_ABcde16b64a,
         aBCde16b16c = dnnl_aBCde16b16c,
         aBCde16c16b = dnnl_aBCde16c16b,
@@ -1323,20 +1329,24 @@ struct memory : public handle<dnnl_memory_t> {
         aBdc4b = dnnl_aBdc4b,
         aBdc8b = dnnl_aBdc8b,
         aBdC8b2c = dnnl_aBdC8b2c,
+        aBdC8b4c = dnnl_aBdC8b4c,
         aBdec16b = dnnl_aBdec16b,
         aBdec4b = dnnl_aBdec4b,
         aBdec8b = dnnl_aBdec8b,
         aBdeC8b2c = dnnl_aBdeC8b2c,
+        aBdeC8b4c = dnnl_aBdeC8b4c,
         aBdefc16b = dnnl_aBdefc16b,
         aCBdef16c16b = dnnl_aCBdef16c16b,
         aCBdef16b16c = dnnl_aCBdef16b16c,
         aBdefc4b = dnnl_aBdefc4b,
         aBdefc8b = dnnl_aBdefc8b,
         aBdefC8b2c = dnnl_aBdefC8b2c,
+        aBdefC8b4c = dnnl_aBdefC8b4c,
         Acb16a = dnnl_Acb16a,
         Acb4a = dnnl_Acb4a,
         Acb8a = dnnl_Acb8a,
         AcB8a2b = dnnl_AcB8a2b,
+        AcB8a4b = dnnl_AcB8a4b,
         aCBd16b16c = dnnl_aCBd16b16c,
         aCBd16c16b = dnnl_aCBd16c16b,
         aCBde16b16c = dnnl_aCBde16b16c,
@@ -1345,10 +1355,12 @@ struct memory : public handle<dnnl_memory_t> {
         Acdb4a = dnnl_Acdb4a,
         Acdb8a = dnnl_Acdb8a,
         AcdB8a2b = dnnl_AcdB8a2b,
+        AcdB8a4b = dnnl_AcdB8a4b,
         Acdeb16a = dnnl_Acdeb16a,
         Acdeb4a = dnnl_Acdeb4a,
         Acdeb8a = dnnl_Acdeb8a,
         AcdeB8a2b = dnnl_AcdeB8a2b,
+        AcdeB8a4b = dnnl_AcdeB8a4b,
         BAc16a16b = dnnl_BAc16a16b,
         BAc16b16a = dnnl_BAc16b16a,
         BAcd16a16b = dnnl_BAcd16a16b,
@@ -1516,6 +1528,8 @@ struct memory : public handle<dnnl_memory_t> {
         BA16a64b4a = dnnl_BA16a64b4a,
         decbA16a = dnnl_decbA16a,
         decbA8a = dnnl_decbA8a,
+        defcbA16a = dnnl_defcbA16a,
+        defcbA8a = dnnl_defcbA8a,
         aCB16b16c = dnnl_aCB16b16c,
         aCB16b32c = dnnl_aCB16b32c,
         aCB16b48c = dnnl_aCB16b48c,
@@ -1540,6 +1554,12 @@ struct memory : public handle<dnnl_memory_t> {
         aBdC24b2c = dnnl_aBdC24b2c,
         aBdeC24b2c = dnnl_aBdeC24b2c,
         aBdefC24b2c = dnnl_aBdefC24b2c,
+        AcB24a4b = dnnl_AcB24a4b,
+        AcdB24a4b = dnnl_AcdB24a4b,
+        AcdeB24a4b = dnnl_AcdeB24a4b,
+        aBdC24b4c = dnnl_aBdC24b4c,
+        aBdeC24b4c = dnnl_aBdeC24b4c,
+        aBdefC24b4c = dnnl_aBdefC24b4c,
         AB8b32a = dnnl_AB8b32a,
         ABc8b32a = dnnl_ABc8b32a,
         ABcd8b32a = dnnl_ABcd8b32a,
@@ -1573,6 +1593,7 @@ struct memory : public handle<dnnl_memory_t> {
         IOhw16i16o = dnnl_IOhw16i16o,
         OI16i16o = dnnl_OI16i16o,
         OI16i32o = dnnl_OI16i32o,
+        OI16i48o = dnnl_OI16i48o,
         OI16i64o = dnnl_OI16i64o,
         OI8i16o2i = dnnl_OI8i16o2i,
         OI8i32o2i = dnnl_OI8i32o2i,
@@ -1590,6 +1611,7 @@ struct memory : public handle<dnnl_memory_t> {
         IOw16o16i = dnnl_IOw16o16i,
         OIw16i16o = dnnl_OIw16i16o,
         OIw16i32o = dnnl_OIw16i32o,
+        OIw16i48o = dnnl_OIw16i48o,
         OIw16i64o = dnnl_OIw16i64o,
         IOw16i16o = dnnl_IOw16i16o,
         gIOw16i16o = dnnl_gIOw16i16o,
@@ -1628,6 +1650,7 @@ struct memory : public handle<dnnl_memory_t> {
         Owi4o = dnnl_Owi4o,
         Owi8o = dnnl_Owi8o,
         OwI8o2i = dnnl_OwI8o2i,
+        OwI8o4i = dnnl_OwI8o4i,
         IOhw16o16i = dnnl_IOhw16o16i,
         Ohwi16o = dnnl_Ohwi16o,
         OhwI16o2i = dnnl_OhwI16o2i,
@@ -1637,8 +1660,10 @@ struct memory : public handle<dnnl_memory_t> {
         Ohwi4o = dnnl_Ohwi4o,
         Ohwi8o = dnnl_Ohwi8o,
         OhwI8o2i = dnnl_OhwI8o2i,
+        OhwI8o4i = dnnl_OhwI8o4i,
         OIhw16i16o = dnnl_OIhw16i16o,
         OIhw16i32o = dnnl_OIhw16i32o,
+        OIhw16i48o = dnnl_OIhw16i48o,
         OIhw16i64o = dnnl_OIhw16i64o,
         OIhw16o16i = dnnl_OIhw16o16i,
         Oihw16o = dnnl_Oihw16o,
@@ -1667,8 +1692,10 @@ struct memory : public handle<dnnl_memory_t> {
         Odhwi4o = dnnl_Odhwi4o,
         Odhwi8o = dnnl_Odhwi8o,
         OdhwI8o2i = dnnl_OdhwI8o2i,
+        OdhwI8o4i = dnnl_OdhwI8o4i,
         OIdhw16i16o = dnnl_OIdhw16i16o,
         OIdhw16i32o = dnnl_OIdhw16i32o,
+        OIdhw16i48o = dnnl_OIdhw16i48o,
         OIdhw16i64o = dnnl_OIdhw16i64o,
         OIdhw16o16i = dnnl_OIdhw16o16i,
         OIdhw16o16i2o = dnnl_OIdhw16o16i2o,
@@ -1721,6 +1748,7 @@ struct memory : public handle<dnnl_memory_t> {
         gOwi4o = dnnl_gOwi4o,
         gOwi8o = dnnl_gOwi8o,
         gOwI8o2i = dnnl_gOwI8o2i,
+        gOwI8o4i = dnnl_gOwI8o4i,
         Goiw8g = dnnl_Goiw8g,
         Goiw16g = dnnl_Goiw16g,
         gIOhw16o16i = dnnl_gIOhw16o16i,
@@ -1732,6 +1760,7 @@ struct memory : public handle<dnnl_memory_t> {
         gOhwi4o = dnnl_gOhwi4o,
         gOhwi8o = dnnl_gOhwi8o,
         gOhwI8o2i = dnnl_gOhwI8o2i,
+        gOhwI8o4i = dnnl_gOhwI8o4i,
         Goihw16g = dnnl_Goihw16g,
         gOIhw16i16o = dnnl_gOIhw16i16o,
         gOIhw16o16i = dnnl_gOIhw16o16i,
@@ -1777,6 +1806,7 @@ struct memory : public handle<dnnl_memory_t> {
         gOdhwi4o = dnnl_gOdhwi4o,
         gOdhwi8o = dnnl_gOdhwi8o,
         gOdhwI8o2i = dnnl_gOdhwI8o2i,
+        gOdhwI8o4i = dnnl_gOdhwI8o4i,
         gOIdhw16i16o = dnnl_gOIdhw16i16o,
         gOIdhw16o16i = dnnl_gOIdhw16o16i,
         gOIdhw16o16i2o = dnnl_gOIdhw16o16i2o,
@@ -2128,6 +2158,8 @@ struct memory : public handle<dnnl_memory_t> {
         AcdeB16b16a2b = dnnl_AcdeB16b16a2b,
         hwioG16g = dnnl_hwioG16g,
         hwioG8g = dnnl_hwioG8g,
+        dhwioG16g = dnnl_dhwioG16g,
+        dhwioG8g = dnnl_dhwioG8g,
         ABc4a2b = dnnl_ABc4a2b,
         ABc8a2b = dnnl_ABc8a2b,
         ABcd4a2b = dnnl_ABcd4a2b,
@@ -2404,6 +2436,12 @@ struct memory : public handle<dnnl_memory_t> {
         gOwI24o2i = dnnl_gOwI24o2i,
         gOhwI24o2i = dnnl_gOhwI24o2i,
         gOdhwI24o2i = dnnl_gOdhwI24o2i,
+        OwI24o4i = dnnl_OwI24o4i,
+        OhwI24o4i = dnnl_OhwI24o4i,
+        OdhwI24o4i = dnnl_OdhwI24o4i,
+        gOwI24o4i = dnnl_gOwI24o4i,
+        gOhwI24o4i = dnnl_gOhwI24o4i,
+        gOdhwI24o4i = dnnl_gOdhwI24o4i,
         OI8i32o = dnnl_OI8i32o,
         OIw8i32o = dnnl_OIw8i32o,
         OIhw8i32o = dnnl_OIhw8i32o,
@@ -2425,6 +2463,54 @@ struct memory : public handle<dnnl_memory_t> {
         ABcd4b24a4b = dnnl_ABcd4b24a4b,
         ABcde4b8a4b = dnnl_ABcde4b8a4b,
         ABcde4b24a4b = dnnl_ABcde4b24a4b,
+        Bca8b = dnnl_Bca8b,
+        BcA8b2a = dnnl_BcA8b2a,
+        Bcda8b = dnnl_Bcda8b,
+        BcdA8b2a = dnnl_BcdA8b2a,
+        Bcdea8b = dnnl_Bcdea8b,
+        BcdeA8b2a = dnnl_BcdeA8b2a,
+        aCdb8c = dnnl_aCdb8c,
+        aCdB8c2b = dnnl_aCdB8c2b,
+        aCdeb8c = dnnl_aCdeb8c,
+        aCdeB8c2b = dnnl_aCdeB8c2b,
+        aCdefb8c = dnnl_aCdefb8c,
+        aCdefB8c2b = dnnl_aCdefB8c2b,
+        Bca24b = dnnl_Bca24b,
+        BcA24b2a = dnnl_BcA24b2a,
+        Bcda24b = dnnl_Bcda24b,
+        BcdA24b2a = dnnl_BcdA24b2a,
+        Bcdea24b = dnnl_Bcdea24b,
+        BcdeA24b2a = dnnl_BcdeA24b2a,
+        aCdb24c = dnnl_aCdb24c,
+        aCdB24c2b = dnnl_aCdB24c2b,
+        aCdeb24c = dnnl_aCdeb24c,
+        aCdeB24c2b = dnnl_aCdeB24c2b,
+        aCdefb24c = dnnl_aCdefb24c,
+        aCdefB24c2b = dnnl_aCdefB24c2b,
+        Iwo8i = dnnl_Iwo8i,
+        IwO8i2o = dnnl_IwO8i2o,
+        Iwo24i = dnnl_Iwo24i,
+        IwO24i2o = dnnl_IwO24i2o,
+        Ihwo8i = dnnl_Ihwo8i,
+        IhwO8i2o = dnnl_IhwO8i2o,
+        Ihwo24i = dnnl_Ihwo24i,
+        IhwO24i2o = dnnl_IhwO24i2o,
+        Idhwo8i = dnnl_Idhwo8i,
+        IdhwO8i2o = dnnl_IdhwO8i2o,
+        Idhwo24i = dnnl_Idhwo24i,
+        IdhwO24i2o = dnnl_IdhwO24i2o,
+        gIwo8i = dnnl_gIwo8i,
+        gIwO8i2o = dnnl_gIwO8i2o,
+        gIwo24i = dnnl_gIwo24i,
+        gIwO24i2o = dnnl_gIwO24i2o,
+        gIhwo8i = dnnl_gIhwo8i,
+        gIhwO8i2o = dnnl_gIhwO8i2o,
+        gIhwo24i = dnnl_gIhwo24i,
+        gIhwO24i2o = dnnl_gIhwO24i2o,
+        gIdhwo8i = dnnl_gIdhwo8i,
+        gIdhwO8i2o = dnnl_gIdhwO8i2o,
+        gIdhwo24i = dnnl_gIdhwo24i,
+        gIdhwO24i2o = dnnl_gIdhwO24i2o,
         OhwI24o = dnnl_OhwI24o,
         gOhwI24o = dnnl_gOhwI24o,
         AB8b24a2b = dnnl_AB8b24a2b,
@@ -2443,6 +2529,33 @@ struct memory : public handle<dnnl_memory_t> {
         OIhw8i24o2i = dnnl_OIhw8i24o2i,
         OIdhw8i8o2i = dnnl_OIdhw8i8o2i,
         OIdhw8i24o2i = dnnl_OIdhw8i24o2i,
+        BcA8b4a = dnnl_BcA8b4a,
+        BcdA8b4a = dnnl_BcdA8b4a,
+        BcdeA8b4a = dnnl_BcdeA8b4a,
+        aCdB8c4b = dnnl_aCdB8c4b,
+        aCdeB8c4b = dnnl_aCdeB8c4b,
+        aCdefB8c4b = dnnl_aCdefB8c4b,
+        BcA24b4a = dnnl_BcA24b4a,
+        BcdA24b4a = dnnl_BcdA24b4a,
+        BcdeA24b4a = dnnl_BcdeA24b4a,
+        aCdB24c4b = dnnl_aCdB24c4b,
+        aCdeB24c4b = dnnl_aCdeB24c4b,
+        aCdefB24c4b = dnnl_aCdefB24c4b,
+        ABc16a4b = dnnl_ABc16a4b,
+        ABcd16a4b = dnnl_ABcd16a4b,
+        ABcde16a4b = dnnl_ABcde16a4b,
+        IwO8i4o = dnnl_IwO8i4o,
+        IwO24i4o = dnnl_IwO24i4o,
+        IhwO8i4o = dnnl_IhwO8i4o,
+        IhwO24i4o = dnnl_IhwO24i4o,
+        IdhwO8i4o = dnnl_IdhwO8i4o,
+        IdhwO24i4o = dnnl_IdhwO24i4o,
+        gIwO8i4o = dnnl_gIwO8i4o,
+        gIwO24i4o = dnnl_gIwO24i4o,
+        gIhwO8i4o = dnnl_gIhwO8i4o,
+        gIhwO24i4o = dnnl_gIhwO24i4o,
+        gIdhwO8i4o = dnnl_gIdhwO8i4o,
+        gIdhwO24i4o = dnnl_gIdhwO24i4o,
     };
 
     /// A memory descriptor.
@@ -3063,6 +3176,7 @@ struct memory : public handle<dnnl_memory_t> {
     ///     used, the memory buffer is a pointer to the actual data. For OpenCL
     ///     it is a cl_mem. It must have at least
     ///     #dnnl::memory::desc::get_size() bytes allocated.
+    /// @param index Memory index to attach the buffer. Defaults to 0.
     void set_data_handle(void *handle, int index = 0) const {
         error::wrap_c_api(dnnl_memory_set_data_handle_v2(get(), handle, index),
                 "could not set native handle of a memory object");
@@ -4067,9 +4181,9 @@ struct primitive_desc_base : public handle<dnnl_primitive_desc_t> {
     ///     a pooling kernel parameter.
     memory::dims get_kernel() const { return query_dims(query::kernel); }
 
-    /// Returns a shuffle group size parameter.
-    /// @returns A shuffle group size parameter.
-    /// @returns Zero if the primitive does not have a shuffle group size
+    /// Returns a group size parameter.
+    /// @returns A group size parameter.
+    /// @returns Zero if the primitive does not have a group size
     ///     parameter.
     memory::dim get_group_size() const {
         return query_s64(query::group_size_s64);
@@ -4660,19 +4774,25 @@ struct concat : public primitive {
         /// @param srcs Vector of source memory descriptors.
         /// @param attr Primitive attributes to use. Attributes are optional
         ///     and default to empty attributes.
+        /// @param allow_empty A flag signifying whether construction is
+        ///     allowed to fail without throwing an exception. In this case an
+        ///     empty object will be produced. This flag is optional and
+        ///     defaults to false.
         primitive_desc(const engine &aengine, const memory::desc &dst,
                 int concat_dimension, const std::vector<memory::desc> &srcs,
-                const primitive_attr &attr = default_attr()) {
+                const primitive_attr &attr = default_attr(),
+                bool allow_empty = false) {
             auto c_srcs = convert_to_c(srcs);
 
             dnnl_primitive_desc_t result;
-            error::wrap_c_api(
-                    dnnl_concat_primitive_desc_create(&result, aengine.get(),
-                            dst.get(), (int)c_srcs.size(), concat_dimension,
-                            c_srcs.data(), attr.get()),
-                    "could not create a primitive descriptor for a concat "
-                    "primitive");
-            reset(result);
+            dnnl_status_t status = dnnl_concat_primitive_desc_create(&result,
+                    aengine.get(), dst.get(), (int)c_srcs.size(),
+                    concat_dimension, c_srcs.data(), attr.get());
+            if (!allow_empty)
+                error::wrap_c_api(status,
+                        "could not create a primitive descriptor for a concat "
+                        "primitive");
+            reset(status == dnnl_success ? result : dnnl_primitive_desc_t());
         }
 
         /// Constructs a primitive descriptor for an out-of-place concatenation
@@ -4688,19 +4808,25 @@ struct concat : public primitive {
         /// @param srcs Vector of source memory descriptors.
         /// @param attr Primitive attributes to use. Attributes are optional
         ///     and default to empty attributes.
+        /// @param allow_empty A flag signifying whether construction is
+        ///     allowed to fail without throwing an exception. In this case an
+        ///     empty object will be produced. This flag is optional and
+        ///     defaults to false.
         primitive_desc(const engine &aengine, int concat_dimension,
                 const std::vector<memory::desc> &srcs,
-                const primitive_attr &attr = default_attr()) {
+                const primitive_attr &attr = default_attr(),
+                bool allow_empty = false) {
             auto c_api_srcs = convert_to_c(srcs);
 
             dnnl_primitive_desc_t result;
-            error::wrap_c_api(
-                    dnnl_concat_primitive_desc_create(&result, aengine.get(),
-                            nullptr, (int)c_api_srcs.size(), concat_dimension,
-                            c_api_srcs.data(), attr.get()),
-                    "could not create a primitive descriptor for a concat "
-                    "primitive");
-            reset(result);
+            dnnl_status_t status = dnnl_concat_primitive_desc_create(&result,
+                    aengine.get(), nullptr, (int)c_api_srcs.size(),
+                    concat_dimension, c_api_srcs.data(), attr.get());
+            if (!allow_empty)
+                error::wrap_c_api(status,
+                        "could not create a primitive descriptor for a concat "
+                        "primitive");
+            reset(status == dnnl_success ? result : dnnl_primitive_desc_t());
         }
 
         /// Constructs a primitive descriptor for concat primitive from a C
@@ -4759,10 +4885,15 @@ struct sum : public primitive {
         /// @param srcs Vector of source memory descriptors.
         /// @param attr Primitive attributes to use. Attributes are optional
         ///     and default to empty attributes.
+        /// @param allow_empty A flag signifying whether construction is
+        ///     allowed to fail without throwing an exception. In this case an
+        ///     empty object will be produced. This flag is optional and
+        ///     defaults to false.
         primitive_desc(const engine &aengine, const memory::desc &dst,
                 const std::vector<float> &scales,
                 const std::vector<memory::desc> &srcs,
-                const primitive_attr &attr = default_attr()) {
+                const primitive_attr &attr = default_attr(),
+                bool allow_empty = false) {
             validate_container_size(scales,
                     "counts of scales and sources are not equal",
                     (int)srcs.size(), (int)srcs.size());
@@ -4770,13 +4901,14 @@ struct sum : public primitive {
             auto c_api_srcs = convert_to_c(srcs);
 
             dnnl_primitive_desc_t result;
-            error::wrap_c_api(
-                    dnnl_sum_primitive_desc_create(&result, aengine.get(),
-                            dst.get(), (int)c_api_srcs.size(), scales.data(),
-                            c_api_srcs.data(), attr.get()),
-                    "could not create a primitive descriptor for a sum "
-                    "primitive");
-            reset(result);
+            dnnl_status_t status = dnnl_sum_primitive_desc_create(&result,
+                    aengine.get(), dst.get(), (int)c_api_srcs.size(),
+                    scales.data(), c_api_srcs.data(), attr.get());
+            if (!allow_empty)
+                error::wrap_c_api(status,
+                        "could not create a primitive descriptor for a sum "
+                        "primitive");
+            reset(status == dnnl_success ? result : dnnl_primitive_desc_t());
         }
 
         /// Constructs a primitive descriptor for a sum primitive.
@@ -4790,28 +4922,34 @@ struct sum : public primitive {
         /// @param srcs Vector of source memory descriptors.
         /// @param attr Primitive attributes to use. Attributes are optional
         ///     and default to empty attributes.
+        /// @param allow_empty A flag signifying whether construction is
+        ///     allowed to fail without throwing an exception. In this case an
+        ///     empty object will be produced. This flag is optional and
+        ///     defaults to false.
         primitive_desc(const engine &aengine, const std::vector<float> &scales,
                 const std::vector<memory::desc> &srcs,
-                const primitive_attr &attr = default_attr()) {
+                const primitive_attr &attr = default_attr(),
+                bool allow_empty = false) {
             validate_container_size(scales,
                     "counts of scales and sources are not equal",
                     (int)srcs.size(), (int)srcs.size());
 
             auto c_api_srcs = convert_to_c(srcs);
             dnnl_primitive_desc_t result;
-            error::wrap_c_api(
-                    dnnl_sum_primitive_desc_create(&result, aengine.get(),
-                            nullptr, (int)c_api_srcs.size(), scales.data(),
-                            c_api_srcs.data(), attr.get()),
-                    "could not create a primitive descriptor for a sum "
-                    "primitive");
-            reset(result);
+            dnnl_status_t status = dnnl_sum_primitive_desc_create(&result,
+                    aengine.get(), nullptr, (int)c_api_srcs.size(),
+                    scales.data(), c_api_srcs.data(), attr.get());
+            if (!allow_empty)
+                error::wrap_c_api(status,
+                        "could not create a primitive descriptor for a sum "
+                        "primitive");
+            reset(status == dnnl_success ? result : dnnl_primitive_desc_t());
         }
 
         /// Constructs a primitive descriptor for sum primitive from a C API
         /// primitive descriptor which must have a matching kind.
         ///
-        /// @param pd C API primitive descriptor for reorder primitive.
+        /// @param pd C API primitive descriptor for sum primitive.
         primitive_desc(dnnl_primitive_desc_t pd)
             : primitive_desc_base(pd, dnnl::primitive::kind::sum) {}
 
@@ -7493,6 +7631,286 @@ struct batch_normalization_backward : public primitive {
 };
 
 /// @} dnnl_api_batch_normalization
+
+/// @addtogroup dnnl_api_group_normalization Group Normalization
+///
+/// A primitive to perform group normalization.
+///
+/// Both forward and backward propagation primitives support in-place
+/// operation; that is, src and dst can refer to the same memory for forward
+/// propagation, and diff_dst and diff_src can refer to the same memory for
+/// backward propagation.
+///
+/// The group normalization primitives computations can be controlled by
+/// specifying different @ref dnnl::normalization_flags values. For example,
+/// group normalization forward propagation can be configured to either
+/// compute the mean and variance or take them as arguments. It can either
+/// perform scaling and shifting using gamma and beta parameters or not.
+///
+/// @sa @ref dev_guide_group_normalization in developer guide
+///
+/// @{
+
+/// Group normalization forward propagation primitive.
+struct group_normalization_forward : public primitive {
+    /// Primitive descriptor for a group normalization forward propagation
+    /// primitive.
+    struct primitive_desc : public dnnl::primitive_desc {
+        /// Default constructor. Produces an empty object.
+        primitive_desc() = default;
+
+        /// Constructs a primitive descriptor for a group normalization forward
+        /// propagation primitive.
+        ///
+        /// @note
+        ///     In-place operation is supported: the dst can refer to the same
+        ///     memory as the src.
+        ///
+        /// @param aengine Engine to use.
+        /// @param aprop_kind Propagation kind. Possible values are
+        ///     #dnnl::prop_kind::forward_training and
+        ///     #dnnl::prop_kind::forward_inference.
+        /// @param src_desc Source memory descriptor.
+        /// @param dst_desc Destination memory descriptor.
+        /// @param groups Group normalization groups parameter.
+        /// @param epsilon Group normalization epsilon parameter.
+        /// @param flags Group normalization flags (@ref
+        ///     dnnl::normalization_flags).
+        /// @param attr Primitive attributes to use. Attributes are optional
+        ///     and default to empty attributes.
+        /// @param allow_empty A flag signifying whether construction is
+        ///     allowed to fail without throwing an exception. In this case an
+        ///     empty object will be produced. This flag is optional and
+        ///     defaults to false.
+        primitive_desc(const engine &aengine, prop_kind aprop_kind,
+                const memory::desc &src_desc, const memory::desc &dst_desc,
+                memory::dim groups, float epsilon, normalization_flags flags,
+                const primitive_attr &attr = default_attr(),
+                bool allow_empty = false) {
+            dnnl_primitive_desc_t pd = nullptr;
+            dnnl_status_t status
+                    = dnnl_group_normalization_forward_primitive_desc_create(
+                            &pd, aengine.get(), dnnl::convert_to_c(aprop_kind),
+                            src_desc.get(), dst_desc.get(), groups, epsilon,
+                            convert_to_c(flags), attr.get());
+
+            if (!allow_empty)
+                error::wrap_c_api(status,
+                        "could not create a primitive descriptor for a group "
+                        "normalization forward propagation primitive");
+            reset(pd);
+        }
+
+        /// Constructs a primitive descriptor for a group normalization
+        /// forward propagation primitive from a C API primitive descriptor
+        /// that must have a matching kind.
+        ///
+        /// @param pd C API primitive descriptor for a group normalization
+        ///     forward propagation primitive.
+        primitive_desc(dnnl_primitive_desc_t pd)
+            : dnnl::primitive_desc(pd,
+                    dnnl::primitive::kind::group_normalization,
+                    dnnl::prop_kind::forward_training,
+                    dnnl::prop_kind::forward_inference) {}
+
+        /// @copydoc dnnl::primitive_desc_base::src_desc()const
+        memory::desc src_desc() const { return base::src_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::dst_desc()const
+        memory::desc dst_desc() const { return base::dst_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::weights_desc()const
+        memory::desc weights_desc() const { return base::weights_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::workspace_desc()const
+        memory::desc workspace_desc() const { return base::workspace_desc(); }
+
+        /// Returns memory descriptor for mean.
+        /// @returns Memory descriptor for mean.
+        memory::desc mean_desc() const { return stat_desc(mean); }
+
+        /// Returns memory descriptor for variance.
+        /// @returns Memory descriptor for variance.
+        memory::desc variance_desc() const { return stat_desc(var); }
+
+        /// @copydoc dnnl::primitive_desc_base::get_prop_kind()const
+        dnnl::prop_kind get_prop_kind() const { return base::get_prop_kind(); }
+
+        /// @copydoc dnnl::primitive_desc_base::get_group_size()const
+        memory::dim get_group_size() const { return base::get_group_size(); }
+
+        /// @copydoc dnnl::primitive_desc_base::get_epsilon()const
+        float get_epsilon() const { return base::get_epsilon(); }
+
+        /// Returns normalization flags.
+        /// @return Normalization flags.
+        normalization_flags get_flags() const {
+            return base::get_flags<normalization_flags>();
+        }
+
+    private:
+        enum {
+            mean = 1,
+            var = 2,
+        };
+        memory::desc stat_desc(int kind) const {
+            const bool use_global_stats
+                    = (get_flags() & normalization_flags::use_global_stats)
+                    != normalization_flags::none;
+            return query_md(
+                    use_global_stats ? query::src_md : query::dst_md, kind);
+        }
+    };
+
+    /// Default constructor. Produces an empty object.
+    group_normalization_forward() = default;
+
+    /// Constructs a group normalization forward propagation primitive.
+    /// @param pd Primitive descriptor for a group normalization forward
+    ///     propagation primitive.
+    group_normalization_forward(const primitive_desc &pd) : primitive(pd) {}
+
+    /// Constructs a group normalization forward propagation primitive from
+    ///     a cache blob.
+    /// @param pd Primitive descriptor for a group normalization forward
+    ///     propagation primitive.
+    /// @param cache_blob Cache blob.
+    group_normalization_forward(
+            const primitive_desc &pd, const std::vector<uint8_t> &cache_blob)
+        : primitive(pd, cache_blob) {}
+};
+
+/// Group normalization backward propagation primitive.
+struct group_normalization_backward : public primitive {
+    /// Primitive descriptor for a group normalization backward propagation
+    /// primitive.
+    struct primitive_desc : public dnnl::primitive_desc {
+        /// Default constructor. Produces an empty object.
+        primitive_desc() = default;
+
+        /// Constructs a primitive descriptor for a group normalization backward
+        /// propagation primitive.
+        ///
+        /// @param aengine Engine to use.
+        /// @param aprop_kind Propagation kind. Possible values are
+        ///     #dnnl::prop_kind::backward_data and #dnnl::prop_kind::backward
+        ///     (diffs for all parameters are computed in this case).
+        /// @param diff_src_desc Diff source memory descriptor.
+        /// @param diff_dst_desc Diff destination memory descriptor.
+        /// @param src_desc Source memory descriptor.
+        /// @param groups Group normalization groups parameter.
+        /// @param epsilon Group normalization epsilon parameter.
+        /// @param flags Group normalization flags (@ref
+        ///     dnnl::normalization_flags).
+        /// @param hint_fwd_pd Primitive descriptor for a group normalization
+        ///     forward propagation primitive. It is used as a hint for
+        ///     deciding which memory format to use.
+        /// @param attr Primitive attributes to use. Attributes are optional
+        ///     and default to empty attributes.
+        /// @param allow_empty A flag signifying whether construction is
+        ///     allowed to fail without throwing an exception. In this case an
+        ///     empty object will be produced. This flag is optional and
+        ///     defaults to false.
+        primitive_desc(const engine &aengine, prop_kind aprop_kind,
+                const memory::desc &diff_src_desc,
+                const memory::desc &diff_dst_desc, const memory::desc &src_desc,
+                memory::dim groups, float epsilon, normalization_flags flags,
+                const group_normalization_forward::primitive_desc &hint_fwd_pd,
+                const primitive_attr &attr = default_attr(),
+                bool allow_empty = false) {
+            dnnl_primitive_desc_t pd = nullptr;
+            dnnl_status_t status
+                    = dnnl_group_normalization_backward_primitive_desc_create(
+                            &pd, aengine.get(), dnnl::convert_to_c(aprop_kind),
+                            diff_src_desc.get(), diff_dst_desc.get(),
+                            src_desc.get(), groups, epsilon,
+                            convert_to_c(flags), hint_fwd_pd.get(), attr.get());
+
+            if (!allow_empty)
+                error::wrap_c_api(status,
+                        "could not create a primitive descriptor for a group "
+                        "normalization backward propagation primitive");
+            reset(pd);
+        }
+
+        /// Constructs a primitive descriptor for a group normalization
+        /// backward propagation primitive from a C API primitive descriptor
+        /// that must have a matching kind.
+        ///
+        /// @param pd C API primitive descriptor for a group normalization
+        ///     backward propagation primitive.
+        primitive_desc(dnnl_primitive_desc_t pd)
+            : dnnl::primitive_desc(pd,
+                    dnnl::primitive::kind::group_normalization,
+                    dnnl::prop_kind::backward, dnnl::prop_kind::backward_data) {
+        }
+
+        /// @copydoc dnnl::primitive_desc_base::src_desc()const
+        memory::desc src_desc() const { return base::src_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::weights_desc()const
+        memory::desc weights_desc() const { return base::weights_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::dst_desc()const
+        memory::desc dst_desc() const { return base::dst_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::diff_src_desc()const
+        memory::desc diff_src_desc() const { return base::diff_src_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::diff_dst_desc()const
+        memory::desc diff_dst_desc() const { return base::diff_dst_desc(0); }
+
+        /// @copydoc dnnl::primitive_desc_base::diff_weights_desc()const
+        memory::desc diff_weights_desc() const {
+            return base::diff_weights_desc(0);
+        }
+
+        /// @copydoc dnnl::group_normalization_forward::primitive_desc::mean_desc()const
+        memory::desc mean_desc() const { return query_md(query::src_md, 1); }
+
+        /// @copydoc dnnl::group_normalization_forward::primitive_desc::variance_desc()const
+        memory::desc variance_desc() const {
+            return query_md(query::src_md, 2);
+        }
+
+        /// @copydoc dnnl::primitive_desc_base::workspace_desc()const
+        memory::desc workspace_desc() const { return base::workspace_desc(); }
+
+        /// @copydoc dnnl::primitive_desc_base::get_prop_kind()const
+        dnnl::prop_kind get_prop_kind() const { return base::get_prop_kind(); }
+
+        /// @copydoc dnnl::primitive_desc_base::get_group_size()const
+        memory::dim get_group_size() const { return base::get_group_size(); }
+
+        /// @copydoc dnnl::primitive_desc_base::get_epsilon()const
+        float get_epsilon() const { return base::get_epsilon(); }
+
+        /// Returns normalization flags.
+        /// @return Normalization flags.
+        normalization_flags get_flags() const {
+            return base::get_flags<normalization_flags>();
+        }
+    };
+
+    /// Default constructor. Produces an empty object.
+    group_normalization_backward() = default;
+
+    /// Constructs a group normalization backward propagation primitive.
+    /// @param pd Primitive descriptor for a group normalization backward
+    ///     propagation primitive.
+    group_normalization_backward(const primitive_desc &pd) : primitive(pd) {}
+
+    /// Constructs a group normalization backward propagation primitive from
+    ///     a cache blob.
+    /// @param pd Primitive descriptor for a group normalization backward
+    ///     propagation primitive.
+    /// @param cache_blob Cache blob.
+    group_normalization_backward(
+            const primitive_desc &pd, const std::vector<uint8_t> &cache_blob)
+        : primitive(pd, cache_blob) {}
+};
+
+/// @} dnnl_api_group_normalization
 
 /// @addtogroup dnnl_api_layer_normalization Layer Normalization
 ///
@@ -12736,6 +13154,64 @@ inline cpu_isa_hints get_cpu_isa_hints() {
 }
 
 /// @} dnnl_api_service
+
+#ifdef DNNL_EXPERIMENTAL_PROFILING
+/// @addtogroup dnnl_api_profiling Profiling
+/// @{
+
+/// Profiling data kind.
+enum class profiling_data_kind {
+    /// Undefined profiling data kind.
+    undef = dnnl_profiling_data_kind_undef,
+    /// Data kind to query an execution time in nanoseconds.
+    time = dnnl_profiling_data_kind_time,
+};
+
+/// Resets a profiler's state.
+///
+/// @param stream Stream associated with the profiler.
+inline void reset_profiling(stream &stream) {
+    error::wrap_c_api(
+            dnnl_reset_profiling(stream.get()), "could not reset profiling");
+}
+
+/// Returns requested profiling data. The profiling data accumulates for each
+/// primitive execution. The size of the vector will be equal to the number
+/// of executions since the last `dnnl::reset_profiling` call.
+///
+/// The profiling data can be reset by calling #dnnl::reset_profiling.
+///
+/// @note
+///     It is required to wait for all submitted primitives to complete
+///     using #dnnl::stream::wait prior to querying profiling data.
+///
+/// @param stream Stream that was used for executing a primitive that
+///     is being profiled.
+/// @param data_kind Profiling data kind to query.
+///
+/// @returns A vector with the requested profiling data.
+inline std::vector<uint64_t> get_profiling_data(
+        stream &stream, profiling_data_kind data_kind) {
+    int num_entries = 0;
+    error::wrap_c_api(
+            dnnl_query_profiling_data(stream.get(),
+                    static_cast<dnnl_profiling_data_kind_t>(data_kind),
+                    &num_entries, nullptr),
+            "could not get number of entries for profiling data");
+
+    if (num_entries == 0) return {};
+
+    std::vector<uint64_t> data(num_entries);
+    error::wrap_c_api(
+            dnnl_query_profiling_data(stream.get(),
+                    static_cast<dnnl_profiling_data_kind_t>(data_kind),
+                    &num_entries, data.data()),
+            "could not get profiling data");
+    return data;
+}
+
+/// @} dnnl_api_profiling
+#endif
 
 /// @addtogroup dnnl_api_primitive_cache Primitive Cache
 ///

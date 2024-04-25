@@ -1,9 +1,11 @@
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
+ *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 #pragma once
 
 #include <fbgemm/FbgemmPackMatrixB.h>
@@ -71,6 +73,7 @@ FBGEMM_API void cblas_gemm_compute(
     int thread_id = 0,
     int num_threads = 1);
 
+#if defined(FBGEMM_EXPORTS)
 // autotuned kernel splits for various cases m = 1:mb_max
 template <typename T>
 void cblas_gemm_compute(
@@ -250,6 +253,7 @@ void cblas_gemm_compute(
     }
   }
 }
+#endif
 
 #undef FBGEMM_USE_REF_KERNEL
 } // namespace fbgemm

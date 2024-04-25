@@ -16,7 +16,7 @@
 
 namespace at {
 namespace native {
-TORCH_API ::std::tuple<at::Tensor,at::Tensor> _scaled_mm_cuda(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={});
-TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out_cuda(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, at::Tensor & out, at::Tensor & out_amax);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor> _scaled_mm_cuda(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out_cuda(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, bool use_fast_accum, at::Tensor & out, at::Tensor & out_amax);
 } // namespace native
 } // namespace at

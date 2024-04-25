@@ -79,13 +79,13 @@ namespace AtumEnums
 		const typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t ConvPaddingMode
 	) noexcept
 	{
-		if (c10::get_if<torch::enumtype::kZeros>(&ConvPaddingMode))
+		if (std::get_if<torch::enumtype::kZeros>(&ConvPaddingMode))
 			return EAtumConvPaddingMode::Zeros;
-		if (c10::get_if<torch::enumtype::kReflect>(&ConvPaddingMode))
+		if (std::get_if<torch::enumtype::kReflect>(&ConvPaddingMode))
 			return EAtumConvPaddingMode::Reflect;
-		if (c10::get_if<torch::enumtype::kReplicate>(&ConvPaddingMode))
+		if (std::get_if<torch::enumtype::kReplicate>(&ConvPaddingMode))
 			return EAtumConvPaddingMode::Replicate;
-		if (c10::get_if<torch::enumtype::kCircular>(&ConvPaddingMode))
+		if (std::get_if<torch::enumtype::kCircular>(&ConvPaddingMode))
 			return EAtumConvPaddingMode::Circular;
 		
 		ATUM_LOG(Error, TEXT("Unknown ConvPaddingMode: %hs"), torch::enumtype::get_enum_name(ConvPaddingMode).c_str())

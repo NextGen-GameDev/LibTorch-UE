@@ -20,7 +20,7 @@ namespace meta {
 struct TORCH_API structured_slow_conv_transpose2d : public at::impl::MetaBase {
     
     
-    void meta(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::OptionalTensorRef bias, at::IntArrayRef stride, at::ArrayRef<int64_t> padding, at::ArrayRef<int64_t> output_padding, at::IntArrayRef dilation);
+    void meta(const at::Tensor & self, const at::Tensor & weight, at::ArrayRef<int64_t> kernel_size, at::OptionalTensorRef bias, at::ArrayRef<int64_t> stride, at::ArrayRef<int64_t> padding, at::ArrayRef<int64_t> output_padding, at::ArrayRef<int64_t> dilation);
 };
 
 } // namespace native

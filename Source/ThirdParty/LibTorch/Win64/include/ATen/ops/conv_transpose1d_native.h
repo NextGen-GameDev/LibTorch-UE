@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor conv_transpose1d_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), int64_t groups=1, at::IntArrayRef dilation=1);
+TORCH_API at::Tensor conv_transpose1d_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymInt groups=1, c10::SymIntArrayRef dilation=c10::SymInt(1));
 } // namespace native
 } // namespace at

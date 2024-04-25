@@ -19,5 +19,6 @@ namespace native {
 struct TORCH_API structured_cos_out : public at::meta::structured_cos {
 void impl(const at::Tensor & self, const at::Tensor & out);
 };
+TORCH_API at::Tensor cos_nested(const at::Tensor & self);
 } // namespace native
 } // namespace at

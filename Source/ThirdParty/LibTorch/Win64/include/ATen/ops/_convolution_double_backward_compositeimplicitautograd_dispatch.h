@@ -18,7 +18,7 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _convolution_double_backward(const c10::optional<at::Tensor> & ggI, const c10::optional<at::Tensor> & ggW, const c10::optional<at::Tensor> & ggb, const at::Tensor & gO, const at::Tensor & weight, const at::Tensor & self, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask);
-TORCH_API ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _convolution_double_backward_symint(const c10::optional<at::Tensor> & ggI, const c10::optional<at::Tensor> & ggW, const c10::optional<at::Tensor> & ggb, const at::Tensor & gO, const at::Tensor & weight, const at::Tensor & self, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _convolution_double_backward_symint(const c10::optional<at::Tensor> & ggI, const c10::optional<at::Tensor> & ggW, const c10::optional<at::Tensor> & ggb, const at::Tensor & gO, const at::Tensor & weight, const at::Tensor & self, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask);
 
 } // namespace compositeimplicitautograd
 } // namespace at

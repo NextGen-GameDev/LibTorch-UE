@@ -17,6 +17,10 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
+TORCH_API at::Tensor special_chebyshev_polynomial_u(const at::Scalar & x, const at::Tensor & n);
+TORCH_API at::Tensor & special_chebyshev_polynomial_u_out(at::Tensor & out, const at::Scalar & x, const at::Tensor & n);
+TORCH_API at::Tensor & special_chebyshev_polynomial_u_outf(const at::Scalar & x, const at::Tensor & n, at::Tensor & out);
+TORCH_API at::Tensor special_chebyshev_polynomial_u(const at::Tensor & x, const at::Scalar & n);
 TORCH_API at::Tensor & special_chebyshev_polynomial_u_out(at::Tensor & out, const at::Tensor & x, const at::Scalar & n);
 TORCH_API at::Tensor & special_chebyshev_polynomial_u_outf(const at::Tensor & x, const at::Scalar & n, at::Tensor & out);
 

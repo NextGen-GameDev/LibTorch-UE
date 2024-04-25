@@ -19,6 +19,7 @@ namespace native {
 struct TORCH_API structured_eq_Scalar_out : public at::meta::structured_eq_Scalar {
 void impl(const at::Tensor & self, const at::Scalar & other, const at::Tensor & out);
 };
+TORCH_API at::Tensor eq_scalar_nested(const at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor eq_quantized_cpu(const at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor & eq_out_quantized_cpu(const at::Tensor & self, const at::Scalar & other, at::Tensor & out);
 struct TORCH_API structured_eq_Tensor_out : public at::meta::structured_eq_Tensor {

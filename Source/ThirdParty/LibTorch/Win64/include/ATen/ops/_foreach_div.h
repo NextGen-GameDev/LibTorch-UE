@@ -52,6 +52,16 @@ inline void _foreach_div_(at::TensorList self, at::ArrayRef<at::Scalar> scalars)
     return at::_ops::_foreach_div__ScalarList::call(self, scalars);
 }
 
+// aten::_foreach_div.Tensor(Tensor[] self, Tensor other) -> Tensor[]
+inline ::std::vector<at::Tensor> _foreach_div(at::TensorList self, const at::Tensor & other) {
+    return at::_ops::_foreach_div_Tensor::call(self, other);
+}
+
+// aten::_foreach_div_.Tensor(Tensor(a!)[] self, Tensor other) -> ()
+inline void _foreach_div_(at::TensorList self, const at::Tensor & other) {
+    return at::_ops::_foreach_div__Tensor::call(self, other);
+}
+
 // aten::_foreach_div.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()
 inline void _foreach_div_out(at::TensorList out, at::TensorList self, const at::Scalar & scalar) {
     return at::_ops::_foreach_div_Scalar_out::call(self, scalar, out);
@@ -77,6 +87,15 @@ inline void _foreach_div_out(at::TensorList out, at::TensorList self, at::ArrayR
 // aten::_foreach_div.ScalarList_out(Tensor[] self, Scalar[] scalars, *, Tensor(a!)[] out) -> ()
 inline void _foreach_div_outf(at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out) {
     return at::_ops::_foreach_div_ScalarList_out::call(self, scalars, out);
+}
+
+// aten::_foreach_div.Tensor_out(Tensor[] self, Tensor other, *, Tensor(a!)[] out) -> ()
+inline void _foreach_div_out(at::TensorList out, at::TensorList self, const at::Tensor & other) {
+    return at::_ops::_foreach_div_Tensor_out::call(self, other, out);
+}
+// aten::_foreach_div.Tensor_out(Tensor[] self, Tensor other, *, Tensor(a!)[] out) -> ()
+inline void _foreach_div_outf(at::TensorList self, const at::Tensor & other, at::TensorList out) {
+    return at::_ops::_foreach_div_Tensor_out::call(self, other, out);
 }
 
 }

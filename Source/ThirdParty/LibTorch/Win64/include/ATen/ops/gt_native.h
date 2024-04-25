@@ -19,6 +19,7 @@ namespace native {
 struct TORCH_API structured_gt_Scalar_out : public at::meta::structured_gt_Scalar {
 void impl(const at::Tensor & self, const at::Scalar & other, const at::Tensor & out);
 };
+TORCH_API at::Tensor gt_scalar_nested(const at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor gt_quantized_cpu(const at::Tensor & self, const at::Scalar & other);
 TORCH_API at::Tensor & gt_out_quantized_cpu(const at::Tensor & self, const at::Scalar & other, at::Tensor & out);
 struct TORCH_API structured_gt_Tensor_out : public at::meta::structured_gt_Tensor {

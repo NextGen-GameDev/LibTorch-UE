@@ -152,7 +152,6 @@
 #include <ATen/ops/_transformer_encoder_layer_fwd_cpu_dispatch.h>
 #include <ATen/ops/_unique_cpu_dispatch.h>
 #include <ATen/ops/_unique2_cpu_dispatch.h>
-#include <ATen/ops/_unsafe_index_cpu_dispatch.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_cpu_dispatch.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_backward_cpu_dispatch.h>
 #include <ATen/ops/_upsample_bilinear2d_aa_cpu_dispatch.h>

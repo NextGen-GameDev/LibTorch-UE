@@ -15,14 +15,14 @@ namespace _ops {
 
 
 struct TORCH_API _convolution_mode {
-  using schema = at::Tensor (const at::Tensor &, const at::Tensor &, const c10::optional<at::Tensor> &, at::IntArrayRef, c10::string_view, at::IntArrayRef, int64_t);
+  using schema = at::Tensor (const at::Tensor &, const at::Tensor &, const c10::optional<at::Tensor> &, c10::SymIntArrayRef, c10::string_view, c10::SymIntArrayRef, c10::SymInt);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_convolution_mode")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_convolution_mode(Tensor input, Tensor weight, Tensor? bias, int[] stride, str padding, int[] dilation, int groups) -> Tensor")
-  static at::Tensor call(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::string_view padding, at::IntArrayRef dilation, int64_t groups);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::string_view padding, at::IntArrayRef dilation, int64_t groups);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_convolution_mode(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, str padding, SymInt[] dilation, SymInt groups) -> Tensor")
+  static at::Tensor call(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::string_view padding, c10::SymIntArrayRef dilation, c10::SymInt groups);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::string_view padding, c10::SymIntArrayRef dilation, c10::SymInt groups);
 };
 
 }} // namespace at::_ops

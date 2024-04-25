@@ -1351,13 +1351,14 @@ class Bernoulli : public TsNode {
     return torch::lazy::OpKind(at::aten::bernoulli);
   }
 
-  Bernoulli(const torch::lazy::Value& self, std::vector<torch::lazy::Shape>&& shapes)
+  Bernoulli(const torch::lazy::Value& self, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
       : TsNode(
               Bernoulli::ClassOpKind(),
               OpList{self},
               std::move(shapes),
               /* num_outputs */ 1,
-              torch::lazy::MHash())
+              torch::lazy::MHash(generator)),
+        generator(generator)
   {
     
   }
@@ -1365,15 +1366,20 @@ class Bernoulli : public TsNode {
   std::string ToString() const override {
     std::stringstream ss;
     ss << TsNode::ToString();
-    
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
     return ss.str();
   }
 
   
 
-  bool CanBeReused(const torch::lazy::Value& self) const {
+  bool CanBeReused(const torch::lazy::Value& self, const c10::optional<at::Generator>& generator) const {
     size_t i = 0;
-    return (operand(i++) == self);
+    return (operand(i++) == self &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
   }
 
   
@@ -1383,10 +1389,10 @@ class Bernoulli : public TsNode {
         std::vector<torch::jit::NamedValue> arguments;
     std::vector<torch::jit::NamedValue> kwarguments;
     arguments.reserve(1);
-    kwarguments.reserve(0);
+    kwarguments.reserve(1);
     size_t i = 0;
     arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
-    
+    kwarguments.emplace_back("generator", generator);
     torch::lazy::TSOpVector bernoulli_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
     TORCH_CHECK_EQ(bernoulli_out.size(), 1);
 
@@ -1395,7 +1401,7 @@ class Bernoulli : public TsNode {
   }
             
 
-  
+  c10::optional<at::Generator> generator;
   
 
 };
@@ -1406,14 +1412,15 @@ class BernoulliP : public TsNode {
     return torch::lazy::OpKind(at::aten::bernoulli);
   }
 
-  BernoulliP(const torch::lazy::Value& self, const double& p, std::vector<torch::lazy::Shape>&& shapes)
+  BernoulliP(const torch::lazy::Value& self, const double& p, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
       : TsNode(
               BernoulliP::ClassOpKind(),
               OpList{self},
               std::move(shapes),
               /* num_outputs */ 1,
-              torch::lazy::MHash(p)),
-        p(p)
+              torch::lazy::MHash(p, generator)),
+        p(p),
+        generator(generator)
   {
     
   }
@@ -1422,15 +1429,21 @@ class BernoulliP : public TsNode {
     std::stringstream ss;
     ss << TsNode::ToString();
     ss << ", p=" << p;
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
     return ss.str();
   }
 
   
 
-  bool CanBeReused(const torch::lazy::Value& self, const double& p) const {
+  bool CanBeReused(const torch::lazy::Value& self, const double& p, const c10::optional<at::Generator>& generator) const {
     size_t i = 0;
     return (operand(i++) == self &&
-        this->p == p);
+        this->p == p &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
   }
 
   
@@ -1440,11 +1453,11 @@ class BernoulliP : public TsNode {
         std::vector<torch::jit::NamedValue> arguments;
     std::vector<torch::jit::NamedValue> kwarguments;
     arguments.reserve(2);
-    kwarguments.reserve(0);
+    kwarguments.reserve(1);
     size_t i = 0;
     arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
     arguments.emplace_back("p", p);
-    
+    kwarguments.emplace_back("generator", generator);
     torch::lazy::TSOpVector bernoulli_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
     TORCH_CHECK_EQ(bernoulli_out.size(), 1);
 
@@ -1454,6 +1467,7 @@ class BernoulliP : public TsNode {
             
 
   double p;
+  c10::optional<at::Generator> generator;
   
 
 };
@@ -6633,6 +6647,77 @@ class NormScalaroptDim : public TsNode {
 
 };
 
+class NormalFunctional : public TsNode {
+ public:
+  static torch::lazy::OpKind ClassOpKind() {
+    return torch::lazy::OpKind(at::aten::normal_functional);
+  }
+
+  NormalFunctional(const torch::lazy::Value& self, const double& mean, const double& std, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
+      : TsNode(
+              NormalFunctional::ClassOpKind(),
+              OpList{self},
+              std::move(shapes),
+              /* num_outputs */ 1,
+              torch::lazy::MHash(mean, std, generator)),
+        mean(mean),
+        std(std),
+        generator(generator)
+  {
+    
+  }
+
+  std::string ToString() const override {
+    std::stringstream ss;
+    ss << TsNode::ToString();
+    ss << ", mean=" << mean;
+    ss << ", std=" << std;
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
+    return ss.str();
+  }
+
+  
+
+  bool CanBeReused(const torch::lazy::Value& self, const double& mean, const double& std, const c10::optional<at::Generator>& generator) const {
+    size_t i = 0;
+    return (operand(i++) == self &&
+        this->mean == mean &&
+        this->std == std &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
+  }
+
+  
+  torch::lazy::TSOpVector Lower(
+      std::shared_ptr<torch::jit::GraphFunction> function,
+      torch::lazy::TSLoweringContext* loctx) const override {
+        std::vector<torch::jit::NamedValue> arguments;
+    std::vector<torch::jit::NamedValue> kwarguments;
+    arguments.reserve(3);
+    kwarguments.reserve(1);
+    size_t i = 0;
+    arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
+    arguments.emplace_back("mean", mean);
+    arguments.emplace_back("std", std);
+    kwarguments.emplace_back("generator", generator);
+    torch::lazy::TSOpVector normal_functional_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
+    TORCH_CHECK_EQ(normal_functional_out.size(), 1);
+
+    return normal_functional_out;
+
+  }
+            
+
+  double mean;
+  double std;
+  c10::optional<at::Generator> generator;
+  
+
+};
+
 class PermuteCopy : public TsNode {
  public:
   static torch::lazy::OpKind ClassOpKind() {
@@ -6811,15 +6896,16 @@ class RandomFrom : public TsNode {
     return torch::lazy::OpKind(at::aten::random);
   }
 
-  RandomFrom(const torch::lazy::Value& self, const int64_t& from, const c10::optional<int64_t>& to, std::vector<torch::lazy::Shape>&& shapes)
+  RandomFrom(const torch::lazy::Value& self, const int64_t& from, const c10::optional<int64_t>& to, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
       : TsNode(
               RandomFrom::ClassOpKind(),
               OpList{self},
               std::move(shapes),
               /* num_outputs */ 1,
-              torch::lazy::MHash(from, to)),
+              torch::lazy::MHash(from, to, generator)),
         from(from),
-        to(to)
+        to(to),
+        generator(generator)
   {
     
   }
@@ -6833,16 +6919,22 @@ class RandomFrom : public TsNode {
     } else {
       ss << ", to=null";
     }
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
     return ss.str();
   }
 
   
 
-  bool CanBeReused(const torch::lazy::Value& self, const int64_t& from, const c10::optional<int64_t>& to) const {
+  bool CanBeReused(const torch::lazy::Value& self, const int64_t& from, const c10::optional<int64_t>& to, const c10::optional<at::Generator>& generator) const {
     size_t i = 0;
     return (operand(i++) == self &&
         this->from == from &&
-        ((!this->to&&!to) || (this->to&&to && *(this->to) == *to)));
+        ((!this->to&&!to) || (this->to&&to && *(this->to) == *to)) &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
   }
 
   
@@ -6852,12 +6944,12 @@ class RandomFrom : public TsNode {
         std::vector<torch::jit::NamedValue> arguments;
     std::vector<torch::jit::NamedValue> kwarguments;
     arguments.reserve(3);
-    kwarguments.reserve(0);
+    kwarguments.reserve(1);
     size_t i = 0;
     arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
     arguments.emplace_back("from", from);
     arguments.emplace_back("to", to);
-    
+    kwarguments.emplace_back("generator", generator);
     torch::lazy::TSOpVector random_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
     TORCH_CHECK_EQ(random_out.size(), 1);
 
@@ -6868,6 +6960,7 @@ class RandomFrom : public TsNode {
 
   int64_t from;
   c10::optional<int64_t> to;
+  c10::optional<at::Generator> generator;
   
 
 };
@@ -6878,14 +6971,15 @@ class RandomTo : public TsNode {
     return torch::lazy::OpKind(at::aten::random);
   }
 
-  RandomTo(const torch::lazy::Value& self, const int64_t& to, std::vector<torch::lazy::Shape>&& shapes)
+  RandomTo(const torch::lazy::Value& self, const int64_t& to, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
       : TsNode(
               RandomTo::ClassOpKind(),
               OpList{self},
               std::move(shapes),
               /* num_outputs */ 1,
-              torch::lazy::MHash(to)),
-        to(to)
+              torch::lazy::MHash(to, generator)),
+        to(to),
+        generator(generator)
   {
     
   }
@@ -6894,15 +6988,21 @@ class RandomTo : public TsNode {
     std::stringstream ss;
     ss << TsNode::ToString();
     ss << ", to=" << to;
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
     return ss.str();
   }
 
   
 
-  bool CanBeReused(const torch::lazy::Value& self, const int64_t& to) const {
+  bool CanBeReused(const torch::lazy::Value& self, const int64_t& to, const c10::optional<at::Generator>& generator) const {
     size_t i = 0;
     return (operand(i++) == self &&
-        this->to == to);
+        this->to == to &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
   }
 
   
@@ -6912,11 +7012,11 @@ class RandomTo : public TsNode {
         std::vector<torch::jit::NamedValue> arguments;
     std::vector<torch::jit::NamedValue> kwarguments;
     arguments.reserve(2);
-    kwarguments.reserve(0);
+    kwarguments.reserve(1);
     size_t i = 0;
     arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
     arguments.emplace_back("to", to);
-    
+    kwarguments.emplace_back("generator", generator);
     torch::lazy::TSOpVector random_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
     TORCH_CHECK_EQ(random_out.size(), 1);
 
@@ -6926,6 +7026,7 @@ class RandomTo : public TsNode {
             
 
   int64_t to;
+  c10::optional<at::Generator> generator;
   
 
 };
@@ -6936,13 +7037,14 @@ class Random : public TsNode {
     return torch::lazy::OpKind(at::aten::random);
   }
 
-  Random(const torch::lazy::Value& self, std::vector<torch::lazy::Shape>&& shapes)
+  Random(const torch::lazy::Value& self, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
       : TsNode(
               Random::ClassOpKind(),
               OpList{self},
               std::move(shapes),
               /* num_outputs */ 1,
-              torch::lazy::MHash())
+              torch::lazy::MHash(generator)),
+        generator(generator)
   {
     
   }
@@ -6950,15 +7052,20 @@ class Random : public TsNode {
   std::string ToString() const override {
     std::stringstream ss;
     ss << TsNode::ToString();
-    
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
     return ss.str();
   }
 
   
 
-  bool CanBeReused(const torch::lazy::Value& self) const {
+  bool CanBeReused(const torch::lazy::Value& self, const c10::optional<at::Generator>& generator) const {
     size_t i = 0;
-    return (operand(i++) == self);
+    return (operand(i++) == self &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
   }
 
   
@@ -6968,10 +7075,10 @@ class Random : public TsNode {
         std::vector<torch::jit::NamedValue> arguments;
     std::vector<torch::jit::NamedValue> kwarguments;
     arguments.reserve(1);
-    kwarguments.reserve(0);
+    kwarguments.reserve(1);
     size_t i = 0;
     arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
-    
+    kwarguments.emplace_back("generator", generator);
     torch::lazy::TSOpVector random_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
     TORCH_CHECK_EQ(random_out.size(), 1);
 
@@ -6980,7 +7087,7 @@ class Random : public TsNode {
   }
             
 
-  
+  c10::optional<at::Generator> generator;
   
 
 };
@@ -9568,6 +9675,77 @@ class UnfoldCopy : public TsNode {
   int64_t dimension;
   int64_t size;
   int64_t step;
+  
+
+};
+
+class Uniform : public TsNode {
+ public:
+  static torch::lazy::OpKind ClassOpKind() {
+    return torch::lazy::OpKind(at::aten::uniform);
+  }
+
+  Uniform(const torch::lazy::Value& self, const double& from, const double& to, const c10::optional<at::Generator>& generator, std::vector<torch::lazy::Shape>&& shapes)
+      : TsNode(
+              Uniform::ClassOpKind(),
+              OpList{self},
+              std::move(shapes),
+              /* num_outputs */ 1,
+              torch::lazy::MHash(from, to, generator)),
+        from(from),
+        to(to),
+        generator(generator)
+  {
+    
+  }
+
+  std::string ToString() const override {
+    std::stringstream ss;
+    ss << TsNode::ToString();
+    ss << ", from=" << from;
+    ss << ", to=" << to;
+    if (generator.has_value()) {
+      ss << ", generator=" << "torch.Generator()";
+    } else {
+      ss << ", generator=null";
+    }
+    return ss.str();
+  }
+
+  
+
+  bool CanBeReused(const torch::lazy::Value& self, const double& from, const double& to, const c10::optional<at::Generator>& generator) const {
+    size_t i = 0;
+    return (operand(i++) == self &&
+        this->from == from &&
+        this->to == to &&
+        ((!this->generator&&!generator) || (this->generator&&generator && *(this->generator) == *generator)));
+  }
+
+  
+  torch::lazy::TSOpVector Lower(
+      std::shared_ptr<torch::jit::GraphFunction> function,
+      torch::lazy::TSLoweringContext* loctx) const override {
+        std::vector<torch::jit::NamedValue> arguments;
+    std::vector<torch::jit::NamedValue> kwarguments;
+    arguments.reserve(3);
+    kwarguments.reserve(1);
+    size_t i = 0;
+    arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
+    arguments.emplace_back("from", from);
+    arguments.emplace_back("to", to);
+    kwarguments.emplace_back("generator", generator);
+    torch::lazy::TSOpVector uniform_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
+    TORCH_CHECK_EQ(uniform_out.size(), 1);
+
+    return uniform_out;
+
+  }
+            
+
+  double from;
+  double to;
+  c10::optional<at::Generator> generator;
   
 
 };

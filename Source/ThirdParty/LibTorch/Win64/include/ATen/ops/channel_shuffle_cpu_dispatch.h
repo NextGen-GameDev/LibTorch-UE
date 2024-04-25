@@ -18,6 +18,7 @@ namespace at {
 namespace cpu {
 
 TORCH_API at::Tensor channel_shuffle(const at::Tensor & self, int64_t groups);
+TORCH_API at::Tensor channel_shuffle_symint(const at::Tensor & self, c10::SymInt groups);
 
 } // namespace cpu
 } // namespace at

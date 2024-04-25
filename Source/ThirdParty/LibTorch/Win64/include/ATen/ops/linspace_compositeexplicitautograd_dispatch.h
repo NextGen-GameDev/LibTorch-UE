@@ -19,6 +19,18 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor linspace(const at::Scalar & start, const at::Scalar & end, int64_t steps, at::TensorOptions options={});
 TORCH_API at::Tensor linspace(const at::Scalar & start, const at::Scalar & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor linspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, at::TensorOptions options={});
+TORCH_API at::Tensor linspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor & linspace_out(at::Tensor & out, const at::Tensor & start, const at::Tensor & end, int64_t steps);
+TORCH_API at::Tensor & linspace_outf(const at::Tensor & start, const at::Tensor & end, int64_t steps, at::Tensor & out);
+TORCH_API at::Tensor linspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, at::TensorOptions options={});
+TORCH_API at::Tensor linspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor & linspace_out(at::Tensor & out, const at::Tensor & start, const at::Scalar & end, int64_t steps);
+TORCH_API at::Tensor & linspace_outf(const at::Tensor & start, const at::Scalar & end, int64_t steps, at::Tensor & out);
+TORCH_API at::Tensor linspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, at::TensorOptions options={});
+TORCH_API at::Tensor linspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor & linspace_out(at::Tensor & out, const at::Scalar & start, const at::Tensor & end, int64_t steps);
+TORCH_API at::Tensor & linspace_outf(const at::Scalar & start, const at::Tensor & end, int64_t steps, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

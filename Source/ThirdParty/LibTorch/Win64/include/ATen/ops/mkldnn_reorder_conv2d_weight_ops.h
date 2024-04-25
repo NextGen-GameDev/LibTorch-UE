@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API mkldnn_reorder_conv2d_weight {
-  using schema = at::Tensor (const at::Tensor &, at::IntArrayRef, at::IntArrayRef, at::IntArrayRef, int64_t, at::OptionalIntArrayRef);
+  using schema = at::Tensor (const at::Tensor &, c10::SymIntArrayRef, c10::SymIntArrayRef, c10::SymIntArrayRef, c10::SymInt, at::OptionalSymIntArrayRef);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::mkldnn_reorder_conv2d_weight")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "mkldnn_reorder_conv2d_weight(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None) -> Tensor")
-  static at::Tensor call(const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "mkldnn_reorder_conv2d_weight(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::OptionalSymIntArrayRef input_size);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::OptionalSymIntArrayRef input_size);
 };
 
 struct TORCH_API mkldnn_reorder_conv2d_weight_out {
-  using schema = at::Tensor & (const at::Tensor &, at::IntArrayRef, at::IntArrayRef, at::IntArrayRef, int64_t, at::OptionalIntArrayRef, at::Tensor &);
+  using schema = at::Tensor & (const at::Tensor &, c10::SymIntArrayRef, c10::SymIntArrayRef, c10::SymIntArrayRef, c10::SymInt, at::OptionalSymIntArrayRef, at::Tensor &);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::mkldnn_reorder_conv2d_weight")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size, at::Tensor & out);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "mkldnn_reorder_conv2d_weight.out(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::OptionalSymIntArrayRef input_size, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::OptionalSymIntArrayRef input_size, at::Tensor & out);
 };
 
 }} // namespace at::_ops

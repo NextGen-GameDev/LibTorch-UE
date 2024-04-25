@@ -18,7 +18,7 @@ namespace at {
 namespace cuda {
 
 TORCH_API at::Tensor miopen_depthwise_convolution(const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic);
-TORCH_API at::Tensor miopen_depthwise_convolution_symint(const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic);
+TORCH_API at::Tensor miopen_depthwise_convolution_symint(const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic);
 
 } // namespace cuda
 } // namespace at

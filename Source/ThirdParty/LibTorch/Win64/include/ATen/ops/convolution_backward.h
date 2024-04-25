@@ -22,68 +22,68 @@
 namespace at {
 
 
-// aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+// aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
 inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-    return at::_ops::convolution_backward::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
+    return at::_ops::convolution_backward::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
   ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-    return at::_ops::convolution_backward::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
+    return at::_ops::convolution_backward::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
   }
 }
 
-// aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
-inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward_symint(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+// aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward_symint(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
     return at::_ops::convolution_backward::call(grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
-  ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+  ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
     return at::_ops::convolution_backward::call(grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask);
   }
 }
 
-// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
   ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
   }
 }
 
-// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
-    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
   ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
-    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+    return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
   }
 }
 
-// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
-inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
     return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
-  ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+  ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
     return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
   }
 }
 
-// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
-inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+// aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
     return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
-  ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+  ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
     return at::_ops::convolution_backward_out::call(grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
   }
 }

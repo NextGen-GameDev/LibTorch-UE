@@ -27,6 +27,11 @@ inline at::Tensor any(const at::Tensor & self, int64_t dim, bool keepdim=false) 
     return at::_ops::any_dim::call(self, dim, keepdim);
 }
 
+// aten::any.dims(Tensor self, int[]? dim=None, bool keepdim=False) -> Tensor
+inline at::Tensor any(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false) {
+    return at::_ops::any_dims::call(self, dim, keepdim);
+}
+
 // aten::any.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & any_out(at::Tensor & out, const at::Tensor & self, int64_t dim, bool keepdim=false) {
     return at::_ops::any_out::call(self, dim, keepdim, out);
@@ -34,6 +39,15 @@ inline at::Tensor & any_out(at::Tensor & out, const at::Tensor & self, int64_t d
 // aten::any.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & any_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out) {
     return at::_ops::any_out::call(self, dim, keepdim, out);
+}
+
+// aten::any.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & any_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false) {
+    return at::_ops::any_dims_out::call(self, dim, keepdim, out);
+}
+// aten::any.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & any_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, at::Tensor & out) {
+    return at::_ops::any_dims_out::call(self, dim, keepdim, out);
 }
 
 // aten::any.dimname(Tensor self, Dimname dim, bool keepdim=False) -> Tensor

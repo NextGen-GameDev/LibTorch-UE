@@ -18,6 +18,7 @@ namespace at {
 namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor all(const at::Tensor & self, int64_t dim, bool keepdim=false);
+TORCH_API at::Tensor all(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false);
 TORCH_API at::Tensor all(const at::Tensor & self);
 
 } // namespace compositeexplicitautogradnonfunctional

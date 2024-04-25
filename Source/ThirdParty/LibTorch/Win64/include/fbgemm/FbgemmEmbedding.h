@@ -1,9 +1,11 @@
 /*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
+ *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 #pragma once
 #include <cstdint>
 #include <functional>
@@ -78,7 +80,8 @@ GenerateEmbeddingSpMDM(
     int prefetch = 16,
     bool is_weight_positional = false,
     bool use_offsets = true,
-    bool isbf16 = false);
+    bool is_bf16_out = false,
+    bool is_bf16_in = false);
 
 /**
  * @param output_stride If -1, output_stride is same as block_size
@@ -110,7 +113,8 @@ GenerateEmbeddingSpMDMWithStrides(
     std::int64_t input_stride = -1,
     bool scale_bias_last = true,
     bool no_bag = false,
-    bool isbf16 = false);
+    bool is_bf16_out = false,
+    bool is_bf16_in = false);
 
 /**
  * @tparam IndexType can be int32_t or int64_t
@@ -164,7 +168,8 @@ GenerateEmbeddingSpMDMNBitWithStrides(
     bool use_offsets = true,
     std::int64_t output_stride = -1,
     std::int64_t input_stride = -1,
-    bool scale_bias_last = true);
+    bool scale_bias_last = true,
+    bool is_bf16_out = false);
 
 /**
  * @param output_stride If -1, output_stride is same as block_size
@@ -192,7 +197,8 @@ GenerateEmbeddingSpMDMFP8WithStrides(
     std::int64_t output_stride = -1,
     std::int64_t input_stride = -1,
     int exponent_bits = 4,
-    int exponent_bias = 7);
+    int exponent_bias = 7,
+    bool is_bf16_out = false);
 
 template <
     typename InType,

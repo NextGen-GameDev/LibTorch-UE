@@ -23,6 +23,8 @@ TORCH_API void _foreach_div_out(at::TensorList out, at::TensorList self, at::Ten
 TORCH_API void _foreach_div_outf(at::TensorList self, at::TensorList other, at::TensorList out);
 TORCH_API void _foreach_div_out(at::TensorList out, at::TensorList self, at::ArrayRef<at::Scalar> scalars);
 TORCH_API void _foreach_div_outf(at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out);
+TORCH_API void _foreach_div_out(at::TensorList out, at::TensorList self, const at::Tensor & other);
+TORCH_API void _foreach_div_outf(at::TensorList self, const at::Tensor & other, at::TensorList out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

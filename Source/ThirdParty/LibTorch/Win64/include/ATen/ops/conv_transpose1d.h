@@ -22,24 +22,24 @@
 namespace at {
 
 
-// aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, int groups=1, int[1] dilation=1) -> Tensor
+// aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, SymInt groups=1, SymInt[1] dilation=1) -> Tensor
 inline at::Tensor conv_transpose1d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, int64_t groups=1, at::IntArrayRef dilation=1) {
-    return at::_ops::conv_transpose1d::call(input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, dilation);
+    return at::_ops::conv_transpose1d::call(input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, c10::fromIntArrayRefSlow(dilation));
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
   at::Tensor conv_transpose1d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, int64_t groups=1, at::IntArrayRef dilation=1) {
-    return at::_ops::conv_transpose1d::call(input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, dilation);
+    return at::_ops::conv_transpose1d::call(input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, c10::fromIntArrayRefSlow(dilation));
   }
 }
 
-// aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, int groups=1, int[1] dilation=1) -> Tensor
-inline at::Tensor conv_transpose1d_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), int64_t groups=1, at::IntArrayRef dilation=1) {
+// aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, SymInt groups=1, SymInt[1] dilation=1) -> Tensor
+inline at::Tensor conv_transpose1d_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymInt groups=1, c10::SymIntArrayRef dilation=c10::SymInt(1)) {
     return at::_ops::conv_transpose1d::call(input, weight, bias, stride, padding, output_padding, groups, dilation);
 }
 namespace symint {
   template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
-  at::Tensor conv_transpose1d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), int64_t groups=1, at::IntArrayRef dilation=1) {
+  at::Tensor conv_transpose1d(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymInt groups=1, c10::SymIntArrayRef dilation=c10::SymInt(1)) {
     return at::_ops::conv_transpose1d::call(input, weight, bias, stride, padding, output_padding, groups, dilation);
   }
 }

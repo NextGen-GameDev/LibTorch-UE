@@ -17,7 +17,7 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
-TORCH_API void sym_constrain_range_for_size(const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max);
+TORCH_API void sym_constrain_range_for_size(const at::Scalar & size, c10::optional<int64_t> min=c10::nullopt, c10::optional<int64_t> max=c10::nullopt);
 
 } // namespace compositeexplicitautograd
 } // namespace at

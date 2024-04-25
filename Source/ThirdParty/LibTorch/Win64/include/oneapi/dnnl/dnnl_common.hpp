@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2022 Intel Corporation
+* Copyright 2022-2023 Intel Corporation
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -329,6 +329,10 @@ struct stream : public handle<dnnl_stream_t> {
         out_of_order = dnnl_stream_out_of_order,
         /// Default stream configuration.
         default_flags = dnnl_stream_default_flags,
+#ifdef DNNL_EXPERIMENTAL_PROFILING
+        /// Enables profiling capabilities.
+        profiling = dnnl_stream_profiling,
+#endif
     };
 
     /// Constructs an empty stream. An empty stream cannot be used in any
@@ -421,7 +425,7 @@ enum class fpmath_mode {
     f16 = dnnl_fpmath_mode_f16,
     /// Implicit f32->tf32 conversions allowed
     tf32 = dnnl_fpmath_mode_tf32,
-    /// Implicit f32->f16 or f32->bf16 conversions allowed
+    /// Implicit f32->f16, f32->tf32 or f32->bf16 conversions allowed
     any = dnnl_fpmath_mode_any
 };
 

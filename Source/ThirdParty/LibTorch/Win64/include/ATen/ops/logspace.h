@@ -31,6 +31,33 @@ inline at::Tensor logspace(const at::Scalar & start, const at::Scalar & end, int
     return at::_ops::logspace::call(start, end, steps, base, dtype, layout, device, pin_memory);
 }
 
+// aten::logspace.Tensor_Tensor(Tensor start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+inline at::Tensor logspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
+    return at::_ops::logspace_Tensor_Tensor::call(start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+}
+// aten::logspace.Tensor_Tensor(Tensor start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+inline at::Tensor logspace(const at::Tensor & start, const at::Tensor & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::logspace_Tensor_Tensor::call(start, end, steps, base, dtype, layout, device, pin_memory);
+}
+
+// aten::logspace.Tensor_Scalar(Tensor start, Scalar end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+inline at::Tensor logspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
+    return at::_ops::logspace_Tensor_Scalar::call(start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+}
+// aten::logspace.Tensor_Scalar(Tensor start, Scalar end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+inline at::Tensor logspace(const at::Tensor & start, const at::Scalar & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::logspace_Tensor_Scalar::call(start, end, steps, base, dtype, layout, device, pin_memory);
+}
+
+// aten::logspace.Scalar_Tensor(Scalar start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+inline at::Tensor logspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
+    return at::_ops::logspace_Scalar_Tensor::call(start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+}
+// aten::logspace.Scalar_Tensor(Scalar start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+inline at::Tensor logspace(const at::Scalar & start, const at::Tensor & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::logspace_Scalar_Tensor::call(start, end, steps, base, dtype, layout, device, pin_memory);
+}
+
 // aten::logspace.out(Scalar start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logspace_out(at::Tensor & out, const at::Scalar & start, const at::Scalar & end, int64_t steps, double base=10.0) {
     return at::_ops::logspace_out::call(start, end, steps, base, out);
@@ -38,6 +65,33 @@ inline at::Tensor & logspace_out(at::Tensor & out, const at::Scalar & start, con
 // aten::logspace.out(Scalar start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logspace_outf(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out) {
     return at::_ops::logspace_out::call(start, end, steps, base, out);
+}
+
+// aten::logspace.Tensor_Tensor_out(Tensor start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & logspace_out(at::Tensor & out, const at::Tensor & start, const at::Tensor & end, int64_t steps, double base=10.0) {
+    return at::_ops::logspace_Tensor_Tensor_out::call(start, end, steps, base, out);
+}
+// aten::logspace.Tensor_Tensor_out(Tensor start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & logspace_outf(const at::Tensor & start, const at::Tensor & end, int64_t steps, double base, at::Tensor & out) {
+    return at::_ops::logspace_Tensor_Tensor_out::call(start, end, steps, base, out);
+}
+
+// aten::logspace.Tensor_Scalar_out(Tensor start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & logspace_out(at::Tensor & out, const at::Tensor & start, const at::Scalar & end, int64_t steps, double base=10.0) {
+    return at::_ops::logspace_Tensor_Scalar_out::call(start, end, steps, base, out);
+}
+// aten::logspace.Tensor_Scalar_out(Tensor start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & logspace_outf(const at::Tensor & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out) {
+    return at::_ops::logspace_Tensor_Scalar_out::call(start, end, steps, base, out);
+}
+
+// aten::logspace.Scalar_Tensor_out(Scalar start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & logspace_out(at::Tensor & out, const at::Scalar & start, const at::Tensor & end, int64_t steps, double base=10.0) {
+    return at::_ops::logspace_Scalar_Tensor_out::call(start, end, steps, base, out);
+}
+// aten::logspace.Scalar_Tensor_out(Scalar start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & logspace_outf(const at::Scalar & start, const at::Tensor & end, int64_t steps, double base, at::Tensor & out) {
+    return at::_ops::logspace_Scalar_Tensor_out::call(start, end, steps, base, out);
 }
 
 }

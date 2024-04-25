@@ -22,8 +22,8 @@
 namespace at {
 
 
-// aten::sym_constrain_range_for_size(Scalar size, *, int? min, int? max) -> ()
-inline void sym_constrain_range_for_size(const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max) {
+// aten::sym_constrain_range_for_size(Scalar size, *, int? min=None, int? max=None) -> ()
+inline void sym_constrain_range_for_size(const at::Scalar & size, c10::optional<int64_t> min=c10::nullopt, c10::optional<int64_t> max=c10::nullopt) {
     return at::_ops::sym_constrain_range_for_size::call(size, min, max);
 }
 

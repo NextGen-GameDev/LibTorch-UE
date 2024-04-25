@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, ::std::array<bool,3> output_mask);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_symint_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, ::std::array<bool,3> output_mask);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_symint_outf(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2);
 
 } // namespace compositeexplicitautograd
 } // namespace at

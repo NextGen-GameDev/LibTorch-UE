@@ -18,7 +18,7 @@ namespace at {
 namespace cpu {
 
 TORCH_API at::Tensor slow_conv_dilated3d(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1);
-TORCH_API at::Tensor slow_conv_dilated3d_symint(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1);
+TORCH_API at::Tensor slow_conv_dilated3d_symint(const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1));
 
 } // namespace cpu
 } // namespace at

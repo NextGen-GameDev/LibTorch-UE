@@ -23,6 +23,8 @@ TORCH_API ::std::vector<at::Tensor> _foreach_add(at::TensorList self, at::Tensor
 TORCH_API void _foreach_add_(at::TensorList self, at::TensorList other, const at::Scalar & alpha=1);
 TORCH_API ::std::vector<at::Tensor> _foreach_add(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
 TORCH_API void _foreach_add_(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+TORCH_API ::std::vector<at::Tensor> _foreach_add(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1);
+TORCH_API void _foreach_add_(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1);
 
 } // namespace cuda
 } // namespace at

@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor & repeat_interleave_out(at::Tensor & out, const at::Tensor & repeats, c10::optional<int64_t> output_size=c10::nullopt);
 TORCH_API at::Tensor & repeat_interleave_outf(const at::Tensor & repeats, c10::optional<int64_t> output_size, at::Tensor & out);
+TORCH_API at::Tensor & repeat_interleave_symint_out(at::Tensor & out, const at::Tensor & repeats, c10::optional<c10::SymInt> output_size=c10::nullopt);
+TORCH_API at::Tensor & repeat_interleave_symint_outf(const at::Tensor & repeats, c10::optional<c10::SymInt> output_size, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

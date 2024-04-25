@@ -18,11 +18,11 @@ namespace at {
 namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor _nnpack_spatial_convolution(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride=1);
-TORCH_API at::Tensor _nnpack_spatial_convolution_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride=1);
+TORCH_API at::Tensor _nnpack_spatial_convolution_symint(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride=c10::SymInt(1));
 TORCH_API at::Tensor & _nnpack_spatial_convolution_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride=1);
 TORCH_API at::Tensor & _nnpack_spatial_convolution_outf(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::Tensor & out);
-TORCH_API at::Tensor & _nnpack_spatial_convolution_symint_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride=1);
-TORCH_API at::Tensor & _nnpack_spatial_convolution_symint_outf(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::Tensor & out);
+TORCH_API at::Tensor & _nnpack_spatial_convolution_symint_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride=c10::SymInt(1));
+TORCH_API at::Tensor & _nnpack_spatial_convolution_symint_outf(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

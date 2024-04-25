@@ -1979,6 +1979,67 @@ dnnl_status_t DNNL_API dnnl_batch_normalization_backward_primitive_desc_create(
 
 /// @} dnnl_api_batch_normalization
 
+/// @addtogroup dnnl_api_group_normalization
+/// @{
+
+/// Creates a primitive descriptor for a group normalization forward propagation
+///     primitive.
+///
+/// @note
+///     In-place operation is supported: the dst can refer to the same memory
+///     as the src.
+///
+/// @param primitive_desc Output primitive_descriptor.
+/// @param engine Engine to use.
+/// @param prop_kind Propagation kind. Possible values are
+///     #dnnl_forward_training and #dnnl_forward_inference.
+/// @param src_desc Source memory descriptor.
+/// @param dst_desc Destination memory descriptor.
+/// @param groups Group normalization groups parameter.
+/// @param epsilon Group normalization epsilon parameter.
+/// @param flags Group normalization flags (@ref dnnl_normalization_flags_t).
+/// @param attr Primitive attributes (can be NULL).
+/// @returns #dnnl_success on success and a status describing the error
+///     otherwise.
+dnnl_status_t DNNL_API dnnl_group_normalization_forward_primitive_desc_create(
+        dnnl_primitive_desc_t *primitive_desc, dnnl_engine_t engine,
+        dnnl_prop_kind_t prop_kind, const_dnnl_memory_desc_t src_desc,
+        const_dnnl_memory_desc_t dst_desc, dnnl_dim_t groups, float epsilon,
+        unsigned flags, const_dnnl_primitive_attr_t attr);
+
+/// Creates a primitive descriptor for a group normalization backward
+///     propagation primitive.
+///
+/// @note
+///     In-place operation is supported: the diff_dst can refer to the same
+///     memory as the diff_src.
+///
+/// @param primitive_desc Output primitive_descriptor.
+/// @param engine Engine to use.
+/// @param prop_kind Propagation kind. Possible values are
+///     #dnnl_backward_data and #dnnl_backward (diffs for all parameters are
+///     computed in this case).
+/// @param diff_src_desc Diff source memory descriptor.
+/// @param diff_dst_desc Diff destination memory descriptor.
+/// @param src_desc Source memory descriptor.
+/// @param groups Group normalization groups parameter.
+/// @param epsilon Group normalization epsilon parameter.
+/// @param flags Group normalization flags (@ref dnnl_normalization_flags_t).
+/// @param hint_fwd_pd Primitive descriptor for a respective forward propagation
+///     primitive.
+/// @param attr Primitive attributes (can be NULL).
+/// @returns #dnnl_success on success and a status describing the error
+///     otherwise.
+dnnl_status_t DNNL_API dnnl_group_normalization_backward_primitive_desc_create(
+        dnnl_primitive_desc_t *primitive_desc, dnnl_engine_t engine,
+        dnnl_prop_kind_t prop_kind, const_dnnl_memory_desc_t diff_src_desc,
+        const_dnnl_memory_desc_t diff_dst_desc,
+        const_dnnl_memory_desc_t src_desc, dnnl_dim_t groups, float epsilon,
+        unsigned flags, const_dnnl_primitive_desc_t hint_fwd_pd,
+        const_dnnl_primitive_attr_t attr);
+
+/// @} dnnl_api_group_normalization
+
 /// @addtogroup dnnl_api_layer_normalization
 /// @{
 
@@ -3235,7 +3296,7 @@ dnnl_status_t DNNL_API dnnl_set_jit_dump(int enable);
 /// @sa @ref dev_guide_profilers
 ///
 /// @param flags Profiling flags that can contain the following bits:
-///     - @ref DNNL_JIT_PROFILE_VTUNE -- integration with VTune Amplifier
+///     - @ref DNNL_JIT_PROFILE_VTUNE -- integration with VTune Profiler
 ///         (on by default)
 ///     - @ref DNNL_JIT_PROFILE_LINUX_JITDUMP -- produce Linux-specific
 ///         jit-pid.dump output (off by default). The location of the output
@@ -3353,6 +3414,45 @@ dnnl_status_t DNNL_API dnnl_set_cpu_isa_hints(dnnl_cpu_isa_hints_t isa_hints);
 dnnl_cpu_isa_hints_t DNNL_API dnnl_get_cpu_isa_hints(void);
 
 /// @} dnnl_api_service
+
+#ifdef DNNL_EXPERIMENTAL_PROFILING
+
+/// @addtogroup dnnl_api_profiling Profiling
+/// @{
+
+/// Resets a profiler's state.
+///
+/// @param stream Stream associated with the profiler.
+///
+/// @returns #dnnl_success on success and a status describing the error
+///     otherwise.
+dnnl_status_t DNNL_API dnnl_reset_profiling(dnnl_stream_t stream);
+
+/// Queries profiling data. The profiling data accumulates for each primitive
+/// execution. The @p num_entries will be equal to the number of executions
+/// since the last `dnnl_reset_profiling` call. In order to query the
+/// @p num_entries the @p data parameter should be NULL. When @p data is NULL
+/// then the @p data_kind parameter is ignored.
+///
+/// The profiling data can be reset by calling #dnnl_reset_profiling.
+///
+/// @note
+///     It is required to wait for all submitted primitives to complete
+///     using #dnnl_stream_wait prior to querying profiling data.
+///
+/// @param stream Stream that was used for executing a primitive that
+/// is being profiled.
+/// @param data_kind Profiling data kind to query.
+/// @param num_entries Number of profiling data entries.
+/// @param data Profiling data.
+///
+/// @returns #dnnl_success on success and a status describing the error
+///     otherwise.
+dnnl_status_t DNNL_API dnnl_query_profiling_data(dnnl_stream_t stream,
+        dnnl_profiling_data_kind_t data_kind, int *num_entries, uint64_t *data);
+
+/// @} dnnl_api_profiling
+#endif
 
 /// @addtogroup dnnl_api_blas
 /// @{

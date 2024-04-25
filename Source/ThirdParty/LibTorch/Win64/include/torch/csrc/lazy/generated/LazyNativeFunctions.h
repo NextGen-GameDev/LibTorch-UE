@@ -32,7 +32,6 @@ static ::std::tuple<at::Tensor,at::Tensor> topk(const at::Tensor & self, int64_t
 static at::Tensor & arange_out(const at::Scalar & start, const at::Scalar & end, const at::Scalar & step, at::Tensor & out);
 static at::Tensor & fill_(at::Tensor & self, const at::Scalar & value);
 static at::Tensor & logsumexp_out(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out);
-static at::Tensor & normal_(at::Tensor & self, double mean, double std, c10::optional<at::Generator> generator);
 static at::Tensor _adaptive_avg_pool2d(const at::Tensor & self, at::IntArrayRef output_size);
 static at::Tensor _adaptive_avg_pool2d_backward(const at::Tensor & grad_output, const at::Tensor & self);
 static at::Tensor _copy_from(const at::Tensor & self, const at::Tensor & dst, bool non_blocking);
@@ -143,6 +142,7 @@ static at::Tensor nll_loss2d_backward(const at::Tensor & grad_output, const at::
 static at::Tensor nll_loss_backward(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, int64_t ignore_index, const at::Tensor & total_weight);
 static at::Tensor nonzero(const at::Tensor & self);
 static at::Tensor norm(const at::Tensor & self, const c10::optional<at::Scalar> & p, at::IntArrayRef dim, bool keepdim);
+static at::Tensor normal_functional(const at::Tensor & self, double mean, double std, c10::optional<at::Generator> generator);
 static at::Tensor permute_copy(const at::Tensor & self, at::IntArrayRef dims);
 static at::Tensor pixel_shuffle(const at::Tensor & self, int64_t upscale_factor);
 static at::Tensor pixel_unshuffle(const at::Tensor & self, int64_t downscale_factor);
@@ -193,6 +193,7 @@ static at::Tensor tril(const at::Tensor & self, int64_t diagonal);
 static at::Tensor triu(const at::Tensor & self, int64_t diagonal);
 static at::Tensor trunc(const at::Tensor & self);
 static at::Tensor unfold_copy(const at::Tensor & self, int64_t dimension, int64_t size, int64_t step);
+static at::Tensor uniform(const at::Tensor & self, double from, double to, c10::optional<at::Generator> generator);
 static at::Tensor unsqueeze_copy(const at::Tensor & self, int64_t dim);
 static at::Tensor upsample_bilinear2d(const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales_h, c10::optional<double> scales_w);
 static at::Tensor upsample_bilinear2d_backward(const at::Tensor & grad_output, at::IntArrayRef output_size, at::IntArrayRef input_size, bool align_corners, c10::optional<double> scales_h, c10::optional<double> scales_w);

@@ -17,9 +17,9 @@ namespace at {
 
 namespace cuda {
 
-TORCH_API ::std::tuple<at::Tensor,at::Tensor> _scaled_mm(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={});
-TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out(at::Tensor & out, at::Tensor & out_amax, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={});
-TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_outf(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, at::Tensor & out, at::Tensor & out_amax);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor> _scaled_mm(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out(at::Tensor & out, at::Tensor & out_amax, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_outf(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, bool use_fast_accum, at::Tensor & out, at::Tensor & out_amax);
 
 } // namespace cuda
 } // namespace at

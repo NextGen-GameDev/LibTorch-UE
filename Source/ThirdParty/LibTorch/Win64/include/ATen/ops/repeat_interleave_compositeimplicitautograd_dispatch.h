@@ -18,8 +18,9 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor repeat_interleave(const at::Tensor & self, const at::Tensor & repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt);
+TORCH_API at::Tensor repeat_interleave_symint(const at::Tensor & self, const at::Tensor & repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<c10::SymInt> output_size=c10::nullopt);
 TORCH_API at::Tensor repeat_interleave(const at::Tensor & self, int64_t repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt);
-TORCH_API at::Tensor repeat_interleave_symint(const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt);
+TORCH_API at::Tensor repeat_interleave_symint(const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<c10::SymInt> output_size=c10::nullopt);
 
 } // namespace compositeimplicitautograd
 } // namespace at

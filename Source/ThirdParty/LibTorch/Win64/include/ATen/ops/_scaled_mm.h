@@ -22,18 +22,18 @@
 namespace at {
 
 
-// aten::_scaled_mm(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None) -> (Tensor, Tensor)
-inline ::std::tuple<at::Tensor,at::Tensor> _scaled_mm(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}) {
-    return at::_ops::_scaled_mm::call(self, mat2, bias, out_dtype, scale_a, scale_b, scale_result);
+// aten::_scaled_mm(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, bool use_fast_accum=False) -> (Tensor, Tensor)
+inline ::std::tuple<at::Tensor,at::Tensor> _scaled_mm(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false) {
+    return at::_ops::_scaled_mm::call(self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, use_fast_accum);
 }
 
-// aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
-inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out(at::Tensor & out, at::Tensor & out_amax, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}) {
-    return at::_ops::_scaled_mm_out::call(self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, out, out_amax);
+// aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, bool use_fast_accum=False, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
+inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out(at::Tensor & out, at::Tensor & out_amax, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false) {
+    return at::_ops::_scaled_mm_out::call(self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, use_fast_accum, out, out_amax);
 }
-// aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
-inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_outf(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, at::Tensor & out, at::Tensor & out_amax) {
-    return at::_ops::_scaled_mm_out::call(self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, out, out_amax);
+// aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, bool use_fast_accum=False, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
+inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_outf(const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, bool use_fast_accum, at::Tensor & out, at::Tensor & out_amax) {
+    return at::_ops::_scaled_mm_out::call(self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, use_fast_accum, out, out_amax);
 }
 
 }

@@ -146,7 +146,7 @@ void FAtumLayerConvTransposeOptions::SetFrom(const torch::nn::detail::ConvNdOpti
 	{
 		KernelSize[Index] = Options.kernel_size()->at(Index);
 		Stride[Index] = Options.stride()->at(Index);
-		Padding[Index] = c10::get<torch::ExpandingArray<Dimensions>>(Options.padding())->at(Index);
+		Padding[Index] = std::get<torch::ExpandingArray<Dimensions>>(Options.padding())->at(Index);
 		OutputPadding[Index] = Options.output_padding()->at(Index);
 		Dilation[Index] = Options.dilation()->at(Index);
 	}

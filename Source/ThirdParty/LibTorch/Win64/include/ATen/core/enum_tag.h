@@ -13,6 +13,7 @@ namespace at {
         nondeterministic_bitwise,
         nondeterministic_seeded,
         pointwise,
+        pt2_compliant_tag,
         view_copy
     };
 }

@@ -110,7 +110,7 @@ DNNL_GRAPH_HANDLE_ALIAS(partition);
 #undef DNNL_GRAPH_HANDLE_ALIAS
 
 template <bool B>
-using requires = typename std::enable_if<B, bool>::type;
+using req = typename std::enable_if<B, bool>::type;
 
 /// @endcond
 
@@ -255,6 +255,8 @@ public:
         s8 = dnnl_s8,
         /// 8-bit unsigned integer.
         u8 = dnnl_u8,
+        /// Boolean data type. Size is C++ implementation defined.
+        boolean = dnnl_boolean,
     };
 
     /// Layout type
@@ -758,6 +760,7 @@ public:
         Mish = dnnl_graph_op_mish,
         MishBackward = dnnl_graph_op_mish_backward,
         Multiply = dnnl_graph_op_multiply,
+        Pow = dnnl_graph_op_pow,
         PReLU = dnnl_graph_op_prelu,
         PReLUBackward = dnnl_graph_op_prelu_backward,
         Quantize = dnnl_graph_op_quantize,
@@ -773,6 +776,7 @@ public:
         ReLUBackward = dnnl_graph_op_relu_backward,
         Reorder = dnnl_graph_op_reorder,
         Round = dnnl_graph_op_round,
+        Select = dnnl_graph_op_select,
         Sigmoid = dnnl_graph_op_sigmoid,
         SigmoidBackward = dnnl_graph_op_sigmoid_backward,
         SoftMax = dnnl_graph_op_softmax,
@@ -1000,8 +1004,7 @@ public:
     /// @param name Attribute's name.
     /// @param value The attribute's value.
     /// @returns The Op self.
-    template <typename Type,
-            requires<std::is_same<Type, int64_t>::value> = true>
+    template <typename Type, req<std::is_same<Type, int64_t>::value> = true>
     op &set_attr(attr name, const Type &value) {
         dnnl_graph_op_attr_t attr = convert_to_c(name);
         error::wrap_c_api(dnnl_graph_op_set_attr_s64(get(), attr, &value, 1),
@@ -1015,7 +1018,7 @@ public:
     /// @param name Attribute's name.
     /// @param value The attribute's value.
     /// @returns The Op self.
-    template <typename Type, requires<std::is_same<Type, float>::value> = true>
+    template <typename Type, req<std::is_same<Type, float>::value> = true>
     op &set_attr(attr name, const Type &value) {
         dnnl_graph_op_attr_t attr = convert_to_c(name);
         error::wrap_c_api(dnnl_graph_op_set_attr_f32(get(), attr, &value, 1),
@@ -1029,7 +1032,7 @@ public:
     /// @param name Attribute's name.
     /// @param value The attribute's value.
     /// @returns The Op self.
-    template <typename Type, requires<std::is_same<Type, bool>::value> = true>
+    template <typename Type, req<std::is_same<Type, bool>::value> = true>
     op &set_attr(attr name, const Type &value) {
         dnnl_graph_op_attr_t attr = convert_to_c(name);
         const uint8_t val = value;
@@ -1044,8 +1047,7 @@ public:
     /// @param name Attribute's name.
     /// @param value The attribute's value.
     /// @returns The Op self.
-    template <typename Type,
-            requires<std::is_same<Type, std::string>::value> = true>
+    template <typename Type, req<std::is_same<Type, std::string>::value> = true>
     op &set_attr(attr name, const Type &value) {
         dnnl_graph_op_attr_t attr = convert_to_c(name);
         error::wrap_c_api(dnnl_graph_op_set_attr_str(
@@ -1062,7 +1064,7 @@ public:
     /// @param value The attribute's value.
     /// @returns The Op self.
     template <typename Type,
-            requires<std::is_same<Type, std::vector<int64_t>>::value> = true>
+            req<std::is_same<Type, std::vector<int64_t>>::value> = true>
     op &set_attr(attr name, const Type &value) {
         dnnl_graph_op_attr_t attr = convert_to_c(name);
         error::wrap_c_api(dnnl_graph_op_set_attr_s64(
@@ -1078,7 +1080,7 @@ public:
     /// @param value The attribute's value.
     /// @returns The Op self.
     template <typename Type,
-            requires<std::is_same<Type, std::vector<float>>::value> = true>
+            req<std::is_same<Type, std::vector<float>>::value> = true>
     op &set_attr(attr name, const Type &value) {
         dnnl_graph_op_attr_t attr = convert_to_c(name);
         error::wrap_c_api(dnnl_graph_op_set_attr_f32(
@@ -1465,7 +1467,7 @@ inline void set_compiled_partition_cache_capacity(int capacity) {
 
 /// Control the enabling or disabling of constant tensor cache. This API must be
 /// called once before compilation stage. By default, constant tensor cache is
-/// enabled in the library.
+/// disabled in the library.
 ///
 /// @param flag Set to positive value to enable the cache and set to 0 to
 /// disable the cache. Negative values are invalid.

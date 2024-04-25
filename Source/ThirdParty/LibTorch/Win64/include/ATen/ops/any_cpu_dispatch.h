@@ -20,6 +20,9 @@ namespace cpu {
 TORCH_API at::Tensor any(const at::Tensor & self, int64_t dim, bool keepdim=false);
 TORCH_API at::Tensor & any_out(at::Tensor & out, const at::Tensor & self, int64_t dim, bool keepdim=false);
 TORCH_API at::Tensor & any_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out);
+TORCH_API at::Tensor any(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false);
+TORCH_API at::Tensor & any_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false);
+TORCH_API at::Tensor & any_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, at::Tensor & out);
 TORCH_API at::Tensor any(const at::Tensor & self);
 TORCH_API at::Tensor & any_out(at::Tensor & out, const at::Tensor & self);
 TORCH_API at::Tensor & any_outf(const at::Tensor & self, at::Tensor & out);

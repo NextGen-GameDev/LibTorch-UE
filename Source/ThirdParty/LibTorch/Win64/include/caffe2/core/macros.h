@@ -26,17 +26,17 @@
 /* #undef CAFFE2_USE_NVTX */
 /* #undef CAFFE2_USE_ITT */
 /* #undef CAFFE2_USE_TRT */
-/* #undef TORCH_DISABLE_GPU_ASSERTS */
 
 #ifndef EIGEN_MPL2_ONLY
 #define EIGEN_MPL2_ONLY
 #endif
 
 // Useful build settings that are recorded in the compiled binary
+// torch.__build__.show()
 #define CAFFE2_BUILD_STRINGS { \
-  {"TORCH_VERSION", "2.1.0"}, \
+  {"TORCH_VERSION", "2.2.1"}, \
   {"CXX_COMPILER", "C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe"}, \
-  {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /utf-8 /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273"}, \
+  {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /Zc:__cplusplus /bigobj /FS /utf-8 -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273"}, \
   {"BUILD_TYPE", "Release"}, \
   {"BLAS_INFO", "mkl"}, \
   {"LAPACK_INFO", "mkl"}, \
@@ -68,5 +68,5 @@
   {"USE_NVTX", ""}, \
   {"USE_ITT", ""}, \
   {"USE_TRT", ""}, \
-  {"TORCH_DISABLE_GPU_ASSERTS", "OFF"}, \
+  {"USE_ROCM_KERNEL_ASSERT", "OFF"}, \
 }

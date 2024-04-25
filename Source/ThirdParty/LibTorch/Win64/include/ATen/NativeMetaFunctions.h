@@ -45,6 +45,7 @@
 #include <ATen/ops/_conv_depthwise2d_meta.h>
 #include <ATen/ops/_convert_indices_from_coo_to_csr_meta.h>
 #include <ATen/ops/_convert_indices_from_csr_to_coo_meta.h>
+#include <ATen/ops/_convert_weight_to_int4pack_meta.h>
 #include <ATen/ops/_convolution_meta.h>
 #include <ATen/ops/_convolution_double_backward_meta.h>
 #include <ATen/ops/_convolution_mode_meta.h>
@@ -183,6 +184,7 @@
 #include <ATen/ops/_masked_scale_meta.h>
 #include <ATen/ops/_masked_softmax_meta.h>
 #include <ATen/ops/_masked_softmax_backward_meta.h>
+#include <ATen/ops/_mixed_dtypes_linear_meta.h>
 #include <ATen/ops/_mkldnn_reshape_meta.h>
 #include <ATen/ops/_mkldnn_transpose_meta.h>
 #include <ATen/ops/_mps_convolution_meta.h>
@@ -335,6 +337,7 @@
 #include <ATen/ops/_values_meta.h>
 #include <ATen/ops/_values_copy_meta.h>
 #include <ATen/ops/_version_meta.h>
+#include <ATen/ops/_weight_int4pack_mm_meta.h>
 #include <ATen/ops/_weight_norm_meta.h>
 #include <ATen/ops/_weight_norm_differentiable_backward_meta.h>
 #include <ATen/ops/_weight_norm_interface_meta.h>
@@ -811,6 +814,7 @@
 #include <ATen/ops/margin_ranking_loss_meta.h>
 #include <ATen/ops/masked_fill_meta.h>
 #include <ATen/ops/masked_scatter_meta.h>
+#include <ATen/ops/masked_scatter_backward_meta.h>
 #include <ATen/ops/masked_select_meta.h>
 #include <ATen/ops/masked_select_backward_meta.h>
 #include <ATen/ops/matmul_meta.h>

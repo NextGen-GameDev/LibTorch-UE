@@ -197,8 +197,8 @@ namespace redispatch {
         return at::_ops::sym_constrain_range::redispatch(dispatchKeySet, size, min, max);
     }
     
-    // aten::sym_constrain_range_for_size(Scalar size, *, int? min, int? max) -> ()
-    inline void sym_constrain_range_for_size(c10::DispatchKeySet dispatchKeySet, const at::Scalar & size, c10::optional<int64_t> min, c10::optional<int64_t> max) {
+    // aten::sym_constrain_range_for_size(Scalar size, *, int? min=None, int? max=None) -> ()
+    inline void sym_constrain_range_for_size(c10::DispatchKeySet dispatchKeySet, const at::Scalar & size, c10::optional<int64_t> min=c10::nullopt, c10::optional<int64_t> max=c10::nullopt) {
         return at::_ops::sym_constrain_range_for_size::redispatch(dispatchKeySet, size, min, max);
     }
     
@@ -737,6 +737,11 @@ namespace redispatch {
         return at::_ops::all_dim::redispatch(dispatchKeySet, self, dim, keepdim);
     }
     
+    // aten::all.dims(Tensor self, int[]? dim=None, bool keepdim=False) -> Tensor
+    inline at::Tensor all(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false) {
+        return at::_ops::all_dims::redispatch(dispatchKeySet, self, dim, keepdim);
+    }
+    
     // aten::all.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & all_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, int64_t dim, bool keepdim=false) {
         return at::_ops::all_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
@@ -745,6 +750,16 @@ namespace redispatch {
     // aten::all.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & all_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out) {
         return at::_ops::all_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
+    }
+    
+    // aten::all.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & all_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false) {
+        return at::_ops::all_dims_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
+    }
+    
+    // aten::all.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & all_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, at::Tensor & out) {
+        return at::_ops::all_dims_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
     }
     
     // aten::all.dimname(Tensor self, Dimname dim, bool keepdim=False) -> Tensor
@@ -772,6 +787,11 @@ namespace redispatch {
         return at::_ops::any_dim::redispatch(dispatchKeySet, self, dim, keepdim);
     }
     
+    // aten::any.dims(Tensor self, int[]? dim=None, bool keepdim=False) -> Tensor
+    inline at::Tensor any(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false) {
+        return at::_ops::any_dims::redispatch(dispatchKeySet, self, dim, keepdim);
+    }
+    
     // aten::any.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & any_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, int64_t dim, bool keepdim=false) {
         return at::_ops::any_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
@@ -780,6 +800,16 @@ namespace redispatch {
     // aten::any.out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & any_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out) {
         return at::_ops::any_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
+    }
+    
+    // aten::any.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & any_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false) {
+        return at::_ops::any_dims_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
+    }
+    
+    // aten::any.dims_out(Tensor self, int[]? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & any_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, at::Tensor & out) {
+        return at::_ops::any_dims_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
     }
     
     // aten::any.dimname(Tensor self, Dimname dim, bool keepdim=False) -> Tensor
@@ -1837,108 +1867,143 @@ namespace redispatch {
         return at::_ops::contiguous::redispatch(dispatchKeySet, self, memory_format);
     }
     
-    // aten::convolution(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups) -> Tensor
+    // aten::convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -> Tensor
     inline at::Tensor convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups) {
-        return at::_ops::convolution::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups);
+        return at::_ops::convolution::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups);
     }
     
-    // aten::convolution(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups) -> Tensor
-    inline at::Tensor convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups) {
+    // aten::convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -> Tensor
+    inline at::Tensor convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups) {
         return at::_ops::convolution::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups);
     }
     
-    // aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+    // aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-        return at::_ops::convolution_backward::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
+        return at::_ops::convolution_backward::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
     }
     
-    // aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
-    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+    // aten::convolution_backward(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::convolution_backward::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask);
     }
     
-    // aten::convolution_overrideable(Tensor input, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups) -> Tensor
+    // aten::convolution_overrideable(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -> Tensor
     inline at::Tensor convolution_overrideable(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups) {
+        return at::_ops::convolution_overrideable::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups);
+    }
+    
+    // aten::convolution_overrideable(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups) -> Tensor
+    inline at::Tensor convolution_overrideable_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups) {
         return at::_ops::convolution_overrideable::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups);
     }
     
-    // aten::convolution_backward_overrideable(Tensor grad_output, Tensor input, Tensor weight, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups, bool[3] output_mask) -> (Tensor grad_input, Tensor grad_weight, Tensor grad_bias)
+    // aten::convolution_backward_overrideable(Tensor grad_output, Tensor input, Tensor weight, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor grad_input, Tensor grad_weight, Tensor grad_bias)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward_overrideable(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+        return at::_ops::convolution_backward_overrideable::redispatch(dispatchKeySet, grad_output, input, weight, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
+    }
+    
+    // aten::convolution_backward_overrideable(Tensor grad_output, Tensor input, Tensor weight, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor grad_input, Tensor grad_weight, Tensor grad_bias)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> convolution_backward_overrideable_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::convolution_backward_overrideable::redispatch(dispatchKeySet, grad_output, input, weight, stride, padding, dilation, transposed, output_padding, groups, output_mask);
     }
     
-    // aten::_convolution(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) -> Tensor
+    // aten::_convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) -> Tensor
     inline at::Tensor _convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) {
-        return at::_ops::_convolution::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, benchmark, deterministic, cudnn_enabled, allow_tf32);
+        return at::_ops::_convolution::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, benchmark, deterministic, cudnn_enabled, allow_tf32);
     }
     
-    // aten::_convolution(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) -> Tensor
-    inline at::Tensor _convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) {
+    // aten::_convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) -> Tensor
+    inline at::Tensor _convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) {
         return at::_ops::_convolution::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, benchmark, deterministic, cudnn_enabled, allow_tf32);
     }
     
-    // aten::_convolution.deprecated(Tensor input, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled) -> Tensor
+    // aten::_convolution.deprecated(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, int[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled) -> Tensor
     inline at::Tensor _convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled) {
+        return at::_ops::_convolution_deprecated::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, output_padding, groups, benchmark, deterministic, cudnn_enabled);
+    }
+    
+    // aten::_convolution.deprecated(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, int[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled) -> Tensor
+    inline at::Tensor _convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, c10::SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled) {
         return at::_ops::_convolution_deprecated::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, benchmark, deterministic, cudnn_enabled);
     }
     
-    // aten::_convolution_mode(Tensor input, Tensor weight, Tensor? bias, int[] stride, str padding, int[] dilation, int groups) -> Tensor
+    // aten::_convolution_mode(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, str padding, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor _convolution_mode(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::string_view padding, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::_convolution_mode::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), padding, c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::_convolution_mode(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, str padding, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor _convolution_mode_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::string_view padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::_convolution_mode::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::_convolution_double_backward(Tensor? ggI, Tensor? ggW, Tensor? ggb, Tensor gO, Tensor weight, Tensor self, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+    // aten::_convolution_double_backward(Tensor? ggI, Tensor? ggW, Tensor? ggb, Tensor gO, Tensor weight, Tensor self, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _convolution_double_backward(c10::DispatchKeySet dispatchKeySet, const c10::optional<at::Tensor> & ggI, const c10::optional<at::Tensor> & ggW, const c10::optional<at::Tensor> & ggb, const at::Tensor & gO, const at::Tensor & weight, const at::Tensor & self, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-        return at::_ops::_convolution_double_backward::redispatch(dispatchKeySet, ggI, ggW, ggb, gO, weight, self, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
+        return at::_ops::_convolution_double_backward::redispatch(dispatchKeySet, ggI, ggW, ggb, gO, weight, self, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask);
     }
     
-    // aten::_convolution_double_backward(Tensor? ggI, Tensor? ggW, Tensor? ggb, Tensor gO, Tensor weight, Tensor self, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
-    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _convolution_double_backward_symint(c10::DispatchKeySet dispatchKeySet, const c10::optional<at::Tensor> & ggI, const c10::optional<at::Tensor> & ggW, const c10::optional<at::Tensor> & ggb, const at::Tensor & gO, const at::Tensor & weight, const at::Tensor & self, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+    // aten::_convolution_double_backward(Tensor? ggI, Tensor? ggW, Tensor? ggb, Tensor gO, Tensor weight, Tensor self, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _convolution_double_backward_symint(c10::DispatchKeySet dispatchKeySet, const c10::optional<at::Tensor> & ggI, const c10::optional<at::Tensor> & ggW, const c10::optional<at::Tensor> & ggb, const at::Tensor & gO, const at::Tensor & weight, const at::Tensor & self, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::_convolution_double_backward::redispatch(dispatchKeySet, ggI, ggW, ggb, gO, weight, self, stride, padding, dilation, transposed, output_padding, groups, output_mask);
     }
     
-    // aten::conv1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, SymInt[1] padding=0, int[1] dilation=1, int groups=1) -> Tensor
+    // aten::conv1d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, SymInt[1] padding=0, SymInt[1] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor conv1d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, int64_t groups=1) {
-        return at::_ops::conv1d::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, groups);
+        return at::_ops::conv1d::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
     }
     
-    // aten::conv1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, SymInt[1] padding=0, int[1] dilation=1, int groups=1) -> Tensor
-    inline at::Tensor conv1d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1, int64_t groups=1) {
+    // aten::conv1d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, SymInt[1] padding=0, SymInt[1] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor conv1d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::conv1d::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::conv2d(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1, int groups=1) -> Tensor
+    // aten::conv2d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor conv2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, int64_t groups=1) {
-        return at::_ops::conv2d::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, groups);
+        return at::_ops::conv2d::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
     }
     
-    // aten::conv2d(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1, int groups=1) -> Tensor
-    inline at::Tensor conv2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1, int64_t groups=1) {
+    // aten::conv2d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor conv2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::conv2d::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, int groups=1) -> Tensor
+    // aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor conv3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, int64_t groups=1) {
-        return at::_ops::conv3d::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, groups);
+        return at::_ops::conv3d::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
     }
     
-    // aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, int groups=1) -> Tensor
-    inline at::Tensor conv3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1, int64_t groups=1) {
+    // aten::conv3d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor conv3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::conv3d::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::conv1d.padding(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, str padding="valid", int[1] dilation=1, int groups=1) -> Tensor
+    // aten::conv1d.padding(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, str padding="valid", SymInt[1] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor conv1d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::string_view padding, at::IntArrayRef dilation=1, int64_t groups=1) {
+        return at::_ops::conv1d_padding::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), padding, c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::conv1d.padding(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, str padding="valid", SymInt[1] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor conv1d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::string_view padding, c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::conv1d_padding::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::conv2d.padding(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, str padding="valid", int[2] dilation=1, int groups=1) -> Tensor
+    // aten::conv2d.padding(Tensor input, Tensor weight, Tensor? bias=None, SymInt[2] stride=1, str padding="valid", SymInt[2] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor conv2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::string_view padding, at::IntArrayRef dilation=1, int64_t groups=1) {
+        return at::_ops::conv2d_padding::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), padding, c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::conv2d.padding(Tensor input, Tensor weight, Tensor? bias=None, SymInt[2] stride=1, str padding="valid", SymInt[2] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor conv2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::string_view padding, c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::conv2d_padding::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::conv3d.padding(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, str padding="valid", int[3] dilation=1, int groups=1) -> Tensor
+    // aten::conv3d.padding(Tensor input, Tensor weight, Tensor? bias=None, SymInt[3] stride=1, str padding="valid", SymInt[3] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor conv3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::string_view padding, at::IntArrayRef dilation=1, int64_t groups=1) {
+        return at::_ops::conv3d_padding::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), padding, c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::conv3d.padding(Tensor input, Tensor weight, Tensor? bias=None, SymInt[3] stride=1, str padding="valid", SymInt[3] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor conv3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::string_view padding, c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::conv3d_padding::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, groups);
     }
     
@@ -1952,33 +2017,33 @@ namespace redispatch {
         return at::_ops::conv_tbc_backward::redispatch(dispatchKeySet, self, input, weight, bias, pad);
     }
     
-    // aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, int groups=1, int[1] dilation=1) -> Tensor
+    // aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, SymInt groups=1, SymInt[1] dilation=1) -> Tensor
     inline at::Tensor conv_transpose1d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, int64_t groups=1, at::IntArrayRef dilation=1) {
-        return at::_ops::conv_transpose1d::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, dilation);
+        return at::_ops::conv_transpose1d::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, int groups=1, int[1] dilation=1) -> Tensor
-    inline at::Tensor conv_transpose1d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), int64_t groups=1, at::IntArrayRef dilation=1) {
+    // aten::conv_transpose1d(Tensor input, Tensor weight, Tensor? bias=None, SymInt[1] stride=1, SymInt[1] padding=0, SymInt[1] output_padding=0, SymInt groups=1, SymInt[1] dilation=1) -> Tensor
+    inline at::Tensor conv_transpose1d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymInt groups=1, c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::conv_transpose1d::redispatch(dispatchKeySet, input, weight, bias, stride, padding, output_padding, groups, dilation);
     }
     
-    // aten::conv_transpose2d.input(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int groups=1, int[2] dilation=1) -> Tensor
+    // aten::conv_transpose2d.input(Tensor input, Tensor weight, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt groups=1, SymInt[2] dilation=1) -> Tensor
     inline at::Tensor conv_transpose2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, int64_t groups=1, at::IntArrayRef dilation=1) {
-        return at::_ops::conv_transpose2d_input::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, dilation);
+        return at::_ops::conv_transpose2d_input::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::conv_transpose2d.input(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int groups=1, int[2] dilation=1) -> Tensor
-    inline at::Tensor conv_transpose2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), int64_t groups=1, at::IntArrayRef dilation=1) {
+    // aten::conv_transpose2d.input(Tensor input, Tensor weight, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt groups=1, SymInt[2] dilation=1) -> Tensor
+    inline at::Tensor conv_transpose2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymInt groups=1, c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::conv_transpose2d_input::redispatch(dispatchKeySet, input, weight, bias, stride, padding, output_padding, groups, dilation);
     }
     
-    // aten::conv_transpose3d.input(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int groups=1, int[3] dilation=1) -> Tensor
+    // aten::conv_transpose3d.input(Tensor input, Tensor weight, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt groups=1, SymInt[3] dilation=1) -> Tensor
     inline at::Tensor conv_transpose3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, int64_t groups=1, at::IntArrayRef dilation=1) {
-        return at::_ops::conv_transpose3d_input::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, dilation);
+        return at::_ops::conv_transpose3d_input::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), groups, c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::conv_transpose3d.input(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int groups=1, int[3] dilation=1) -> Tensor
-    inline at::Tensor conv_transpose3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), int64_t groups=1, at::IntArrayRef dilation=1) {
+    // aten::conv_transpose3d.input(Tensor input, Tensor weight, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt groups=1, SymInt[3] dilation=1) -> Tensor
+    inline at::Tensor conv_transpose3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymInt groups=1, c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::conv_transpose3d_input::redispatch(dispatchKeySet, input, weight, bias, stride, padding, output_padding, groups, dilation);
     }
     
@@ -2087,33 +2152,63 @@ namespace redispatch {
         return at::_ops::cudnn_batch_norm_backward::redispatch(dispatchKeySet, input, grad_output, weight, running_mean, running_var, save_mean, save_var, epsilon, reserveSpace);
     }
     
-    // aten::cudnn_convolution(Tensor self, Tensor weight, int[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32) -> Tensor
+    // aten::cudnn_convolution(Tensor self, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) -> Tensor
     inline at::Tensor cudnn_convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32) {
+        return at::_ops::cudnn_convolution::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, allow_tf32);
+    }
+    
+    // aten::cudnn_convolution(Tensor self, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) -> Tensor
+    inline at::Tensor cudnn_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) {
         return at::_ops::cudnn_convolution::redispatch(dispatchKeySet, self, weight, padding, stride, dilation, groups, benchmark, deterministic, allow_tf32);
     }
     
-    // aten::cudnn_convolution_transpose(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32) -> Tensor
+    // aten::cudnn_convolution_transpose(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) -> Tensor
     inline at::Tensor cudnn_convolution_transpose(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32) {
+        return at::_ops::cudnn_convolution_transpose::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, allow_tf32);
+    }
+    
+    // aten::cudnn_convolution_transpose(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) -> Tensor
+    inline at::Tensor cudnn_convolution_transpose_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) {
         return at::_ops::cudnn_convolution_transpose::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, benchmark, deterministic, allow_tf32);
     }
     
-    // aten::_mps_convolution_transpose(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups) -> Tensor
+    // aten::_mps_convolution_transpose(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor _mps_convolution_transpose(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::_mps_convolution_transpose::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::_mps_convolution_transpose(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor _mps_convolution_transpose_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::_mps_convolution_transpose::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups);
     }
     
-    // aten::mps_convolution_transpose_backward(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool[2] output_mask) -> (Tensor, Tensor)
+    // aten::mps_convolution_transpose_backward(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[2] output_mask) -> (Tensor, Tensor)
     inline ::std::tuple<at::Tensor,at::Tensor> mps_convolution_transpose_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,2> output_mask) {
+        return at::_ops::mps_convolution_transpose_backward::redispatch(dispatchKeySet, self, grad_output, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, output_mask);
+    }
+    
+    // aten::mps_convolution_transpose_backward(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[2] output_mask) -> (Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor> mps_convolution_transpose_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,2> output_mask) {
         return at::_ops::mps_convolution_transpose_backward::redispatch(dispatchKeySet, self, grad_output, weight, padding, output_padding, stride, dilation, groups, output_mask);
     }
     
-    // aten::cudnn_convolution_relu(Tensor self, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups) -> Tensor
+    // aten::cudnn_convolution_relu(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor cudnn_convolution_relu(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::cudnn_convolution_relu::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::cudnn_convolution_relu(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor cudnn_convolution_relu_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::cudnn_convolution_relu::redispatch(dispatchKeySet, self, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::cudnn_convolution_add_relu(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups) -> Tensor
+    // aten::cudnn_convolution_add_relu(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor cudnn_convolution_add_relu(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::cudnn_convolution_add_relu::redispatch(dispatchKeySet, self, weight, z, alpha, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::cudnn_convolution_add_relu(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor cudnn_convolution_add_relu_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::cudnn_convolution_add_relu::redispatch(dispatchKeySet, self, weight, z, alpha, bias, stride, padding, dilation, groups);
     }
     
@@ -4007,14 +4102,19 @@ namespace redispatch {
         return at::_ops::_cslt_compress::redispatch(dispatchKeySet, input);
     }
     
-    // aten::_cslt_sparse_mm(Tensor compressed_A, Tensor dense_B, Tensor? bias=None, bool transpose_result=False) -> Tensor
-    inline at::Tensor _cslt_sparse_mm(c10::DispatchKeySet dispatchKeySet, const at::Tensor & compressed_A, const at::Tensor & dense_B, const c10::optional<at::Tensor> & bias={}, bool transpose_result=false) {
-        return at::_ops::_cslt_sparse_mm::redispatch(dispatchKeySet, compressed_A, dense_B, bias, transpose_result);
+    // aten::_cslt_sparse_mm(Tensor compressed_A, Tensor dense_B, Tensor? bias=None, Tensor? alpha=None, ScalarType? out_dtype=None, bool transpose_result=False) -> Tensor
+    inline at::Tensor _cslt_sparse_mm(c10::DispatchKeySet dispatchKeySet, const at::Tensor & compressed_A, const at::Tensor & dense_B, const c10::optional<at::Tensor> & bias={}, const c10::optional<at::Tensor> & alpha={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, bool transpose_result=false) {
+        return at::_ops::_cslt_sparse_mm::redispatch(dispatchKeySet, compressed_A, dense_B, bias, alpha, out_dtype, transpose_result);
     }
     
     // aten::_sparse_semi_structured_linear(Tensor input, Tensor weight, Tensor meta, *, Tensor? bias=None, str? activation=None) -> Tensor
     inline at::Tensor _sparse_semi_structured_linear(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const at::Tensor & meta, const c10::optional<at::Tensor> & bias={}, c10::optional<c10::string_view> activation=c10::nullopt) {
         return at::_ops::_sparse_semi_structured_linear::redispatch(dispatchKeySet, input, weight, meta, bias, activation);
+    }
+    
+    // aten::_mixed_dtypes_linear(Tensor input, Tensor weight, Tensor scale, *, Tensor? bias=None, str? activation=None) -> Tensor
+    inline at::Tensor _mixed_dtypes_linear(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const at::Tensor & scale, const c10::optional<at::Tensor> & bias={}, c10::optional<c10::string_view> activation=c10::nullopt) {
+        return at::_ops::_mixed_dtypes_linear::redispatch(dispatchKeySet, input, weight, scale, bias, activation);
     }
     
     // aten::fbgemm_linear_int8_weight_fp32_activation(Tensor input, Tensor weight, Tensor packed, Tensor col_offsets, Scalar weight_scale, Scalar weight_zero_point, Tensor bias) -> Tensor
@@ -4087,6 +4187,36 @@ namespace redispatch {
         return at::_ops::linspace::redispatch(dispatchKeySet, start, end, steps, dtype, layout, device, pin_memory);
     }
     
+    // aten::linspace.Tensor_Tensor(Tensor start, Tensor end, int steps, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor linspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Tensor & end, int64_t steps, at::TensorOptions options={}) {
+        return at::_ops::linspace_Tensor_Tensor::redispatch(dispatchKeySet, start, end, steps, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    }
+    
+    // aten::linspace.Tensor_Tensor(Tensor start, Tensor end, int steps, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor linspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Tensor & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+        return at::_ops::linspace_Tensor_Tensor::redispatch(dispatchKeySet, start, end, steps, dtype, layout, device, pin_memory);
+    }
+    
+    // aten::linspace.Tensor_Scalar(Tensor start, Scalar end, int steps, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor linspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Scalar & end, int64_t steps, at::TensorOptions options={}) {
+        return at::_ops::linspace_Tensor_Scalar::redispatch(dispatchKeySet, start, end, steps, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    }
+    
+    // aten::linspace.Tensor_Scalar(Tensor start, Scalar end, int steps, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor linspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Scalar & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+        return at::_ops::linspace_Tensor_Scalar::redispatch(dispatchKeySet, start, end, steps, dtype, layout, device, pin_memory);
+    }
+    
+    // aten::linspace.Scalar_Tensor(Scalar start, Tensor end, int steps, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor linspace(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Tensor & end, int64_t steps, at::TensorOptions options={}) {
+        return at::_ops::linspace_Scalar_Tensor::redispatch(dispatchKeySet, start, end, steps, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    }
+    
+    // aten::linspace.Scalar_Tensor(Scalar start, Tensor end, int steps, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor linspace(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Tensor & end, int64_t steps, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+        return at::_ops::linspace_Scalar_Tensor::redispatch(dispatchKeySet, start, end, steps, dtype, layout, device, pin_memory);
+    }
+    
     // aten::linspace.out(Scalar start, Scalar end, int steps, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & linspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Scalar & start, const at::Scalar & end, int64_t steps) {
         return at::_ops::linspace_out::redispatch(dispatchKeySet, start, end, steps, out);
@@ -4095,6 +4225,36 @@ namespace redispatch {
     // aten::linspace.out(Scalar start, Scalar end, int steps, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & linspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Scalar & end, int64_t steps, at::Tensor & out) {
         return at::_ops::linspace_out::redispatch(dispatchKeySet, start, end, steps, out);
+    }
+    
+    // aten::linspace.Tensor_Tensor_out(Tensor start, Tensor end, int steps, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & linspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & start, const at::Tensor & end, int64_t steps) {
+        return at::_ops::linspace_Tensor_Tensor_out::redispatch(dispatchKeySet, start, end, steps, out);
+    }
+    
+    // aten::linspace.Tensor_Tensor_out(Tensor start, Tensor end, int steps, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & linspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Tensor & end, int64_t steps, at::Tensor & out) {
+        return at::_ops::linspace_Tensor_Tensor_out::redispatch(dispatchKeySet, start, end, steps, out);
+    }
+    
+    // aten::linspace.Tensor_Scalar_out(Tensor start, Scalar end, int steps, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & linspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & start, const at::Scalar & end, int64_t steps) {
+        return at::_ops::linspace_Tensor_Scalar_out::redispatch(dispatchKeySet, start, end, steps, out);
+    }
+    
+    // aten::linspace.Tensor_Scalar_out(Tensor start, Scalar end, int steps, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & linspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Scalar & end, int64_t steps, at::Tensor & out) {
+        return at::_ops::linspace_Tensor_Scalar_out::redispatch(dispatchKeySet, start, end, steps, out);
+    }
+    
+    // aten::linspace.Scalar_Tensor_out(Scalar start, Tensor end, int steps, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & linspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Scalar & start, const at::Tensor & end, int64_t steps) {
+        return at::_ops::linspace_Scalar_Tensor_out::redispatch(dispatchKeySet, start, end, steps, out);
+    }
+    
+    // aten::linspace.Scalar_Tensor_out(Scalar start, Tensor end, int steps, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & linspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Tensor & end, int64_t steps, at::Tensor & out) {
+        return at::_ops::linspace_Scalar_Tensor_out::redispatch(dispatchKeySet, start, end, steps, out);
     }
     
     // aten::log(Tensor self) -> Tensor
@@ -4272,6 +4432,36 @@ namespace redispatch {
         return at::_ops::logspace::redispatch(dispatchKeySet, start, end, steps, base, dtype, layout, device, pin_memory);
     }
     
+    // aten::logspace.Tensor_Tensor(Tensor start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor logspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Tensor & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
+        return at::_ops::logspace_Tensor_Tensor::redispatch(dispatchKeySet, start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    }
+    
+    // aten::logspace.Tensor_Tensor(Tensor start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor logspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Tensor & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+        return at::_ops::logspace_Tensor_Tensor::redispatch(dispatchKeySet, start, end, steps, base, dtype, layout, device, pin_memory);
+    }
+    
+    // aten::logspace.Tensor_Scalar(Tensor start, Scalar end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor logspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Scalar & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
+        return at::_ops::logspace_Tensor_Scalar::redispatch(dispatchKeySet, start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    }
+    
+    // aten::logspace.Tensor_Scalar(Tensor start, Scalar end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor logspace(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Scalar & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+        return at::_ops::logspace_Tensor_Scalar::redispatch(dispatchKeySet, start, end, steps, base, dtype, layout, device, pin_memory);
+    }
+    
+    // aten::logspace.Scalar_Tensor(Scalar start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor logspace(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Tensor & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
+        return at::_ops::logspace_Scalar_Tensor::redispatch(dispatchKeySet, start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    }
+    
+    // aten::logspace.Scalar_Tensor(Scalar start, Tensor end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
+    inline at::Tensor logspace(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Tensor & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+        return at::_ops::logspace_Scalar_Tensor::redispatch(dispatchKeySet, start, end, steps, base, dtype, layout, device, pin_memory);
+    }
+    
     // aten::logspace.out(Scalar start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & logspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Scalar & start, const at::Scalar & end, int64_t steps, double base=10.0) {
         return at::_ops::logspace_out::redispatch(dispatchKeySet, start, end, steps, base, out);
@@ -4280,6 +4470,36 @@ namespace redispatch {
     // aten::logspace.out(Scalar start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & logspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out) {
         return at::_ops::logspace_out::redispatch(dispatchKeySet, start, end, steps, base, out);
+    }
+    
+    // aten::logspace.Tensor_Tensor_out(Tensor start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & logspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & start, const at::Tensor & end, int64_t steps, double base=10.0) {
+        return at::_ops::logspace_Tensor_Tensor_out::redispatch(dispatchKeySet, start, end, steps, base, out);
+    }
+    
+    // aten::logspace.Tensor_Tensor_out(Tensor start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & logspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Tensor & end, int64_t steps, double base, at::Tensor & out) {
+        return at::_ops::logspace_Tensor_Tensor_out::redispatch(dispatchKeySet, start, end, steps, base, out);
+    }
+    
+    // aten::logspace.Tensor_Scalar_out(Tensor start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & logspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & start, const at::Scalar & end, int64_t steps, double base=10.0) {
+        return at::_ops::logspace_Tensor_Scalar_out::redispatch(dispatchKeySet, start, end, steps, base, out);
+    }
+    
+    // aten::logspace.Tensor_Scalar_out(Tensor start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & logspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out) {
+        return at::_ops::logspace_Tensor_Scalar_out::redispatch(dispatchKeySet, start, end, steps, base, out);
+    }
+    
+    // aten::logspace.Scalar_Tensor_out(Scalar start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & logspace_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Scalar & start, const at::Tensor & end, int64_t steps, double base=10.0) {
+        return at::_ops::logspace_Scalar_Tensor_out::redispatch(dispatchKeySet, start, end, steps, base, out);
+    }
+    
+    // aten::logspace.Scalar_Tensor_out(Scalar start, Tensor end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & logspace_outf(c10::DispatchKeySet dispatchKeySet, const at::Scalar & start, const at::Tensor & end, int64_t steps, double base, at::Tensor & out) {
+        return at::_ops::logspace_Scalar_Tensor_out::redispatch(dispatchKeySet, start, end, steps, base, out);
     }
     
     // aten::log_softmax.int(Tensor self, int dim, ScalarType? dtype=None) -> Tensor
@@ -4777,23 +4997,33 @@ namespace redispatch {
         return at::_ops::amin_out::redispatch(dispatchKeySet, self, dim, keepdim, out);
     }
     
-    // aten::_mps_convolution(Tensor self, Tensor weight, Tensor? bias, int[] padding, int[] stride, int[] dilation, int groups) -> Tensor
+    // aten::_mps_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor _mps_convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::_mps_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::_mps_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor _mps_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::_mps_convolution::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups);
     }
     
-    // aten::mps_convolution_backward(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] stride, int[] dilation, int groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+    // aten::mps_convolution_backward(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> mps_convolution_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,3> output_mask) {
+        return at::_ops::mps_convolution_backward::redispatch(dispatchKeySet, self, grad_output, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, output_mask);
+    }
+    
+    // aten::mps_convolution_backward(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[3] output_mask) -> (Tensor, Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> mps_convolution_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::mps_convolution_backward::redispatch(dispatchKeySet, self, grad_output, weight, padding, stride, dilation, groups, output_mask);
     }
     
-    // aten::mkldnn_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups) -> Tensor
+    // aten::mkldnn_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor mkldnn_convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
-        return at::_ops::mkldnn_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups);
+        return at::_ops::mkldnn_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups);
     }
     
-    // aten::mkldnn_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups) -> Tensor
-    inline at::Tensor mkldnn_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+    // aten::mkldnn_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor mkldnn_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::mkldnn_convolution::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups);
     }
     
@@ -4817,43 +5047,53 @@ namespace redispatch {
         return at::_ops::miopen_batch_norm_backward::redispatch(dispatchKeySet, input, grad_output, weight, running_mean, running_var, save_mean, save_var, epsilon);
     }
     
-    // aten::miopen_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic) -> Tensor
+    // aten::miopen_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic) -> Tensor
     inline at::Tensor miopen_convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
-        return at::_ops::miopen_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, benchmark, deterministic);
+        return at::_ops::miopen_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic);
     }
     
-    // aten::miopen_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic) -> Tensor
-    inline at::Tensor miopen_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
+    // aten::miopen_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic) -> Tensor
+    inline at::Tensor miopen_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic) {
         return at::_ops::miopen_convolution::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, benchmark, deterministic);
     }
     
-    // aten::miopen_convolution_transpose(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic) -> Tensor
+    // aten::miopen_convolution_transpose(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic) -> Tensor
     inline at::Tensor miopen_convolution_transpose(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
-        return at::_ops::miopen_convolution_transpose::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), stride, dilation, groups, benchmark, deterministic);
+        return at::_ops::miopen_convolution_transpose::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic);
     }
     
-    // aten::miopen_convolution_transpose(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic) -> Tensor
-    inline at::Tensor miopen_convolution_transpose_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
+    // aten::miopen_convolution_transpose(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic) -> Tensor
+    inline at::Tensor miopen_convolution_transpose_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic) {
         return at::_ops::miopen_convolution_transpose::redispatch(dispatchKeySet, self, weight, bias, padding, output_padding, stride, dilation, groups, benchmark, deterministic);
     }
     
-    // aten::miopen_depthwise_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic) -> Tensor
+    // aten::miopen_depthwise_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic) -> Tensor
     inline at::Tensor miopen_depthwise_convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
-        return at::_ops::miopen_depthwise_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, benchmark, deterministic);
+        return at::_ops::miopen_depthwise_convolution::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic);
     }
     
-    // aten::miopen_depthwise_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic) -> Tensor
-    inline at::Tensor miopen_depthwise_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
+    // aten::miopen_depthwise_convolution(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic) -> Tensor
+    inline at::Tensor miopen_depthwise_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic) {
         return at::_ops::miopen_depthwise_convolution::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, benchmark, deterministic);
     }
     
-    // aten::miopen_convolution_relu(Tensor self, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups) -> Tensor
+    // aten::miopen_convolution_relu(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor miopen_convolution_relu(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::miopen_convolution_relu::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::miopen_convolution_relu(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor miopen_convolution_relu_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::miopen_convolution_relu::redispatch(dispatchKeySet, self, weight, bias, stride, padding, dilation, groups);
     }
     
-    // aten::miopen_convolution_add_relu(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups) -> Tensor
+    // aten::miopen_convolution_add_relu(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
     inline at::Tensor miopen_convolution_add_relu(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::miopen_convolution_add_relu::redispatch(dispatchKeySet, self, weight, z, alpha, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::miopen_convolution_add_relu(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups) -> Tensor
+    inline at::Tensor miopen_convolution_add_relu_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::miopen_convolution_add_relu::redispatch(dispatchKeySet, self, weight, z, alpha, bias, stride, padding, dilation, groups);
     }
     
@@ -4895,6 +5135,16 @@ namespace redispatch {
     // aten::_int_mm.out(Tensor self, Tensor mat2, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _int_mm_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mat2, at::Tensor & out) {
         return at::_ops::_int_mm_out::redispatch(dispatchKeySet, self, mat2, out);
+    }
+    
+    // aten::_convert_weight_to_int4pack(Tensor self, int innerKTiles) -> Tensor
+    inline at::Tensor _convert_weight_to_int4pack(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t innerKTiles) {
+        return at::_ops::_convert_weight_to_int4pack::redispatch(dispatchKeySet, self, innerKTiles);
+    }
+    
+    // aten::_weight_int4pack_mm(Tensor self, Tensor mat2, int qGroupSize, Tensor qScaleAndZeros) -> Tensor
+    inline at::Tensor _weight_int4pack_mm(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mat2, int64_t qGroupSize, const at::Tensor & qScaleAndZeros) {
+        return at::_ops::_weight_int4pack_mm::redispatch(dispatchKeySet, self, mat2, qGroupSize, qScaleAndZeros);
     }
     
     // aten::_sparse_mm(Tensor sparse, Tensor dense) -> Tensor
@@ -5197,13 +5447,13 @@ namespace redispatch {
         return at::_ops::_nnpack_available::redispatch(dispatchKeySet);
     }
     
-    // aten::_nnpack_spatial_convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, int[2] stride=1) -> Tensor
+    // aten::_nnpack_spatial_convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, SymInt[2] stride=1) -> Tensor
     inline at::Tensor _nnpack_spatial_convolution(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride=1) {
-        return at::_ops::_nnpack_spatial_convolution::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(padding), stride);
+        return at::_ops::_nnpack_spatial_convolution::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride));
     }
     
-    // aten::_nnpack_spatial_convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, int[2] stride=1) -> Tensor
-    inline at::Tensor _nnpack_spatial_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride=1) {
+    // aten::_nnpack_spatial_convolution(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, SymInt[2] stride=1) -> Tensor
+    inline at::Tensor _nnpack_spatial_convolution_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride=c10::SymInt(1)) {
         return at::_ops::_nnpack_spatial_convolution::redispatch(dispatchKeySet, input, weight, bias, padding, stride);
     }
     
@@ -5372,13 +5622,23 @@ namespace redispatch {
         return at::_ops::pixel_unshuffle::redispatch(dispatchKeySet, self, downscale_factor);
     }
     
-    // aten::channel_shuffle(Tensor self, int groups) -> Tensor
+    // aten::channel_shuffle(Tensor self, SymInt groups) -> Tensor
     inline at::Tensor channel_shuffle(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t groups) {
         return at::_ops::channel_shuffle::redispatch(dispatchKeySet, self, groups);
     }
     
-    // aten::native_channel_shuffle(Tensor self, int groups) -> Tensor
+    // aten::channel_shuffle(Tensor self, SymInt groups) -> Tensor
+    inline at::Tensor channel_shuffle_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymInt groups) {
+        return at::_ops::channel_shuffle::redispatch(dispatchKeySet, self, groups);
+    }
+    
+    // aten::native_channel_shuffle(Tensor self, SymInt groups) -> Tensor
     inline at::Tensor native_channel_shuffle(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t groups) {
+        return at::_ops::native_channel_shuffle::redispatch(dispatchKeySet, self, groups);
+    }
+    
+    // aten::native_channel_shuffle(Tensor self, SymInt groups) -> Tensor
+    inline at::Tensor native_channel_shuffle_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymInt groups) {
         return at::_ops::native_channel_shuffle::redispatch(dispatchKeySet, self, groups);
     }
     
@@ -6112,23 +6372,33 @@ namespace redispatch {
         return at::_ops::repeat::redispatch(dispatchKeySet, self, repeats);
     }
     
-    // aten::repeat_interleave.Tensor(Tensor repeats, *, int? output_size=None) -> Tensor
+    // aten::repeat_interleave.Tensor(Tensor repeats, *, SymInt? output_size=None) -> Tensor
     inline at::Tensor repeat_interleave(c10::DispatchKeySet dispatchKeySet, const at::Tensor & repeats, c10::optional<int64_t> output_size=c10::nullopt) {
+        return at::_ops::repeat_interleave_Tensor::redispatch(dispatchKeySet, repeats, output_size.has_value() ? c10::make_optional(c10::SymInt(*output_size)) : c10::nullopt);
+    }
+    
+    // aten::repeat_interleave.Tensor(Tensor repeats, *, SymInt? output_size=None) -> Tensor
+    inline at::Tensor repeat_interleave_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & repeats, c10::optional<c10::SymInt> output_size=c10::nullopt) {
         return at::_ops::repeat_interleave_Tensor::redispatch(dispatchKeySet, repeats, output_size);
     }
     
-    // aten::repeat_interleave.self_Tensor(Tensor self, Tensor repeats, int? dim=None, *, int? output_size=None) -> Tensor
+    // aten::repeat_interleave.self_Tensor(Tensor self, Tensor repeats, int? dim=None, *, SymInt? output_size=None) -> Tensor
     inline at::Tensor repeat_interleave(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
+        return at::_ops::repeat_interleave_self_Tensor::redispatch(dispatchKeySet, self, repeats, dim, output_size.has_value() ? c10::make_optional(c10::SymInt(*output_size)) : c10::nullopt);
+    }
+    
+    // aten::repeat_interleave.self_Tensor(Tensor self, Tensor repeats, int? dim=None, *, SymInt? output_size=None) -> Tensor
+    inline at::Tensor repeat_interleave_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<c10::SymInt> output_size=c10::nullopt) {
         return at::_ops::repeat_interleave_self_Tensor::redispatch(dispatchKeySet, self, repeats, dim, output_size);
     }
     
-    // aten::repeat_interleave.self_int(Tensor self, SymInt repeats, int? dim=None, *, int? output_size=None) -> Tensor
+    // aten::repeat_interleave.self_int(Tensor self, SymInt repeats, int? dim=None, *, SymInt? output_size=None) -> Tensor
     inline at::Tensor repeat_interleave(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
-        return at::_ops::repeat_interleave_self_int::redispatch(dispatchKeySet, self, repeats, dim, output_size);
+        return at::_ops::repeat_interleave_self_int::redispatch(dispatchKeySet, self, repeats, dim, output_size.has_value() ? c10::make_optional(c10::SymInt(*output_size)) : c10::nullopt);
     }
     
-    // aten::repeat_interleave.self_int(Tensor self, SymInt repeats, int? dim=None, *, int? output_size=None) -> Tensor
-    inline at::Tensor repeat_interleave_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
+    // aten::repeat_interleave.self_int(Tensor self, SymInt repeats, int? dim=None, *, SymInt? output_size=None) -> Tensor
+    inline at::Tensor repeat_interleave_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<c10::SymInt> output_size=c10::nullopt) {
         return at::_ops::repeat_interleave_self_int::redispatch(dispatchKeySet, self, repeats, dim, output_size);
     }
     
@@ -8192,19 +8462,19 @@ namespace redispatch {
         return at::_ops::_addmm_activation::redispatch(dispatchKeySet, self, mat1, mat2, beta, alpha, use_gelu);
     }
     
-    // aten::_scaled_mm(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None) -> (Tensor, Tensor)
-    inline ::std::tuple<at::Tensor,at::Tensor> _scaled_mm(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}) {
-        return at::_ops::_scaled_mm::redispatch(dispatchKeySet, self, mat2, bias, out_dtype, scale_a, scale_b, scale_result);
+    // aten::_scaled_mm(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, bool use_fast_accum=False) -> (Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor> _scaled_mm(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false) {
+        return at::_ops::_scaled_mm::redispatch(dispatchKeySet, self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, use_fast_accum);
     }
     
-    // aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
-    inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, at::Tensor & out_amax, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}) {
-        return at::_ops::_scaled_mm_out::redispatch(dispatchKeySet, self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, out, out_amax);
+    // aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, bool use_fast_accum=False, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, at::Tensor & out_amax, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias={}, c10::optional<at::ScalarType> out_dtype=c10::nullopt, const c10::optional<at::Tensor> & scale_a={}, const c10::optional<at::Tensor> & scale_b={}, const c10::optional<at::Tensor> & scale_result={}, bool use_fast_accum=false) {
+        return at::_ops::_scaled_mm_out::redispatch(dispatchKeySet, self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, use_fast_accum, out, out_amax);
     }
     
-    // aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
-    inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, at::Tensor & out, at::Tensor & out_amax) {
-        return at::_ops::_scaled_mm_out::redispatch(dispatchKeySet, self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, out, out_amax);
+    // aten::_scaled_mm.out(Tensor self, Tensor mat2, *, Tensor? bias=None, ScalarType? out_dtype=None, Tensor? scale_a=None, Tensor? scale_b=None, Tensor? scale_result=None, bool use_fast_accum=False, Tensor(a!) out, Tensor(b!) out_amax) -> (Tensor(a!), Tensor(b!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &> _scaled_mm_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mat2, const c10::optional<at::Tensor> & bias, c10::optional<at::ScalarType> out_dtype, const c10::optional<at::Tensor> & scale_a, const c10::optional<at::Tensor> & scale_b, const c10::optional<at::Tensor> & scale_result, bool use_fast_accum, at::Tensor & out, at::Tensor & out_amax) {
+        return at::_ops::_scaled_mm_out::redispatch(dispatchKeySet, self, mat2, bias, out_dtype, scale_a, scale_b, scale_result, use_fast_accum, out, out_amax);
     }
     
     // aten::sparse_compressed_tensor.comp_plain_value_size(Tensor compressed_indices, Tensor plain_indices, Tensor values, int[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False) -> Tensor
@@ -8692,13 +8962,23 @@ namespace redispatch {
         return at::_ops::to_mkldnn::redispatch(dispatchKeySet, self, dtype);
     }
     
-    // aten::mkldnn_reorder_conv2d_weight(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None) -> Tensor
+    // aten::mkldnn_reorder_conv2d_weight(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None) -> Tensor
     inline at::Tensor mkldnn_reorder_conv2d_weight(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1, at::OptionalIntArrayRef input_size=c10::nullopt) {
+        return at::_ops::mkldnn_reorder_conv2d_weight::redispatch(dispatchKeySet, self, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, input_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*input_size)) : c10::nullopt);
+    }
+    
+    // aten::mkldnn_reorder_conv2d_weight(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None) -> Tensor
+    inline at::Tensor mkldnn_reorder_conv2d_weight_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1, at::OptionalSymIntArrayRef input_size=c10::nullopt) {
         return at::_ops::mkldnn_reorder_conv2d_weight::redispatch(dispatchKeySet, self, padding, stride, dilation, groups, input_size);
     }
     
-    // aten::mkldnn_reorder_conv3d_weight(Tensor self, int[3] padding=0, int[3] stride=1, int[3] dilation=1, int groups=1) -> Tensor
+    // aten::mkldnn_reorder_conv3d_weight(Tensor self, SymInt[3] padding=0, SymInt[3] stride=1, SymInt[3] dilation=1, SymInt groups=1) -> Tensor
     inline at::Tensor mkldnn_reorder_conv3d_weight(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1) {
+        return at::_ops::mkldnn_reorder_conv3d_weight::redispatch(dispatchKeySet, self, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups);
+    }
+    
+    // aten::mkldnn_reorder_conv3d_weight(Tensor self, SymInt[3] padding=0, SymInt[3] stride=1, SymInt[3] dilation=1, SymInt groups=1) -> Tensor
+    inline at::Tensor mkldnn_reorder_conv3d_weight_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::mkldnn_reorder_conv3d_weight::redispatch(dispatchKeySet, self, padding, stride, dilation, groups);
     }
     
@@ -9205,6 +9485,16 @@ namespace redispatch {
     // aten::masked_scatter(Tensor self, Tensor mask, Tensor source) -> Tensor
     inline at::Tensor masked_scatter(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & mask, const at::Tensor & source) {
         return at::_ops::masked_scatter::redispatch(dispatchKeySet, self, mask, source);
+    }
+    
+    // aten::masked_scatter_backward(Tensor grad_output, Tensor mask, SymInt[] sizes) -> Tensor
+    inline at::Tensor masked_scatter_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & mask, at::IntArrayRef sizes) {
+        return at::_ops::masked_scatter_backward::redispatch(dispatchKeySet, grad_output, mask, c10::fromIntArrayRefSlow(sizes));
+    }
+    
+    // aten::masked_scatter_backward(Tensor grad_output, Tensor mask, SymInt[] sizes) -> Tensor
+    inline at::Tensor masked_scatter_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & mask, c10::SymIntArrayRef sizes) {
+        return at::_ops::masked_scatter_backward::redispatch(dispatchKeySet, grad_output, mask, sizes);
     }
     
     // aten::_masked_softmax(Tensor self, Tensor mask, int? dim=None, int? mask_type=None) -> Tensor
@@ -11932,6 +12222,16 @@ namespace redispatch {
         return at::_ops::_foreach_add__ScalarList::redispatch(dispatchKeySet, self, scalars);
     }
     
+    // aten::_foreach_add.Tensor(Tensor[] self, Tensor other, *, Scalar alpha=1) -> Tensor[]
+    inline ::std::vector<at::Tensor> _foreach_add(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1) {
+        return at::_ops::_foreach_add_Tensor::redispatch(dispatchKeySet, self, other, alpha);
+    }
+    
+    // aten::_foreach_add_.Tensor(Tensor(a!)[] self, Tensor other, *, Scalar alpha=1) -> ()
+    inline void _foreach_add_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1) {
+        return at::_ops::_foreach_add__Tensor::redispatch(dispatchKeySet, self, other, alpha);
+    }
+    
     // aten::_foreach_sub.Scalar(Tensor[] self, Scalar scalar) -> Tensor[]
     inline ::std::vector<at::Tensor> _foreach_sub(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Scalar & scalar) {
         return at::_ops::_foreach_sub_Scalar::redispatch(dispatchKeySet, self, scalar);
@@ -12030,6 +12330,16 @@ namespace redispatch {
     // aten::_foreach_div_.ScalarList(Tensor(a!)[] self, Scalar[] scalars) -> ()
     inline void _foreach_div_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::ArrayRef<at::Scalar> scalars) {
         return at::_ops::_foreach_div__ScalarList::redispatch(dispatchKeySet, self, scalars);
+    }
+    
+    // aten::_foreach_div.Tensor(Tensor[] self, Tensor other) -> Tensor[]
+    inline ::std::vector<at::Tensor> _foreach_div(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Tensor & other) {
+        return at::_ops::_foreach_div_Tensor::redispatch(dispatchKeySet, self, other);
+    }
+    
+    // aten::_foreach_div_.Tensor(Tensor(a!)[] self, Tensor other) -> ()
+    inline void _foreach_div_(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Tensor & other) {
+        return at::_ops::_foreach_div__Tensor::redispatch(dispatchKeySet, self, other);
     }
     
     // aten::_foreach_clamp_max.Scalar(Tensor[] self, Scalar scalar) -> Tensor[]
@@ -15072,228 +15382,273 @@ namespace redispatch {
         return at::_ops::tanh_backward::redispatch(dispatchKeySet, grad_output, output);
     }
     
-    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_transpose2d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_transpose2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), dilation, out);
+        return at::_ops::slow_conv_transpose2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_transpose2d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef dilation, at::Tensor & out) {
-        return at::_ops::slow_conv_transpose2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), dilation, out);
+        return at::_ops::slow_conv_transpose2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_transpose2d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_transpose2d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_transpose2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output_padding, dilation, out);
     }
     
-    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_transpose2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, at::IntArrayRef dilation, at::Tensor & out) {
+    // aten::slow_conv_transpose2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_transpose2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef dilation, at::Tensor & out) {
         return at::_ops::slow_conv_transpose2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output_padding, dilation, out);
     }
     
-    // aten::slow_conv_transpose2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int[2] dilation=1) -> Tensor
+    // aten::slow_conv_transpose2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt[2] dilation=1) -> Tensor
     inline at::Tensor slow_conv_transpose2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_transpose2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), dilation);
+        return at::_ops::slow_conv_transpose2d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::slow_conv_transpose2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, int[2] dilation=1) -> Tensor
-    inline at::Tensor slow_conv_transpose2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_transpose2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] output_padding=0, SymInt[2] dilation=1) -> Tensor
+    inline at::Tensor slow_conv_transpose2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_transpose2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
     }
     
-    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_transpose3d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_transpose3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), dilation, out);
+        return at::_ops::slow_conv_transpose3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_transpose3d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef dilation, at::Tensor & out) {
-        return at::_ops::slow_conv_transpose3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), dilation, out);
+        return at::_ops::slow_conv_transpose3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_transpose3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_transpose3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_transpose3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output_padding, dilation, out);
     }
     
-    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_transpose3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, at::IntArrayRef dilation, at::Tensor & out) {
+    // aten::slow_conv_transpose3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_transpose3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef dilation, at::Tensor & out) {
         return at::_ops::slow_conv_transpose3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output_padding, dilation, out);
     }
     
-    // aten::slow_conv_transpose3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int[3] dilation=1) -> Tensor
+    // aten::slow_conv_transpose3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt[3] dilation=1) -> Tensor
     inline at::Tensor slow_conv_transpose3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef output_padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_transpose3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), dilation);
+        return at::_ops::slow_conv_transpose3d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::slow_conv_transpose3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, int[3] dilation=1) -> Tensor
-    inline at::Tensor slow_conv_transpose3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_transpose3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] output_padding=0, SymInt[3] dilation=1) -> Tensor
+    inline at::Tensor slow_conv_transpose3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef output_padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_transpose3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
     }
     
-    // aten::thnn_conv2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, int[2] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::thnn_conv2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & thnn_conv2d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0) {
-        return at::_ops::thnn_conv2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, out);
+        return at::_ops::thnn_conv2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), out);
     }
     
-    // aten::thnn_conv2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, int[2] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::thnn_conv2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & thnn_conv2d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::Tensor & out) {
+        return at::_ops::thnn_conv2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), out);
+    }
+    
+    // aten::thnn_conv2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & thnn_conv2d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0)) {
         return at::_ops::thnn_conv2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, out);
     }
     
-    // aten::thnn_conv2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, int[2] padding=0) -> Tensor
+    // aten::thnn_conv2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & thnn_conv2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & out) {
+        return at::_ops::thnn_conv2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, out);
+    }
+    
+    // aten::thnn_conv2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0) -> Tensor
     inline at::Tensor thnn_conv2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0) {
+        return at::_ops::thnn_conv2d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding));
+    }
+    
+    // aten::thnn_conv2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0) -> Tensor
+    inline at::Tensor thnn_conv2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0)) {
         return at::_ops::thnn_conv2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding);
     }
     
-    // aten::_slow_conv2d_forward.output(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, int[2] padding, *, Tensor(a!) output) -> Tensor(a!)
+    // aten::_slow_conv2d_forward.output(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) output) -> Tensor(a!)
     inline at::Tensor & _slow_conv2d_forward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding) {
-        return at::_ops::_slow_conv2d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output);
+        return at::_ops::_slow_conv2d_forward_output::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output);
     }
     
-    // aten::_slow_conv2d_forward.output(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, int[2] padding, *, Tensor(a!) output) -> Tensor(a!)
+    // aten::_slow_conv2d_forward.output(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) output) -> Tensor(a!)
     inline at::Tensor & _slow_conv2d_forward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::Tensor & output) {
+        return at::_ops::_slow_conv2d_forward_output::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output);
+    }
+    
+    // aten::_slow_conv2d_forward.output(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) output) -> Tensor(a!)
+    inline at::Tensor & _slow_conv2d_forward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding) {
         return at::_ops::_slow_conv2d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output);
     }
     
-    // aten::_slow_conv2d_forward(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, int[2] padding) -> Tensor
+    // aten::_slow_conv2d_forward.output(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) output) -> Tensor(a!)
+    inline at::Tensor & _slow_conv2d_forward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & output) {
+        return at::_ops::_slow_conv2d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output);
+    }
+    
+    // aten::_slow_conv2d_forward(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding) -> Tensor
     inline at::Tensor _slow_conv2d_forward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding) {
+        return at::_ops::_slow_conv2d_forward::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding));
+    }
+    
+    // aten::_slow_conv2d_forward(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding) -> Tensor
+    inline at::Tensor _slow_conv2d_forward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding) {
         return at::_ops::_slow_conv2d_forward::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding);
     }
     
-    // aten::_slow_conv2d_backward.grad_input(Tensor grad_output, Tensor self, Tensor weight, int[2] kernel_size, int[2] stride, int[2] padding, *, Tensor(a!) grad_input, Tensor(b!) grad_weight, Tensor(c!) grad_bias) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::_slow_conv2d_backward.grad_input(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) grad_input, Tensor(b!) grad_weight, Tensor(c!) grad_bias) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & grad_input, at::Tensor & grad_weight, at::Tensor & grad_bias, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding) {
-        return at::_ops::_slow_conv2d_backward_grad_input::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, grad_input, grad_weight, grad_bias);
+        return at::_ops::_slow_conv2d_backward_grad_input::redispatch(dispatchKeySet, grad_output, self, weight, c10::fromIntArrayRefSlow(kernel_size), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), grad_input, grad_weight, grad_bias);
     }
     
-    // aten::_slow_conv2d_backward.grad_input(Tensor grad_output, Tensor self, Tensor weight, int[2] kernel_size, int[2] stride, int[2] padding, *, Tensor(a!) grad_input, Tensor(b!) grad_weight, Tensor(c!) grad_bias) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::_slow_conv2d_backward.grad_input(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) grad_input, Tensor(b!) grad_weight, Tensor(c!) grad_bias) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, at::Tensor & grad_input, at::Tensor & grad_weight, at::Tensor & grad_bias) {
+        return at::_ops::_slow_conv2d_backward_grad_input::redispatch(dispatchKeySet, grad_output, self, weight, c10::fromIntArrayRefSlow(kernel_size), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), grad_input, grad_weight, grad_bias);
+    }
+    
+    // aten::_slow_conv2d_backward.grad_input(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) grad_input, Tensor(b!) grad_weight, Tensor(c!) grad_bias) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & grad_input, at::Tensor & grad_weight, at::Tensor & grad_bias, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding) {
         return at::_ops::_slow_conv2d_backward_grad_input::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, grad_input, grad_weight, grad_bias);
     }
     
-    // aten::_slow_conv2d_backward.output_mask(Tensor grad_output, Tensor self, Tensor weight, int[2] kernel_size, int[2] stride, int[2] padding, bool[3] output_mask) -> (Tensor grad_input, Tensor grad_weight, Tensor grad_bias)
+    // aten::_slow_conv2d_backward.grad_input(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, *, Tensor(a!) grad_input, Tensor(b!) grad_weight, Tensor(c!) grad_bias) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & grad_input, at::Tensor & grad_weight, at::Tensor & grad_bias) {
+        return at::_ops::_slow_conv2d_backward_grad_input::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, grad_input, grad_weight, grad_bias);
+    }
+    
+    // aten::_slow_conv2d_backward.output_mask(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, bool[3] output_mask) -> (Tensor grad_input, Tensor grad_weight, Tensor grad_bias)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _slow_conv2d_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, ::std::array<bool,3> output_mask) {
+        return at::_ops::_slow_conv2d_backward_output_mask::redispatch(dispatchKeySet, grad_output, self, weight, c10::fromIntArrayRefSlow(kernel_size), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output_mask);
+    }
+    
+    // aten::_slow_conv2d_backward.output_mask(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, bool[3] output_mask) -> (Tensor grad_input, Tensor grad_weight, Tensor grad_bias)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _slow_conv2d_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, ::std::array<bool,3> output_mask) {
         return at::_ops::_slow_conv2d_backward_output_mask::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, output_mask);
     }
     
-    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, SymInt[2] padding, int[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, SymInt[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
     inline const at::Tensor & _conv_depthwise2d_out(c10::DispatchKeySet dispatchKeySet, const at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
-        return at::_ops::_conv_depthwise2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::_conv_depthwise2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, SymInt[2] padding, int[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, SymInt[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
     inline const at::Tensor & _conv_depthwise2d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, const at::Tensor & out) {
-        return at::_ops::_conv_depthwise2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::_conv_depthwise2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, SymInt[2] padding, int[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
-    inline const at::Tensor & _conv_depthwise2d_symint_out(c10::DispatchKeySet dispatchKeySet, const at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
+    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, SymInt[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    inline const at::Tensor & _conv_depthwise2d_symint_out(c10::DispatchKeySet dispatchKeySet, const at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation) {
         return at::_ops::_conv_depthwise2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, SymInt[2] padding, int[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
-    inline const at::Tensor & _conv_depthwise2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, const at::Tensor & out) {
+    // aten::_conv_depthwise2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, SymInt[2] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    inline const at::Tensor & _conv_depthwise2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, const at::Tensor & out) {
         return at::_ops::_conv_depthwise2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::_conv_depthwise2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, SymInt[2] padding, int[2] dilation) -> Tensor
+    // aten::_conv_depthwise2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, SymInt[2] dilation) -> Tensor
     inline at::Tensor _conv_depthwise2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
-        return at::_ops::_conv_depthwise2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation);
+        return at::_ops::_conv_depthwise2d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::_conv_depthwise2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias, int[2] stride, SymInt[2] padding, int[2] dilation) -> Tensor
-    inline at::Tensor _conv_depthwise2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
+    // aten::_conv_depthwise2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias, SymInt[2] stride, SymInt[2] padding, SymInt[2] dilation) -> Tensor
+    inline at::Tensor _conv_depthwise2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation) {
         return at::_ops::_conv_depthwise2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation);
     }
     
-    // aten::conv_depthwise3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation) -> Tensor
+    // aten::conv_depthwise3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, SymInt[3] dilation) -> Tensor
     inline at::Tensor conv_depthwise3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
-        return at::_ops::conv_depthwise3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation);
+        return at::_ops::conv_depthwise3d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::conv_depthwise3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation) -> Tensor
-    inline at::Tensor conv_depthwise3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
+    // aten::conv_depthwise3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, SymInt[3] dilation) -> Tensor
+    inline at::Tensor conv_depthwise3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation) {
         return at::_ops::conv_depthwise3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation);
     }
     
-    // aten::slow_conv3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv3d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0) {
-        return at::_ops::slow_conv3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), out);
+        return at::_ops::slow_conv3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), out);
     }
     
-    // aten::slow_conv3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv3d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::Tensor & out) {
-        return at::_ops::slow_conv3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), out);
+        return at::_ops::slow_conv3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), out);
     }
     
-    // aten::slow_conv3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0)) {
+    // aten::slow_conv3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0)) {
         return at::_ops::slow_conv3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, out);
     }
     
-    // aten::slow_conv3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & out) {
+    // aten::slow_conv3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & out) {
         return at::_ops::slow_conv3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, out);
     }
     
-    // aten::slow_conv3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0) -> Tensor
+    // aten::slow_conv3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0) -> Tensor
     inline at::Tensor slow_conv3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0) {
-        return at::_ops::slow_conv3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding));
+        return at::_ops::slow_conv3d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding));
     }
     
-    // aten::slow_conv3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0) -> Tensor
-    inline at::Tensor slow_conv3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0)) {
+    // aten::slow_conv3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0) -> Tensor
+    inline at::Tensor slow_conv3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0)) {
         return at::_ops::slow_conv3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding);
     }
     
-    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
+    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
     inline at::Tensor & slow_conv3d_forward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding) {
-        return at::_ops::slow_conv3d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), output);
+        return at::_ops::slow_conv3d_forward_output::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output);
     }
     
-    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
+    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
     inline at::Tensor & slow_conv3d_forward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::Tensor & output) {
-        return at::_ops::slow_conv3d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), output);
+        return at::_ops::slow_conv3d_forward_output::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output);
     }
     
-    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
-    inline at::Tensor & slow_conv3d_forward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding) {
+    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
+    inline at::Tensor & slow_conv3d_forward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding) {
         return at::_ops::slow_conv3d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output);
     }
     
-    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
-    inline at::Tensor & slow_conv3d_forward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & output) {
+    // aten::slow_conv3d_forward.output(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, *, Tensor(a!) output) -> Tensor(a!)
+    inline at::Tensor & slow_conv3d_forward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, at::Tensor & output) {
         return at::_ops::slow_conv3d_forward_output::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, output);
     }
     
-    // aten::slow_conv3d_forward(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding) -> Tensor
+    // aten::slow_conv3d_forward(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding) -> Tensor
     inline at::Tensor slow_conv3d_forward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding) {
-        return at::_ops::slow_conv3d_forward::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding));
+        return at::_ops::slow_conv3d_forward::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding));
     }
     
-    // aten::slow_conv3d_forward(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding) -> Tensor
-    inline at::Tensor slow_conv3d_forward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding) {
+    // aten::slow_conv3d_forward(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding) -> Tensor
+    inline at::Tensor slow_conv3d_forward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding) {
         return at::_ops::slow_conv3d_forward::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding);
     }
     
-    // aten::slow_conv_dilated2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1) -> Tensor
+    // aten::slow_conv_dilated2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1) -> Tensor
     inline at::Tensor slow_conv_dilated2d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_dilated2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation);
+        return at::_ops::slow_conv_dilated2d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::slow_conv_dilated2d(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1) -> Tensor
-    inline at::Tensor slow_conv_dilated2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_dilated2d(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1) -> Tensor
+    inline at::Tensor slow_conv_dilated2d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_dilated2d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation);
     }
     
-    // aten::slow_conv_dilated3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1) -> Tensor
+    // aten::slow_conv_dilated3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1) -> Tensor
     inline at::Tensor slow_conv_dilated3d(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_dilated3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation);
+        return at::_ops::slow_conv_dilated3d::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation));
     }
     
-    // aten::slow_conv_dilated3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1) -> Tensor
-    inline at::Tensor slow_conv_dilated3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_dilated3d(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1) -> Tensor
+    inline at::Tensor slow_conv_dilated3d_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_dilated3d::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation);
     }
     
@@ -17812,13 +18167,18 @@ namespace redispatch {
         return at::_ops::_scaled_dot_product_attention_math::redispatch(dispatchKeySet, query, key, value, attn_mask, dropout_p, is_causal, dropout_mask, scale);
     }
     
-    // aten::_scaled_dot_product_flash_attention(Tensor query, Tensor key, Tensor value, float dropout_p=0.0, bool is_causal=False, bool return_debug_mask=False, *, float? scale=None) -> (Tensor ouput, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, int max_q, int max_k, Tensor philox_seed, Tensor philox_offset, Tensor debug_attn_mask)
-    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor,int64_t,int64_t,at::Tensor,at::Tensor,at::Tensor> _scaled_dot_product_flash_attention(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, double dropout_p=0.0, bool is_causal=false, bool return_debug_mask=false, c10::optional<double> scale=c10::nullopt) {
+    // aten::_scaled_dot_product_flash_attention(Tensor query, Tensor key, Tensor value, float dropout_p=0.0, bool is_causal=False, bool return_debug_mask=False, *, float? scale=None) -> (Tensor output, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, Tensor philox_seed, Tensor philox_offset, Tensor debug_attn_mask)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor,c10::SymInt,c10::SymInt,at::Tensor,at::Tensor,at::Tensor> _scaled_dot_product_flash_attention(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, double dropout_p=0.0, bool is_causal=false, bool return_debug_mask=false, c10::optional<double> scale=c10::nullopt) {
         return at::_ops::_scaled_dot_product_flash_attention::redispatch(dispatchKeySet, query, key, value, dropout_p, is_causal, return_debug_mask, scale);
     }
     
-    // aten::_scaled_dot_product_flash_attention_backward(Tensor grad_out, Tensor query, Tensor key, Tensor value, Tensor out, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, int max_q, int max_k, float dropout_p, bool is_causal, Tensor philox_seed, Tensor philox_offset, *, float? scale=None) -> (Tensor grad_query, Tensor grad_key, Tensor grad_value)
+    // aten::_scaled_dot_product_flash_attention_backward(Tensor grad_out, Tensor query, Tensor key, Tensor value, Tensor out, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, float dropout_p, bool is_causal, Tensor philox_seed, Tensor philox_offset, *, float? scale=None) -> (Tensor grad_query, Tensor grad_key, Tensor grad_value)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _scaled_dot_product_flash_attention_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & out, const at::Tensor & logsumexp, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, int64_t max_q, int64_t max_k, double dropout_p, bool is_causal, const at::Tensor & philox_seed, const at::Tensor & philox_offset, c10::optional<double> scale=c10::nullopt) {
+        return at::_ops::_scaled_dot_product_flash_attention_backward::redispatch(dispatchKeySet, grad_out, query, key, value, out, logsumexp, cum_seq_q, cum_seq_k, max_q, max_k, dropout_p, is_causal, philox_seed, philox_offset, scale);
+    }
+    
+    // aten::_scaled_dot_product_flash_attention_backward(Tensor grad_out, Tensor query, Tensor key, Tensor value, Tensor out, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, float dropout_p, bool is_causal, Tensor philox_seed, Tensor philox_offset, *, float? scale=None) -> (Tensor grad_query, Tensor grad_key, Tensor grad_value)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _scaled_dot_product_flash_attention_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & out, const at::Tensor & logsumexp, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, c10::SymInt max_q, c10::SymInt max_k, double dropout_p, bool is_causal, const at::Tensor & philox_seed, const at::Tensor & philox_offset, c10::optional<double> scale=c10::nullopt) {
         return at::_ops::_scaled_dot_product_flash_attention_backward::redispatch(dispatchKeySet, grad_out, query, key, value, out, logsumexp, cum_seq_q, cum_seq_k, max_q, max_k, dropout_p, is_causal, philox_seed, philox_offset, scale);
     }
     
@@ -17832,24 +18192,39 @@ namespace redispatch {
         return at::_ops::_scaled_dot_product_efficient_attention_backward::redispatch(dispatchKeySet, grad_out_, query, key, value, attn_bias, out, logsumexp, philox_seed, philox_offset, dropout_p, grad_input_mask, is_causal, scale);
     }
     
-    // aten::_flash_attention_forward(Tensor query, Tensor key, Tensor value, Tensor cum_seq_q, Tensor cum_seq_k, int max_q, int max_k, float dropout_p, bool is_causal, bool return_debug_mask, *, float? scale=None) -> (Tensor output, Tensor softmax_logsumexp, Tensor philox_seed, Tensor philox_offset, Tensor debug_attn_mask)
-    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor,at::Tensor> _flash_attention_forward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, int64_t max_q, int64_t max_k, double dropout_p, bool is_causal, bool return_debug_mask, c10::optional<double> scale=c10::nullopt) {
+    // aten::_flash_attention_forward(Tensor query, Tensor key, Tensor value, Tensor? cum_seq_q, Tensor? cum_seq_k, SymInt max_q, SymInt max_k, float dropout_p, bool is_causal, bool return_debug_mask, *, float? scale=None) -> (Tensor output, Tensor softmax_logsumexp, Tensor philox_seed, Tensor philox_offset, Tensor debug_attn_mask)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor,at::Tensor> _flash_attention_forward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & cum_seq_q, const c10::optional<at::Tensor> & cum_seq_k, int64_t max_q, int64_t max_k, double dropout_p, bool is_causal, bool return_debug_mask, c10::optional<double> scale=c10::nullopt) {
         return at::_ops::_flash_attention_forward::redispatch(dispatchKeySet, query, key, value, cum_seq_q, cum_seq_k, max_q, max_k, dropout_p, is_causal, return_debug_mask, scale);
     }
     
-    // aten::_flash_attention_backward(Tensor grad_out, Tensor query, Tensor key, Tensor value, Tensor out, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, int max_q, int max_k, float dropout_p, bool is_causal, Tensor philox_seed, Tensor philox_offset, *, float? scale=None) -> (Tensor, Tensor, Tensor)
+    // aten::_flash_attention_forward(Tensor query, Tensor key, Tensor value, Tensor? cum_seq_q, Tensor? cum_seq_k, SymInt max_q, SymInt max_k, float dropout_p, bool is_causal, bool return_debug_mask, *, float? scale=None) -> (Tensor output, Tensor softmax_logsumexp, Tensor philox_seed, Tensor philox_offset, Tensor debug_attn_mask)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor,at::Tensor> _flash_attention_forward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & cum_seq_q, const c10::optional<at::Tensor> & cum_seq_k, c10::SymInt max_q, c10::SymInt max_k, double dropout_p, bool is_causal, bool return_debug_mask, c10::optional<double> scale=c10::nullopt) {
+        return at::_ops::_flash_attention_forward::redispatch(dispatchKeySet, query, key, value, cum_seq_q, cum_seq_k, max_q, max_k, dropout_p, is_causal, return_debug_mask, scale);
+    }
+    
+    // aten::_flash_attention_backward(Tensor grad_out, Tensor query, Tensor key, Tensor value, Tensor out, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, float dropout_p, bool is_causal, Tensor philox_seed, Tensor philox_offset, *, float? scale=None) -> (Tensor, Tensor, Tensor)
     inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _flash_attention_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & out, const at::Tensor & logsumexp, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, int64_t max_q, int64_t max_k, double dropout_p, bool is_causal, const at::Tensor & philox_seed, const at::Tensor & philox_offset, c10::optional<double> scale=c10::nullopt) {
         return at::_ops::_flash_attention_backward::redispatch(dispatchKeySet, grad_out, query, key, value, out, logsumexp, cum_seq_q, cum_seq_k, max_q, max_k, dropout_p, is_causal, philox_seed, philox_offset, scale);
     }
     
-    // aten::_efficient_attention_forward(Tensor query, Tensor key, Tensor value, Tensor? bias, Tensor? cu_seqlens_q, Tensor? cu_seqlens_k, int? max_seqlen_q, float dropout_p, int custom_mask_type, bool compute_log_sumexp=False, *, float? scale=None, Tensor? causal_diagonal=None, Tensor? seqlen_k=None) -> (Tensor output, Tensor logsumexp, Tensor philox_seed, Tensor philox_offset)
-    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> _efficient_attention_forward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & bias, const c10::optional<at::Tensor> & cu_seqlens_q, const c10::optional<at::Tensor> & cu_seqlens_k, c10::optional<int64_t> max_seqlen_q, double dropout_p, int64_t custom_mask_type, bool compute_log_sumexp=false, c10::optional<double> scale=c10::nullopt, const c10::optional<at::Tensor> & causal_diagonal={}, const c10::optional<at::Tensor> & seqlen_k={}) {
+    // aten::_flash_attention_backward(Tensor grad_out, Tensor query, Tensor key, Tensor value, Tensor out, Tensor logsumexp, Tensor cum_seq_q, Tensor cum_seq_k, SymInt max_q, SymInt max_k, float dropout_p, bool is_causal, Tensor philox_seed, Tensor philox_offset, *, float? scale=None) -> (Tensor, Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _flash_attention_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & out, const at::Tensor & logsumexp, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, c10::SymInt max_q, c10::SymInt max_k, double dropout_p, bool is_causal, const at::Tensor & philox_seed, const at::Tensor & philox_offset, c10::optional<double> scale=c10::nullopt) {
+        return at::_ops::_flash_attention_backward::redispatch(dispatchKeySet, grad_out, query, key, value, out, logsumexp, cum_seq_q, cum_seq_k, max_q, max_k, dropout_p, is_causal, philox_seed, philox_offset, scale);
+    }
+    
+    // aten::_efficient_attention_forward(Tensor query, Tensor key, Tensor value, Tensor? bias, Tensor? cu_seqlens_q, Tensor? cu_seqlens_k, int? max_seqlen_q, float dropout_p, int custom_mask_type, bool compute_log_sumexp=False, *, float? scale=None, Tensor? causal_diagonal=None, Tensor? seqlen_k=None) -> (Tensor output, Tensor logsumexp, Tensor philox_seed, Tensor philox_offset, SymInt max_seqlen_batch_q, SymInt max_seqlen_batch_k)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor,c10::SymInt,c10::SymInt> _efficient_attention_forward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & bias, const c10::optional<at::Tensor> & cu_seqlens_q, const c10::optional<at::Tensor> & cu_seqlens_k, c10::optional<int64_t> max_seqlen_q, double dropout_p, int64_t custom_mask_type, bool compute_log_sumexp=false, c10::optional<double> scale=c10::nullopt, const c10::optional<at::Tensor> & causal_diagonal={}, const c10::optional<at::Tensor> & seqlen_k={}) {
         return at::_ops::_efficient_attention_forward::redispatch(dispatchKeySet, query, key, value, bias, cu_seqlens_q, cu_seqlens_k, max_seqlen_q, dropout_p, custom_mask_type, compute_log_sumexp, scale, causal_diagonal, seqlen_k);
     }
     
-    // aten::_efficient_attention_backward(Tensor grad_out_, Tensor query, Tensor key, Tensor value, Tensor? bias, Tensor out, Tensor? cu_seqlens_q, Tensor? cu_seqlens_k, int max_seqlen_k, int max_seqlen_q, Tensor logsumexp, float dropout_p, Tensor philox_seed, Tensor philox_offset, int custom_mask_type, bool bias_requires_grad, *, float? scale=None, int? num_splits_key=None) -> (Tensor, Tensor, Tensor, Tensor)
-    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> _efficient_attention_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out_, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & bias, const at::Tensor & out, const c10::optional<at::Tensor> & cu_seqlens_q, const c10::optional<at::Tensor> & cu_seqlens_k, int64_t max_seqlen_k, int64_t max_seqlen_q, const at::Tensor & logsumexp, double dropout_p, const at::Tensor & philox_seed, const at::Tensor & philox_offset, int64_t custom_mask_type, bool bias_requires_grad, c10::optional<double> scale=c10::nullopt, c10::optional<int64_t> num_splits_key=c10::nullopt) {
-        return at::_ops::_efficient_attention_backward::redispatch(dispatchKeySet, grad_out_, query, key, value, bias, out, cu_seqlens_q, cu_seqlens_k, max_seqlen_k, max_seqlen_q, logsumexp, dropout_p, philox_seed, philox_offset, custom_mask_type, bias_requires_grad, scale, num_splits_key);
+    // aten::_efficient_attention_backward(Tensor grad_out_, Tensor query, Tensor key, Tensor value, Tensor? bias, Tensor out, Tensor? cu_seqlens_q, Tensor? cu_seqlens_k, SymInt max_seqlen_q, SymInt max_seqlen_k, Tensor logsumexp, float dropout_p, Tensor philox_seed, Tensor philox_offset, int custom_mask_type, bool bias_requires_grad, *, float? scale=None, int? num_splits_key=None) -> (Tensor, Tensor, Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> _efficient_attention_backward(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out_, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & bias, const at::Tensor & out, const c10::optional<at::Tensor> & cu_seqlens_q, const c10::optional<at::Tensor> & cu_seqlens_k, int64_t max_seqlen_q, int64_t max_seqlen_k, const at::Tensor & logsumexp, double dropout_p, const at::Tensor & philox_seed, const at::Tensor & philox_offset, int64_t custom_mask_type, bool bias_requires_grad, c10::optional<double> scale=c10::nullopt, c10::optional<int64_t> num_splits_key=c10::nullopt) {
+        return at::_ops::_efficient_attention_backward::redispatch(dispatchKeySet, grad_out_, query, key, value, bias, out, cu_seqlens_q, cu_seqlens_k, max_seqlen_q, max_seqlen_k, logsumexp, dropout_p, philox_seed, philox_offset, custom_mask_type, bias_requires_grad, scale, num_splits_key);
+    }
+    
+    // aten::_efficient_attention_backward(Tensor grad_out_, Tensor query, Tensor key, Tensor value, Tensor? bias, Tensor out, Tensor? cu_seqlens_q, Tensor? cu_seqlens_k, SymInt max_seqlen_q, SymInt max_seqlen_k, Tensor logsumexp, float dropout_p, Tensor philox_seed, Tensor philox_offset, int custom_mask_type, bool bias_requires_grad, *, float? scale=None, int? num_splits_key=None) -> (Tensor, Tensor, Tensor, Tensor)
+    inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> _efficient_attention_backward_symint(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_out_, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const c10::optional<at::Tensor> & bias, const at::Tensor & out, const c10::optional<at::Tensor> & cu_seqlens_q, const c10::optional<at::Tensor> & cu_seqlens_k, c10::SymInt max_seqlen_q, c10::SymInt max_seqlen_k, const at::Tensor & logsumexp, double dropout_p, const at::Tensor & philox_seed, const at::Tensor & philox_offset, int64_t custom_mask_type, bool bias_requires_grad, c10::optional<double> scale=c10::nullopt, c10::optional<int64_t> num_splits_key=c10::nullopt) {
+        return at::_ops::_efficient_attention_backward::redispatch(dispatchKeySet, grad_out_, query, key, value, bias, out, cu_seqlens_q, cu_seqlens_k, max_seqlen_q, max_seqlen_k, logsumexp, dropout_p, philox_seed, philox_offset, custom_mask_type, bias_requires_grad, scale, num_splits_key);
     }
     
     // aten::_triton_scaled_dot_attention(Tensor q, Tensor k, Tensor v, float dropout_p=0.0) -> Tensor
@@ -18932,83 +19307,103 @@ namespace redispatch {
         return at::_ops::constant_pad_nd_out::redispatch(dispatchKeySet, self, pad, value, out);
     }
     
-    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups) {
-        return at::_ops::convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, out);
+        return at::_ops::convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, out);
     }
     
-    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, at::Tensor & out) {
-        return at::_ops::convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, out);
+        return at::_ops::convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, out);
     }
     
-    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups) {
+    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups) {
         return at::_ops::convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, out);
     }
     
-    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, at::Tensor & out) {
+    // aten::convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, at::Tensor & out) {
         return at::_ops::convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, out);
     }
     
-    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-        return at::_ops::convolution_backward_out::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+        return at::_ops::convolution_backward_out::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
     }
     
-    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalIntArrayRef bias_sizes, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
-        return at::_ops::convolution_backward_out::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+        return at::_ops::convolution_backward_out::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*bias_sizes)) : c10::nullopt, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
     }
     
-    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
-    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
+    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::convolution_backward_out::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
     }
     
-    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
-    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+    // aten::convolution_backward.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[]? bias_sizes, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::OptionalSymIntArrayRef bias_sizes, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
         return at::_ops::convolution_backward_out::redispatch(dispatchKeySet, grad_output, input, weight, bias_sizes, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
     }
     
-    // aten::convolution_overrideable.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::convolution_overrideable.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & convolution_overrideable_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups) {
-        return at::_ops::convolution_overrideable_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, out);
+        return at::_ops::convolution_overrideable_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, out);
     }
     
-    // aten::convolution_overrideable.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::convolution_overrideable.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & convolution_overrideable_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, at::Tensor & out) {
+        return at::_ops::convolution_overrideable_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, out);
+    }
+    
+    // aten::convolution_overrideable.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & convolution_overrideable_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups) {
         return at::_ops::convolution_overrideable_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, out);
     }
     
-    // aten::convolution_backward_overrideable.out(Tensor grad_output, Tensor input, Tensor weight, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::convolution_overrideable.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & convolution_overrideable_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, at::Tensor & out) {
+        return at::_ops::convolution_overrideable_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, out);
+    }
+    
+    // aten::convolution_backward_overrideable.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_overrideable_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask) {
-        return at::_ops::convolution_backward_overrideable_out::redispatch(dispatchKeySet, grad_output, input, weight, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
+        return at::_ops::convolution_backward_overrideable_out::redispatch(dispatchKeySet, grad_output, input, weight, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
     }
     
-    // aten::convolution_backward_overrideable.out(Tensor grad_output, Tensor input, Tensor weight, int[] stride, int[] padding, int[] dilation, bool transposed, int[] output_padding, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::convolution_backward_overrideable.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_overrideable_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+        return at::_ops::convolution_backward_overrideable_out::redispatch(dispatchKeySet, grad_output, input, weight, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, output_mask, out0, out1, out2);
+    }
+    
+    // aten::convolution_backward_overrideable.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_overrideable_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::convolution_backward_overrideable_out::redispatch(dispatchKeySet, grad_output, input, weight, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
     }
     
-    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::convolution_backward_overrideable.out(Tensor grad_output, Tensor input, Tensor weight, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> convolution_backward_overrideable_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+        return at::_ops::convolution_backward_overrideable_out::redispatch(dispatchKeySet, grad_output, input, weight, stride, padding, dilation, transposed, output_padding, groups, output_mask, out0, out1, out2);
+    }
+    
+    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) {
-        return at::_ops::_convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, benchmark, deterministic, cudnn_enabled, allow_tf32, out);
+        return at::_ops::_convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, benchmark, deterministic, cudnn_enabled, allow_tf32, out);
     }
     
-    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool transposed, at::IntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, at::Tensor & out) {
-        return at::_ops::_convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, transposed, c10::fromIntArrayRefSlow(output_padding), groups, benchmark, deterministic, cudnn_enabled, allow_tf32, out);
+        return at::_ops::_convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), transposed, c10::fromIntArrayRefSlow(output_padding), groups, benchmark, deterministic, cudnn_enabled, allow_tf32, out);
     }
     
-    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) {
+    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32) {
         return at::_ops::_convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, benchmark, deterministic, cudnn_enabled, allow_tf32, out);
     }
     
-    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, int[] stride, SymInt[] padding, int[] dilation, bool transposed, SymInt[] output_padding, int groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, at::Tensor & out) {
+    // aten::_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, bool transposed, SymInt[] output_padding, SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, bool transposed, c10::SymIntArrayRef output_padding, c10::SymInt groups, bool benchmark, bool deterministic, bool cudnn_enabled, bool allow_tf32, at::Tensor & out) {
         return at::_ops::_convolution_out::redispatch(dispatchKeySet, input, weight, bias, stride, padding, dilation, transposed, output_padding, groups, benchmark, deterministic, cudnn_enabled, allow_tf32, out);
     }
     
@@ -19112,63 +19507,123 @@ namespace redispatch {
         return at::_ops::cudnn_batch_norm_backward_out::redispatch(dispatchKeySet, input, grad_output, weight, running_mean, running_var, save_mean, save_var, epsilon, reserveSpace, out0, out1, out2);
     }
     
-    // aten::cudnn_convolution.out(Tensor self, Tensor weight, int[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32) {
-        return at::_ops::cudnn_convolution_out::redispatch(dispatchKeySet, self, weight, padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
+        return at::_ops::cudnn_convolution_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, allow_tf32, out);
     }
     
-    // aten::cudnn_convolution.out(Tensor self, Tensor weight, int[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, allow_tf32, out);
+    }
+    
+    // aten::cudnn_convolution.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) {
         return at::_ops::cudnn_convolution_out::redispatch(dispatchKeySet, self, weight, padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
     }
     
-    // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_out::redispatch(dispatchKeySet, self, weight, padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
+    }
+    
+    // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_transpose_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32) {
-        return at::_ops::cudnn_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
+        return at::_ops::cudnn_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, allow_tf32, out);
     }
     
-    // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_transpose_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, allow_tf32, out);
+    }
+    
+    // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_transpose_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, bool allow_tf32) {
         return at::_ops::cudnn_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
     }
     
-    // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_transpose_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, bool allow_tf32, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
+    }
+    
+    // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _mps_convolution_transpose_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
-        return at::_ops::_mps_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, out);
+        return at::_ops::_mps_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
     }
     
-    // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _mps_convolution_transpose_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+        return at::_ops::_mps_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _mps_convolution_transpose_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::_mps_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, out);
     }
     
-    // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
+    // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _mps_convolution_transpose_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
+        return at::_ops::_mps_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, padding, output_padding, stride, dilation, groups, out);
+    }
+    
+    // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
     inline ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,2> output_mask) {
-        return at::_ops::mps_convolution_transpose_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, padding, output_padding, stride, dilation, groups, output_mask, out0, out1);
+        return at::_ops::mps_convolution_transpose_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, output_mask, out0, out1);
     }
     
-    // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
+    // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
     inline ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,2> output_mask, at::Tensor & out0, at::Tensor & out1) {
+        return at::_ops::mps_convolution_transpose_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, output_mask, out0, out1);
+    }
+    
+    // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,2> output_mask) {
         return at::_ops::mps_convolution_transpose_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, padding, output_padding, stride, dilation, groups, output_mask, out0, out1);
     }
     
-    // aten::cudnn_convolution_relu.out(Tensor self, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,2> output_mask, at::Tensor & out0, at::Tensor & out1) {
+        return at::_ops::mps_convolution_transpose_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, padding, output_padding, stride, dilation, groups, output_mask, out0, out1);
+    }
+    
+    // aten::cudnn_convolution_relu.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_relu_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
-        return at::_ops::cudnn_convolution_relu_out::redispatch(dispatchKeySet, self, weight, bias, stride, padding, dilation, groups, out);
+        return at::_ops::cudnn_convolution_relu_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups, out);
     }
     
-    // aten::cudnn_convolution_relu.out(Tensor self, Tensor weight, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution_relu.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_relu_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_relu_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::cudnn_convolution_relu.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_relu_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::cudnn_convolution_relu_out::redispatch(dispatchKeySet, self, weight, bias, stride, padding, dilation, groups, out);
     }
     
-    // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::cudnn_convolution_relu.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_relu_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_relu_out::redispatch(dispatchKeySet, self, weight, bias, stride, padding, dilation, groups, out);
+    }
+    
+    // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & cudnn_convolution_add_relu_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
+        return at::_ops::cudnn_convolution_add_relu_out::redispatch(dispatchKeySet, self, weight, z, alpha, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_add_relu_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+        return at::_ops::cudnn_convolution_add_relu_out::redispatch(dispatchKeySet, self, weight, z, alpha, bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_add_relu_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::cudnn_convolution_add_relu_out::redispatch(dispatchKeySet, self, weight, z, alpha, bias, stride, padding, dilation, groups, out);
     }
     
-    // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & cudnn_convolution_add_relu_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+    // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, SymInt[] stride, SymInt[] padding, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & cudnn_convolution_add_relu_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
         return at::_ops::cudnn_convolution_add_relu_out::redispatch(dispatchKeySet, self, weight, z, alpha, bias, stride, padding, dilation, groups, out);
     }
     
@@ -19667,6 +20122,16 @@ namespace redispatch {
         return at::_ops::fill_Tensor_out::redispatch(dispatchKeySet, self, value, out);
     }
     
+    // aten::floor_divide.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & floor_divide_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
+        return at::_ops::floor_divide_Scalar_out::redispatch(dispatchKeySet, self, other, out);
+    }
+    
+    // aten::floor_divide.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & floor_divide_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
+        return at::_ops::floor_divide_Scalar_out::redispatch(dispatchKeySet, self, other, out);
+    }
+    
     // aten::full.names_out(int[] size, Scalar fill_value, *, Dimname[]? names, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & full_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, at::IntArrayRef size, const at::Scalar & fill_value, c10::optional<at::DimnameList> names) {
         return at::_ops::full_names_out::redispatch(dispatchKeySet, size, fill_value, names, out);
@@ -20132,43 +20597,63 @@ namespace redispatch {
         return at::_ops::nanmedian_out::redispatch(dispatchKeySet, self, out);
     }
     
-    // aten::_mps_convolution.out(Tensor self, Tensor weight, Tensor? bias, int[] padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_mps_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _mps_convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
-        return at::_ops::_mps_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, out);
+        return at::_ops::_mps_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
     }
     
-    // aten::_mps_convolution.out(Tensor self, Tensor weight, Tensor? bias, int[] padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_mps_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _mps_convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+        return at::_ops::_mps_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::_mps_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _mps_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::_mps_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, out);
     }
     
-    // aten::mps_convolution_backward.out(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] stride, int[] dilation, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::_mps_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _mps_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
+        return at::_ops::_mps_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, out);
+    }
+    
+    // aten::mps_convolution_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> mps_convolution_backward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,3> output_mask) {
-        return at::_ops::mps_convolution_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, padding, stride, dilation, groups, output_mask, out0, out1, out2);
+        return at::_ops::mps_convolution_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, output_mask, out0, out1, out2);
     }
     
-    // aten::mps_convolution_backward.out(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] stride, int[] dilation, int groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::mps_convolution_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> mps_convolution_backward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+        return at::_ops::mps_convolution_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, output_mask, out0, out1, out2);
+    }
+    
+    // aten::mps_convolution_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> mps_convolution_backward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,3> output_mask) {
         return at::_ops::mps_convolution_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, padding, stride, dilation, groups, output_mask, out0, out1, out2);
     }
     
-    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::mps_convolution_backward.out(Tensor self, Tensor grad_output, Tensor weight, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> mps_convolution_backward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+        return at::_ops::mps_convolution_backward_out::redispatch(dispatchKeySet, self, grad_output, weight, padding, stride, dilation, groups, output_mask, out0, out1, out2);
+    }
+    
+    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & mkldnn_convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
-        return at::_ops::mkldnn_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, out);
+        return at::_ops::mkldnn_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
     }
     
-    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & mkldnn_convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
-        return at::_ops::mkldnn_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, out);
+        return at::_ops::mkldnn_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
     }
     
-    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & mkldnn_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
         return at::_ops::mkldnn_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, out);
     }
     
-    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & mkldnn_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+    // aten::mkldnn_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
         return at::_ops::mkldnn_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, out);
     }
     
@@ -20212,63 +20697,63 @@ namespace redispatch {
         return at::_ops::miopen_batch_norm_backward_out::redispatch(dispatchKeySet, input, grad_output, weight, running_mean, running_var, save_mean, save_var, epsilon, out0, out1, out2);
     }
     
-    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & miopen_convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
-        return at::_ops::miopen_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, benchmark, deterministic, out);
+        return at::_ops::miopen_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & miopen_convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, at::Tensor & out) {
-        return at::_ops::miopen_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, benchmark, deterministic, out);
+        return at::_ops::miopen_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & miopen_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
+    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & miopen_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic) {
         return at::_ops::miopen_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & miopen_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, at::Tensor & out) {
+    // aten::miopen_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & miopen_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, at::Tensor & out) {
         return at::_ops::miopen_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & miopen_convolution_transpose_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
-        return at::_ops::miopen_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), stride, dilation, groups, benchmark, deterministic, out);
+        return at::_ops::miopen_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & miopen_convolution_transpose_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, at::Tensor & out) {
-        return at::_ops::miopen_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), stride, dilation, groups, benchmark, deterministic, out);
+        return at::_ops::miopen_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & miopen_convolution_transpose_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
+    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & miopen_convolution_transpose_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic) {
         return at::_ops::miopen_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, bias, padding, output_padding, stride, dilation, groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & miopen_convolution_transpose_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, at::Tensor & out) {
+    // aten::miopen_convolution_transpose.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & miopen_convolution_transpose_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, at::Tensor & out) {
         return at::_ops::miopen_convolution_transpose_out::redispatch(dispatchKeySet, self, weight, bias, padding, output_padding, stride, dilation, groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & miopen_depthwise_convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
-        return at::_ops::miopen_depthwise_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, benchmark, deterministic, out);
+        return at::_ops::miopen_depthwise_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & miopen_depthwise_convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, at::Tensor & out) {
-        return at::_ops::miopen_depthwise_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), stride, dilation, groups, benchmark, deterministic, out);
+        return at::_ops::miopen_depthwise_convolution_out::redispatch(dispatchKeySet, self, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & miopen_depthwise_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) {
+    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & miopen_depthwise_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic) {
         return at::_ops::miopen_depthwise_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, benchmark, deterministic, out);
     }
     
-    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & miopen_depthwise_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, at::Tensor & out) {
+    // aten::miopen_depthwise_convolution.out(Tensor self, Tensor weight, Tensor? bias, SymInt[] padding, SymInt[] stride, SymInt[] dilation, SymInt groups, bool benchmark, bool deterministic, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & miopen_depthwise_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, bool benchmark, bool deterministic, at::Tensor & out) {
         return at::_ops::miopen_depthwise_convolution_out::redispatch(dispatchKeySet, self, weight, bias, padding, stride, dilation, groups, benchmark, deterministic, out);
     }
     
@@ -20397,23 +20882,23 @@ namespace redispatch {
         return at::_ops::batch_norm_update_stats_out::redispatch(dispatchKeySet, input, running_mean, running_var, momentum, out0, out1);
     }
     
-    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, int[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, SymInt[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _nnpack_spatial_convolution_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride=1) {
-        return at::_ops::_nnpack_spatial_convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(padding), stride, out);
+        return at::_ops::_nnpack_spatial_convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), out);
     }
     
-    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, int[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, SymInt[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & _nnpack_spatial_convolution_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef padding, at::IntArrayRef stride, at::Tensor & out) {
-        return at::_ops::_nnpack_spatial_convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(padding), stride, out);
+        return at::_ops::_nnpack_spatial_convolution_out::redispatch(dispatchKeySet, input, weight, bias, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), out);
     }
     
-    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, int[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _nnpack_spatial_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride=1) {
+    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, SymInt[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _nnpack_spatial_convolution_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride=c10::SymInt(1)) {
         return at::_ops::_nnpack_spatial_convolution_out::redispatch(dispatchKeySet, input, weight, bias, padding, stride, out);
     }
     
-    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, int[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & _nnpack_spatial_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, at::IntArrayRef stride, at::Tensor & out) {
+    // aten::_nnpack_spatial_convolution.out(Tensor input, Tensor weight, Tensor? bias, SymInt[2] padding, SymInt[2] stride=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & _nnpack_spatial_convolution_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, at::Tensor & out) {
         return at::_ops::_nnpack_spatial_convolution_out::redispatch(dispatchKeySet, input, weight, bias, padding, stride, out);
     }
     
@@ -20507,13 +20992,23 @@ namespace redispatch {
         return at::_ops::pixel_unshuffle_out::redispatch(dispatchKeySet, self, downscale_factor, out);
     }
     
-    // aten::channel_shuffle.out(Tensor self, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::channel_shuffle.out(Tensor self, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & channel_shuffle_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, int64_t groups) {
         return at::_ops::channel_shuffle_out::redispatch(dispatchKeySet, self, groups, out);
     }
     
-    // aten::channel_shuffle.out(Tensor self, int groups, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::channel_shuffle.out(Tensor self, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & channel_shuffle_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t groups, at::Tensor & out) {
+        return at::_ops::channel_shuffle_out::redispatch(dispatchKeySet, self, groups, out);
+    }
+    
+    // aten::channel_shuffle.out(Tensor self, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & channel_shuffle_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, c10::SymInt groups) {
+        return at::_ops::channel_shuffle_out::redispatch(dispatchKeySet, self, groups, out);
+    }
+    
+    // aten::channel_shuffle.out(Tensor self, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & channel_shuffle_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymInt groups, at::Tensor & out) {
         return at::_ops::channel_shuffle_out::redispatch(dispatchKeySet, self, groups, out);
     }
     
@@ -20697,13 +21192,23 @@ namespace redispatch {
         return at::_ops::repeat_out::redispatch(dispatchKeySet, self, repeats, out);
     }
     
-    // aten::repeat_interleave.Tensor_out(Tensor repeats, *, int? output_size=None, Tensor(a!) out) -> Tensor(a!)
+    // aten::repeat_interleave.Tensor_out(Tensor repeats, *, SymInt? output_size=None, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & repeat_interleave_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & repeats, c10::optional<int64_t> output_size=c10::nullopt) {
+        return at::_ops::repeat_interleave_Tensor_out::redispatch(dispatchKeySet, repeats, output_size.has_value() ? c10::make_optional(c10::SymInt(*output_size)) : c10::nullopt, out);
+    }
+    
+    // aten::repeat_interleave.Tensor_out(Tensor repeats, *, SymInt? output_size=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & repeat_interleave_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & repeats, c10::optional<int64_t> output_size, at::Tensor & out) {
+        return at::_ops::repeat_interleave_Tensor_out::redispatch(dispatchKeySet, repeats, output_size.has_value() ? c10::make_optional(c10::SymInt(*output_size)) : c10::nullopt, out);
+    }
+    
+    // aten::repeat_interleave.Tensor_out(Tensor repeats, *, SymInt? output_size=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & repeat_interleave_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & repeats, c10::optional<c10::SymInt> output_size=c10::nullopt) {
         return at::_ops::repeat_interleave_Tensor_out::redispatch(dispatchKeySet, repeats, output_size, out);
     }
     
-    // aten::repeat_interleave.Tensor_out(Tensor repeats, *, int? output_size=None, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & repeat_interleave_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & repeats, c10::optional<int64_t> output_size, at::Tensor & out) {
+    // aten::repeat_interleave.Tensor_out(Tensor repeats, *, SymInt? output_size=None, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & repeat_interleave_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & repeats, c10::optional<c10::SymInt> output_size, at::Tensor & out) {
         return at::_ops::repeat_interleave_Tensor_out::redispatch(dispatchKeySet, repeats, output_size, out);
     }
     
@@ -21692,23 +22197,43 @@ namespace redispatch {
         return at::_ops::to_mkldnn_out::redispatch(dispatchKeySet, self, dtype, out);
     }
     
-    // aten::mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::mkldnn_reorder_conv2d_weight.out(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & mkldnn_reorder_conv2d_weight_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1, at::OptionalIntArrayRef input_size=c10::nullopt) {
-        return at::_ops::mkldnn_reorder_conv2d_weight_out::redispatch(dispatchKeySet, self, padding, stride, dilation, groups, input_size, out);
+        return at::_ops::mkldnn_reorder_conv2d_weight_out::redispatch(dispatchKeySet, self, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, input_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*input_size)) : c10::nullopt, out);
     }
     
-    // aten::mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::mkldnn_reorder_conv2d_weight.out(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & mkldnn_reorder_conv2d_weight_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size, at::Tensor & out) {
+        return at::_ops::mkldnn_reorder_conv2d_weight_out::redispatch(dispatchKeySet, self, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, input_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*input_size)) : c10::nullopt, out);
+    }
+    
+    // aten::mkldnn_reorder_conv2d_weight.out(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_reorder_conv2d_weight_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1, at::OptionalSymIntArrayRef input_size=c10::nullopt) {
         return at::_ops::mkldnn_reorder_conv2d_weight_out::redispatch(dispatchKeySet, self, padding, stride, dilation, groups, input_size, out);
     }
     
-    // aten::mkldnn_reorder_conv3d_weight.out(Tensor self, int[3] padding=0, int[3] stride=1, int[3] dilation=1, int groups=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::mkldnn_reorder_conv2d_weight.out(Tensor self, SymInt[2] padding=0, SymInt[2] stride=1, SymInt[2] dilation=1, SymInt groups=1, SymInt[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_reorder_conv2d_weight_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::OptionalSymIntArrayRef input_size, at::Tensor & out) {
+        return at::_ops::mkldnn_reorder_conv2d_weight_out::redispatch(dispatchKeySet, self, padding, stride, dilation, groups, input_size, out);
+    }
+    
+    // aten::mkldnn_reorder_conv3d_weight.out(Tensor self, SymInt[3] padding=0, SymInt[3] stride=1, SymInt[3] dilation=1, SymInt groups=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & mkldnn_reorder_conv3d_weight_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1) {
+        return at::_ops::mkldnn_reorder_conv3d_weight_out::redispatch(dispatchKeySet, self, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::mkldnn_reorder_conv3d_weight.out(Tensor self, SymInt[3] padding=0, SymInt[3] stride=1, SymInt[3] dilation=1, SymInt groups=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_reorder_conv3d_weight_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+        return at::_ops::mkldnn_reorder_conv3d_weight_out::redispatch(dispatchKeySet, self, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+    }
+    
+    // aten::mkldnn_reorder_conv3d_weight.out(Tensor self, SymInt[3] padding=0, SymInt[3] stride=1, SymInt[3] dilation=1, SymInt groups=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_reorder_conv3d_weight_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef dilation=c10::SymInt(1), c10::SymInt groups=1) {
         return at::_ops::mkldnn_reorder_conv3d_weight_out::redispatch(dispatchKeySet, self, padding, stride, dilation, groups, out);
     }
     
-    // aten::mkldnn_reorder_conv3d_weight.out(Tensor self, int[3] padding=0, int[3] stride=1, int[3] dilation=1, int groups=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & mkldnn_reorder_conv3d_weight_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+    // aten::mkldnn_reorder_conv3d_weight.out(Tensor self, SymInt[3] padding=0, SymInt[3] stride=1, SymInt[3] dilation=1, SymInt groups=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & mkldnn_reorder_conv3d_weight_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
         return at::_ops::mkldnn_reorder_conv3d_weight_out::redispatch(dispatchKeySet, self, padding, stride, dilation, groups, out);
     }
     
@@ -22552,6 +23077,16 @@ namespace redispatch {
         return at::_ops::_foreach_add_ScalarList_out::redispatch(dispatchKeySet, self, scalars, out);
     }
     
+    // aten::_foreach_add.Tensor_out(Tensor[] self, Tensor other, *, Scalar alpha=1, Tensor(a!)[] out) -> ()
+    inline void _foreach_add_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1) {
+        return at::_ops::_foreach_add_Tensor_out::redispatch(dispatchKeySet, self, other, alpha, out);
+    }
+    
+    // aten::_foreach_add.Tensor_out(Tensor[] self, Tensor other, *, Scalar alpha=1, Tensor(a!)[] out) -> ()
+    inline void _foreach_add_outf(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Tensor & other, const at::Scalar & alpha, at::TensorList out) {
+        return at::_ops::_foreach_add_Tensor_out::redispatch(dispatchKeySet, self, other, alpha, out);
+    }
+    
     // aten::_foreach_sub.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()
     inline void _foreach_sub_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, const at::Scalar & scalar) {
         return at::_ops::_foreach_sub_Scalar_out::redispatch(dispatchKeySet, self, scalar, out);
@@ -22650,6 +23185,16 @@ namespace redispatch {
     // aten::_foreach_div.ScalarList_out(Tensor[] self, Scalar[] scalars, *, Tensor(a!)[] out) -> ()
     inline void _foreach_div_outf(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out) {
         return at::_ops::_foreach_div_ScalarList_out::redispatch(dispatchKeySet, self, scalars, out);
+    }
+    
+    // aten::_foreach_div.Tensor_out(Tensor[] self, Tensor other, *, Tensor(a!)[] out) -> ()
+    inline void _foreach_div_out(c10::DispatchKeySet dispatchKeySet, at::TensorList out, at::TensorList self, const at::Tensor & other) {
+        return at::_ops::_foreach_div_Tensor_out::redispatch(dispatchKeySet, self, other, out);
+    }
+    
+    // aten::_foreach_div.Tensor_out(Tensor[] self, Tensor other, *, Tensor(a!)[] out) -> ()
+    inline void _foreach_div_outf(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Tensor & other, at::TensorList out) {
+        return at::_ops::_foreach_div_Tensor_out::redispatch(dispatchKeySet, self, other, out);
     }
     
     // aten::_foreach_clamp_max.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()
@@ -23332,73 +23877,83 @@ namespace redispatch {
         return at::_ops::_adaptive_avg_pool3d_backward_out::redispatch(dispatchKeySet, grad_output, self, out);
     }
     
-    // aten::_slow_conv2d_backward.output_mask_out(Tensor grad_output, Tensor self, Tensor weight, int[2] kernel_size, int[2] stride, int[2] padding, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::_slow_conv2d_backward.output_mask_out(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, ::std::array<bool,3> output_mask) {
-        return at::_ops::_slow_conv2d_backward_output_mask_out::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, output_mask, out0, out1, out2);
+        return at::_ops::_slow_conv2d_backward_output_mask_out::redispatch(dispatchKeySet, grad_output, self, weight, c10::fromIntArrayRefSlow(kernel_size), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output_mask, out0, out1, out2);
     }
     
-    // aten::_slow_conv2d_backward.output_mask_out(Tensor grad_output, Tensor self, Tensor weight, int[2] kernel_size, int[2] stride, int[2] padding, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    // aten::_slow_conv2d_backward.output_mask_out(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
     inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+        return at::_ops::_slow_conv2d_backward_output_mask_out::redispatch(dispatchKeySet, grad_output, self, weight, c10::fromIntArrayRefSlow(kernel_size), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), output_mask, out0, out1, out2);
+    }
+    
+    // aten::_slow_conv2d_backward.output_mask_out(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, ::std::array<bool,3> output_mask) {
         return at::_ops::_slow_conv2d_backward_output_mask_out::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, output_mask, out0, out1, out2);
     }
     
-    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::_slow_conv2d_backward.output_mask_out(Tensor grad_output, Tensor self, Tensor weight, SymInt[2] kernel_size, SymInt[2] stride, SymInt[2] padding, bool[3] output_mask, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
+    inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _slow_conv2d_backward_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, ::std::array<bool,3> output_mask, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
+        return at::_ops::_slow_conv2d_backward_output_mask_out::redispatch(dispatchKeySet, grad_output, self, weight, kernel_size, stride, padding, output_mask, out0, out1, out2);
+    }
+    
+    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, SymInt[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & conv_depthwise3d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
-        return at::_ops::conv_depthwise3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::conv_depthwise3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, SymInt[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & conv_depthwise3d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
-        return at::_ops::conv_depthwise3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::conv_depthwise3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & conv_depthwise3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
+    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, SymInt[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & conv_depthwise3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation) {
         return at::_ops::conv_depthwise3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & conv_depthwise3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    // aten::conv_depthwise3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias, SymInt[3] stride, SymInt[3] padding, SymInt[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & conv_depthwise3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, at::Tensor & out) {
         return at::_ops::conv_depthwise3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_dilated2d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_dilated2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::slow_conv_dilated2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_dilated2d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
-        return at::_ops::slow_conv_dilated2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::slow_conv_dilated2d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_dilated2d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_dilated2d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_dilated2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, int[2] kernel_size, Tensor? bias=None, int[2] stride=1, SymInt[2] padding=0, int[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_dilated2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    // aten::slow_conv_dilated2d.out(Tensor self, Tensor weight, SymInt[2] kernel_size, Tensor? bias=None, SymInt[2] stride=1, SymInt[2] padding=0, SymInt[2] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_dilated2d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, at::Tensor & out) {
         return at::_ops::slow_conv_dilated2d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_dilated3d_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, at::IntArrayRef padding=0, at::IntArrayRef dilation=1) {
-        return at::_ops::slow_conv_dilated3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::slow_conv_dilated3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
     inline at::Tensor & slow_conv_dilated3d_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
-        return at::_ops::slow_conv_dilated3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+        return at::_ops::slow_conv_dilated3d_out::redispatch(dispatchKeySet, self, weight, c10::fromIntArrayRefSlow(kernel_size), bias, c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(dilation), out);
     }
     
-    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_dilated3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, at::IntArrayRef stride=1, c10::SymIntArrayRef padding=c10::SymInt(0), at::IntArrayRef dilation=1) {
+    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_dilated3d_symint_out(c10::DispatchKeySet dispatchKeySet, at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias={}, c10::SymIntArrayRef stride=c10::SymInt(1), c10::SymIntArrayRef padding=c10::SymInt(0), c10::SymIntArrayRef dilation=c10::SymInt(1)) {
         return at::_ops::slow_conv_dilated3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     
-    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias=None, int[3] stride=1, SymInt[3] padding=0, int[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
-    inline at::Tensor & slow_conv_dilated3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    // aten::slow_conv_dilated3d.out(Tensor self, Tensor weight, SymInt[3] kernel_size, Tensor? bias=None, SymInt[3] stride=1, SymInt[3] padding=0, SymInt[3] dilation=1, *, Tensor(a!) out) -> Tensor(a!)
+    inline at::Tensor & slow_conv_dilated3d_symint_outf(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, at::Tensor & out) {
         return at::_ops::slow_conv_dilated3d_out::redispatch(dispatchKeySet, self, weight, kernel_size, bias, stride, padding, dilation, out);
     }
     

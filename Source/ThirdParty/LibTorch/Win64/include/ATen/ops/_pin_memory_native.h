@@ -18,5 +18,6 @@ namespace at {
 namespace native {
 TORCH_API at::Tensor & _pin_memory_out(const at::Tensor & self, c10::optional<at::Device> device, at::Tensor & out);
 TORCH_API at::Tensor _pin_memory_cuda(const at::Tensor & self, c10::optional<at::Device> device=c10::nullopt);
+TORCH_API at::Tensor _pin_memory_nested(const at::Tensor & self, c10::optional<at::Device> device=c10::nullopt);
 } // namespace native
 } // namespace at

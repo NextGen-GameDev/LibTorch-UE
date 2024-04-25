@@ -31,5 +31,10 @@ TORCH_API ::std::vector<at::Tensor> foreach_tensor_add_scalarlist_kernel_slow(at
 TORCH_API void foreach_tensor_add_scalarlist_kernel_slow_(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
 TORCH_API ::std::vector<at::Tensor> foreach_tensor_add_scalarlist_kernel_cuda(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
 TORCH_API void foreach_tensor_add_scalarlist_kernel_cuda_(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+TORCH_API void _foreach_add_Tensor_out(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha, at::TensorList out);
+TORCH_API ::std::vector<at::Tensor> foreach_tensor_add_tensor_kernel_slow(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1);
+TORCH_API void foreach_tensor_add_tensor_kernel_slow_(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1);
+TORCH_API ::std::vector<at::Tensor> foreach_tensor_add_tensor_kernel_cuda(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1);
+TORCH_API void foreach_tensor_add_tensor_kernel_cuda_(at::TensorList self, const at::Tensor & other, const at::Scalar & alpha=1);
 } // namespace native
 } // namespace at

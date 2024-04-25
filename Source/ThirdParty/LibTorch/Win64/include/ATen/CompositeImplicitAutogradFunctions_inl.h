@@ -128,9 +128,6 @@
 #include <ATen/ops/avg_pool1d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/batch_norm_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/bilinear_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/bitwise_and_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/bitwise_or_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/bitwise_xor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/broadcast_tensors_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/broadcast_to_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/can_cast_compositeimplicitautograd_dispatch.h>
@@ -228,7 +225,6 @@
 #include <ATen/ops/fliplr_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/flipud_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/float_power_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/floor_divide_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/frobenius_norm_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/fused_moving_avg_obs_fake_quant_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/gather_compositeimplicitautograd_dispatch.h>
@@ -417,10 +413,6 @@
 #include <ATen/ops/sparse_coo_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_csc_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/sparse_csr_tensor_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_chebyshev_polynomial_t_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_chebyshev_polynomial_u_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_chebyshev_polynomial_v_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_chebyshev_polynomial_w_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_digamma_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_erf_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_erfc_compositeimplicitautograd_dispatch.h>
@@ -431,11 +423,7 @@
 #include <ATen/ops/special_gammainc_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_gammaincc_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_gammaln_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_hermite_polynomial_h_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_hermite_polynomial_he_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_i0_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_laguerre_polynomial_l_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_legendre_polynomial_p_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_log1p_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_log_softmax_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_logit_compositeimplicitautograd_dispatch.h>
@@ -445,10 +433,6 @@
 #include <ATen/ops/special_polygamma_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_psi_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_round_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_shifted_chebyshev_polynomial_t_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_shifted_chebyshev_polynomial_u_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_shifted_chebyshev_polynomial_v_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/special_shifted_chebyshev_polynomial_w_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_sinc_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_softmax_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/special_xlogy_compositeimplicitautograd_dispatch.h>

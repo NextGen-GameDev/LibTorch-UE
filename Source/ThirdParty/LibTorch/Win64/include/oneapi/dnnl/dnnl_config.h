@@ -17,8 +17,6 @@
 #ifndef ONEAPI_DNNL_DNNL_CONFIG_H
 #define ONEAPI_DNNL_DNNL_CONFIG_H
 
-#include "oneapi/dnnl/dnnl_common_types.h"
-
 /// @cond DO_NOT_DOCUMENT_THIS
 
 // All symbols shall be internal unless marked as DNNL_API
@@ -56,6 +54,35 @@
 /// @endcond
 
 // clang-format off
+
+/// @addtogroup dnnl_api_service
+/// @{
+
+/// No runtime (disabled)
+#define DNNL_RUNTIME_NONE 0u
+
+/// Sequential runtime (CPU only)
+#define DNNL_RUNTIME_SEQ 1u
+
+/// OpenMP runtime (CPU only)
+#define DNNL_RUNTIME_OMP 2u
+
+/// TBB runtime (CPU only)
+#define DNNL_RUNTIME_TBB 4u
+
+/// Threadpool runtime (CPU only)
+#define DNNL_RUNTIME_THREADPOOL 8u
+
+/// OpenCL runtime
+#define DNNL_RUNTIME_OCL 256u
+
+/// SYCL runtime
+#define DNNL_RUNTIME_SYCL 512u
+
+/// DPC++ runtime
+#define DNNL_RUNTIME_DPCPP DNNL_RUNTIME_SYCL
+
+/// @} dnnl_api_service
 
 // oneDNN CPU threading runtime
 #define DNNL_CPU_THREADING_RUNTIME DNNL_RUNTIME_OMP
@@ -118,6 +145,12 @@
 // When defined, experimental functionality for sparse domain is enabled.
 /* #undef DNNL_EXPERIMENTAL_SPARSE */
 
+// When defined, graph component is enabled.
+#define ONEDNN_BUILD_GRAPH
+
+// When defined, experimental profiling capabilities are enabled.
+/* #undef DNNL_EXPERIMENTAL_PROFILING */
+
 // List of configurating build controls
 // Workload controls
 #define BUILD_TRAINING 1
@@ -130,6 +163,7 @@
 #define BUILD_CONVOLUTION 0
 #define BUILD_DECONVOLUTION 0
 #define BUILD_ELTWISE 0
+#define BUILD_GROUP_NORMALIZATION 0
 #define BUILD_INNER_PRODUCT 0
 #define BUILD_LAYER_NORMALIZATION 0
 #define BUILD_LRN 0
@@ -157,4 +191,10 @@
 #define BUILD_XEHP 0
 #define BUILD_XEHPG 0
 #define BUILD_XEHPC 0
+// GeMM kernels ISA controls
+#define BUILD_GEMM_KERNELS_ALL 1
+#define BUILD_GEMM_KERNELS_NONE 0
+#define BUILD_GEMM_SSE41 0
+#define BUILD_GEMM_AVX2 0
+#define BUILD_GEMM_AVX512 0
 #endif

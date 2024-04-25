@@ -22,18 +22,70 @@
 namespace at {
 
 
-// aten::_mps_convolution_transpose(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups) -> Tensor
+// aten::_mps_convolution_transpose(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
 inline at::Tensor _mps_convolution_transpose(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
-    return at::_ops::_mps_convolution_transpose::call(self, weight, padding, output_padding, stride, dilation, groups);
+    return at::_ops::_mps_convolution_transpose::call(self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor _mps_convolution_transpose(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+    return at::_ops::_mps_convolution_transpose::call(self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups);
+  }
 }
 
-// aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
+// aten::_mps_convolution_transpose(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups) -> Tensor
+inline at::Tensor _mps_convolution_transpose_symint(const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
+    return at::_ops::_mps_convolution_transpose::call(self, weight, padding, output_padding, stride, dilation, groups);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor _mps_convolution_transpose(const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
+    return at::_ops::_mps_convolution_transpose::call(self, weight, padding, output_padding, stride, dilation, groups);
+  }
+}
+
+// aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _mps_convolution_transpose_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+    return at::_ops::_mps_convolution_transpose_out::call(self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & _mps_convolution_transpose_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
+    return at::_ops::_mps_convolution_transpose_out::call(self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+  }
+}
+
+// aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & _mps_convolution_transpose_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+    return at::_ops::_mps_convolution_transpose_out::call(self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & _mps_convolution_transpose_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+    return at::_ops::_mps_convolution_transpose_out::call(self, weight, c10::fromIntArrayRefSlow(padding), c10::fromIntArrayRefSlow(output_padding), c10::fromIntArrayRefSlow(stride), c10::fromIntArrayRefSlow(dilation), groups, out);
+  }
+}
+
+// aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & _mps_convolution_transpose_symint_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
     return at::_ops::_mps_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, out);
 }
-// aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & _mps_convolution_transpose_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & _mps_convolution_transpose_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups) {
     return at::_ops::_mps_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, out);
+  }
+}
+
+// aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, SymInt[] padding, SymInt[] output_padding, SymInt[] stride, SymInt[] dilation, SymInt groups, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & _mps_convolution_transpose_symint_outf(const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
+    return at::_ops::_mps_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & _mps_convolution_transpose_outf(const at::Tensor & self, const at::Tensor & weight, c10::SymIntArrayRef padding, c10::SymIntArrayRef output_padding, c10::SymIntArrayRef stride, c10::SymIntArrayRef dilation, c10::SymInt groups, at::Tensor & out) {
+    return at::_ops::_mps_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, out);
+  }
 }
 
 }

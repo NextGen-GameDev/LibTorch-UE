@@ -32,6 +32,7 @@
 #include <ATen/ops/_conv_depthwise2d_cuda_dispatch.h>
 #include <ATen/ops/_convert_indices_from_coo_to_csr_cuda_dispatch.h>
 #include <ATen/ops/_convert_indices_from_csr_to_coo_cuda_dispatch.h>
+#include <ATen/ops/_convert_weight_to_int4pack_cuda_dispatch.h>
 #include <ATen/ops/_cslt_compress_cuda_dispatch.h>
 #include <ATen/ops/_cslt_sparse_mm_cuda_dispatch.h>
 #include <ATen/ops/_ctc_loss_cuda_dispatch.h>
@@ -127,6 +128,7 @@
 #include <ATen/ops/_masked_scale_cuda_dispatch.h>
 #include <ATen/ops/_masked_softmax_cuda_dispatch.h>
 #include <ATen/ops/_masked_softmax_backward_cuda_dispatch.h>
+#include <ATen/ops/_mixed_dtypes_linear_cuda_dispatch.h>
 #include <ATen/ops/_native_batch_norm_legit_cuda_dispatch.h>
 #include <ATen/ops/_native_multi_head_attention_cuda_dispatch.h>
 #include <ATen/ops/_nested_from_padded_cuda_dispatch.h>
@@ -169,7 +171,6 @@
 #include <ATen/ops/_triton_scaled_dot_attention_cuda_dispatch.h>
 #include <ATen/ops/_unique_cuda_dispatch.h>
 #include <ATen/ops/_unique2_cuda_dispatch.h>
-#include <ATen/ops/_unsafe_index_cuda_dispatch.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_cuda_dispatch.h>
 #include <ATen/ops/_upsample_bicubic2d_aa_backward_cuda_dispatch.h>
 #include <ATen/ops/_upsample_bilinear2d_aa_cuda_dispatch.h>
@@ -182,6 +183,7 @@
 #include <ATen/ops/_upsample_nearest_exact3d_backward_cuda_dispatch.h>
 #include <ATen/ops/_use_cudnn_ctc_loss_cuda_dispatch.h>
 #include <ATen/ops/_validate_compressed_sparse_indices_cuda_dispatch.h>
+#include <ATen/ops/_weight_int4pack_mm_cuda_dispatch.h>
 #include <ATen/ops/_weight_norm_interface_cuda_dispatch.h>
 #include <ATen/ops/_weight_norm_interface_backward_cuda_dispatch.h>
 #include <ATen/ops/abs_cuda_dispatch.h>

@@ -18,6 +18,7 @@ namespace at {
 namespace cuda {
 
 TORCH_API at::Tensor cudnn_convolution_relu(const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups);
+TORCH_API at::Tensor cudnn_convolution_relu_symint(const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, c10::SymIntArrayRef stride, c10::SymIntArrayRef padding, c10::SymIntArrayRef dilation, c10::SymInt groups);
 
 } // namespace cuda
 } // namespace at

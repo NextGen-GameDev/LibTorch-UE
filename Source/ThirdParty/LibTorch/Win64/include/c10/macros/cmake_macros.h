@@ -9,5 +9,6 @@
 /* #undef C10_USE_GFLAGS */
 /* #undef C10_USE_NUMA */
 /* #undef C10_USE_MSVC_STATIC_RUNTIME */
+/* #undef C10_USE_ROCM_KERNEL_ASSERT */
 
 #endif // C10_MACROS_CMAKE_MACROS_H_

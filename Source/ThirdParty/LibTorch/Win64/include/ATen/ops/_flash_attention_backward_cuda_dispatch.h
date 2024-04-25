@@ -18,6 +18,7 @@ namespace at {
 namespace cuda {
 
 TORCH_API ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _flash_attention_backward(const at::Tensor & grad_out, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & out, const at::Tensor & logsumexp, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, int64_t max_q, int64_t max_k, double dropout_p, bool is_causal, const at::Tensor & philox_seed, const at::Tensor & philox_offset, c10::optional<double> scale=c10::nullopt);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _flash_attention_backward_symint(const at::Tensor & grad_out, const at::Tensor & query, const at::Tensor & key, const at::Tensor & value, const at::Tensor & out, const at::Tensor & logsumexp, const at::Tensor & cum_seq_q, const at::Tensor & cum_seq_k, c10::SymInt max_q, c10::SymInt max_k, double dropout_p, bool is_causal, const at::Tensor & philox_seed, const at::Tensor & philox_offset, c10::optional<double> scale=c10::nullopt);
 
 } // namespace cuda
 } // namespace at
