@@ -116,13 +116,14 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/UE-ATUM/Plugin.svg?style=for-the-badge
-[contributors-url]: https://github.com/UE-ATUM/Plugin/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/UE-ATUM/Plugin.svg?style=for-the-badge
-[forks-url]: https://github.com/UE-ATUM/Plugin/network/members
-[stars-shield]: https://img.shields.io/github/stars/UE-ATUM/Plugin.svg?style=for-the-badge
-[stars-url]: https://github.com/UE-ATUM/Plugin/stargazers
-[issues-shield]: https://img.shields.io/github/issues/UE-ATUM/Plugin.svg?style=for-the-badge
-[issues-url]: https://github.com/UE-ATUM/Plugin/issues
-[license-shield]: https://img.shields.io/github/license/UE-ATUM/Plugin.svg?style=for-the-badge
-[license-url]: https://github.com/UE-ATUM/Plugin/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/P1ayer-1/Libtorch-UE5.svg?style=for-the-badge
+[contributors-url]: https://github.com/P1ayer-1/Libtorch-UE5/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/P1ayer-1/Libtorch-UE5.svg?style=for-the-badge
+[forks-url]: https://github.com/P1ayer-1/Libtorch-UE5/network/members
+[stars-shield]: https://img.shields.io/github/stars/P1ayer-1/Libtorch-UE5.svg?style=for-the-badge
+[stars-url]: https://github.com/P1ayer-1/Libtorch-UE5/stargazers
+[issues-shield]: https://img.shields.io/github/issues/P1ayer-1/Libtorch-UE5.svg?style=for-the-badge
+[issues-url]: https://github.com/P1ayer-1/Libtorch-UE5/issues
+[license-shield]: https://img.shields.io/github/license/P1ayer-1/Libtorch-UE5.svg?style=for-the-badge
+[license-url]: https://github.com/P1ayer-1/Libtorch-UE5/blob/master/LICENSE
+
