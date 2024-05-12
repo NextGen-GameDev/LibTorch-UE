@@ -2,7 +2,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/UE-ATUM/Plugin">
+  <a href="https://github.com/P1ayer-1/Libtorch-UE5">
     <img src="Resources/Icon128.png" alt="Logo" width="128" height="128">
   </a>
 
@@ -34,6 +34,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -105,6 +106,13 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 [Setup and Basic Usage](https://youtu.be/dvGWUh4SPBY)
 
 [Working with Meta's Llama](https://youtu.be/0YI2O5uSuFw)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<div id="contributing"></div>
+
+## Contributing
+Want to contribute to? Awesome! Check out the [contributing guidelines](CONTRIBUTING.md) to get involved. Contributors are encouraged join to the [community Discord server](https://discord.gg/AWWECeRcyX).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
