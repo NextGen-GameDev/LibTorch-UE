@@ -1,0 +1,43 @@
+name: Publish Libtorch Release
+
+# Trigger the workflow on tag creation
+on:
+  push:
+    tags:
+      - "v*"  # Trigger on version tags (e.g., v1.0.0)
+
+jobs:
+  download-compress-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.7
+
+      # Step 2: Set up RAR utility
+      - name: Install rar
+        run: sudo apt-get install rar unrar -y
+
+      # Step 3: Download the libtorch zip file
+      - name: Download libtorch
+        run: |
+          LIBTORCH_VERSION=2.0.1  # Specify the libtorch version
+          LIBTORCH_URL=https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-${LIBTORCH_VERSION}%2Bcpu.zip
+          curl -L -o libtorch.zip $LIBTORCH_URL
+
+      # Step 4: Unzip the libtorch zip file
+      - name: Unzip libtorch
+        run: unzip libtorch.zip -d libtorch
+
+      # Step 5: Compress the unzipped folder using RAR
+      - name: Compress libtorch with RAR
+        run: rar a -r libtorch.rar libtorch
+
+      # Step 6: Create a release and upload the RAR file as an asset
+      - name: Upload libtorch.rar to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: libtorch.rar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this secret automatically
