@@ -1,8 +1,16 @@
 #!/bin/bash
 
+# Usage: ./modify_libtorch.sh <libtorch_root>
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <libtorch_root>"
+    exit 1
+fi
+
+LIBTORCH_ROOT=$1
+
 # Define file paths
-ENUM_FILE="Z:/Libtorch Versions/libtorch-2.2.1+cu121/libtorch/include/torch/csrc/api/include/torch/enum.h"
-MODULE_FILE="Z:/Libtorch Versions/libtorch-2.2.1+cu121/libtorch/include/torch/csrc/api/include/torch/nn/module.h"
+ENUM_FILE="$LIBTORCH_ROOT/include/torch/csrc/api/include/torch/enum.h"
+MODULE_FILE="$LIBTORCH_ROOT/include/torch/csrc/api/include/torch/nn/module.h"
 
 # Check if the enum.h file exists
 if [[ -f "$ENUM_FILE" ]]; then
