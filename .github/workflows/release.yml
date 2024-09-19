@@ -50,13 +50,13 @@ jobs:
       # Step 8: Run script to make required changes to LibTorch CPU headers
       - name: Make changes to LibTorch CPU headers
         run: |
-          LIBTORCH_ROOT_CPU=libtorch_cpu
+          LIBTORCH_ROOT_CPU=libtorch_cpu/libtorch
           ./Setup/modify_headers.sh $LIBTORCH_ROOT_CPU
 
       # Step 9: Run script to make required changes to LibTorch GPU headers
       - name: Make changes to LibTorch GPU headers
         run: |
-          LIBTORCH_ROOT_GPU=libtorch_gpu
+          LIBTORCH_ROOT_GPU=libtorch_gpu/libtorch
           ./Setup/modify_headers.sh $LIBTORCH_ROOT_GPU
 
       # Step 10: Compress the unzipped CPU folder using RAR
