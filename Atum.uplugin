@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "0.1",
+	"Version": 2,
+	"VersionName": "v0.1.2",
 	"FriendlyName": "ATUM",
 	"Description": "Integrate LibTorch Unreal to create and use neural networks without leveraging Python.",
 	"Category": "AI",
