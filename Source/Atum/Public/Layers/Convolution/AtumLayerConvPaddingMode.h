@@ -40,7 +40,7 @@ namespace AtumEnums
 	 */
 	template <uint64 Dimensions = 1ULL>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
-	UE_NODISCARD
+	[[nodiscard]]
 	static typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t Cast(
 		const EAtumConvPaddingMode ConvPaddingMode
 	) noexcept
@@ -74,7 +74,7 @@ namespace AtumEnums
 	 */
 	template <uint64 Dimensions = 1ULL>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
-	UE_NODISCARD
+	[[nodiscard]]
 	static EAtumConvPaddingMode Cast(
 		const typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t ConvPaddingMode
 	) noexcept

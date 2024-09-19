@@ -76,7 +76,7 @@ namespace AtumEnums
 	 * @param DeviceType ATUM-equivalent device
 	 * @return LibTorch-equivalent device
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE CONSTEXPR c10::DeviceType Cast(const EAtumTensorDeviceType DeviceType) noexcept
 	{ return static_cast<c10::DeviceType>(DeviceType); }
 
@@ -86,7 +86,7 @@ namespace AtumEnums
 	 * @param DeviceType LibTorch-equivalent device
 	 * @return ATUM-equivalent device
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE CONSTEXPR EAtumTensorDeviceType Cast(const c10::DeviceType DeviceType) noexcept
 	{ return static_cast<EAtumTensorDeviceType>(DeviceType); }
 }

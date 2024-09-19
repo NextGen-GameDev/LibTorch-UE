@@ -125,26 +125,26 @@ public:
 	/**
 	 * Getter for Module as its base class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual const torch::nn::Module* GetBaseModule() const noexcept;
 	
 	/**
 	 * Getter for Module as its base class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE torch::nn::Module* GetBaseModule() noexcept
 	{ return const_cast<torch::nn::Module*>(std::as_const(*this).GetBaseModule()); }
 	
 	/**
 	 * Getter for Options as its base class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual const FAtumLayerBaseOptions* GetBaseLayerOptions() const noexcept;
 	
 	/**
 	 * Getter for Options as its base class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FAtumLayerBaseOptions* GetBaseLayerOptions() noexcept;
 	
 	/**
@@ -167,7 +167,7 @@ protected:
 	 * @param InputSizeCount Input size to check
 	 * @return Is the input size valid?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool AreInputSizesValid(int32 InputSizeCount) const noexcept;
 	
 	/**
@@ -177,7 +177,7 @@ protected:
 	 * @param ExpectedChannels How many channels are expected as input
 	 * @return Are all input sizes valid?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool AreInputSizesValid(const TArray<int64>& InputSizes, int64 ExpectedChannels) const noexcept;
 	
 	/**
@@ -304,19 +304,19 @@ public:
 	/**
 	 * Getter for bInitialized
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE bool IsInitialized() const noexcept { return bInitialized; }
 	
 	/**
 	 * Getter for DimensionCount
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE uint64 GetDimensionCount() const noexcept { return DimensionCount; }
 	
 	/**
 	 * Getter for ValidInputSizes
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE const std::vector<int64>& GetValidInputSizes() const noexcept { return ValidInputSizes; }
 };
 

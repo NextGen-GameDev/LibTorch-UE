@@ -61,7 +61,7 @@ struct ATUM_API FAtumOptimizerAdamOptions : public FAtumOptimizerBaseOptions
 	/**
 	 * Returns the optimiser as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	explicit operator torch::optim::AdamOptions() const noexcept;
 	
 	/**

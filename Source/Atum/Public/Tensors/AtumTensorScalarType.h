@@ -54,7 +54,7 @@ namespace AtumEnums
 	 * @param ScalarType ATUM-equivalent scalar
 	 * @return LibTorch-equivalent scalar
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE CONSTEXPR c10::ScalarType Cast(const EAtumTensorScalarType ScalarType) noexcept
 	{ return static_cast<c10::ScalarType>(ScalarType); }
 	
@@ -64,7 +64,7 @@ namespace AtumEnums
 	 * @param ScalarType LibTorch-equivalent scalar
 	 * @return ATUM-equivalent scalar
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE CONSTEXPR EAtumTensorScalarType Cast(const c10::ScalarType ScalarType) noexcept
 	{ return static_cast<EAtumTensorScalarType>(ScalarType); }
 }

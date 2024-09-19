@@ -68,7 +68,7 @@ public:
 	 * 
 	 * @return Unique identifier of the toolkit
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FName GetToolkitFName() const override;
 	
 	/**
@@ -76,7 +76,7 @@ public:
 	 * 
 	 * @return Localisable base toolkit name
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetBaseToolkitName() const override;
 	
 	/**
@@ -84,7 +84,7 @@ public:
 	 * 
 	 * @return Localisable toolkit name
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetToolkitName() const override;
 	
 	/**
@@ -92,7 +92,7 @@ public:
 	 * 
 	 * @return Prefixed text of the tab's title
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FString GetWorldCentricTabPrefix() const override;
 	
 	/**
@@ -100,7 +100,7 @@ public:
 	 * 
 	 * @return Linear colour scale
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FLinearColor GetWorldCentricTabColorScale() const override;
 	
 	/**
@@ -115,7 +115,7 @@ public:
 	 * 
 	 * @return The network's name
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FString GetReferencerName() const override;
 	
 	/**

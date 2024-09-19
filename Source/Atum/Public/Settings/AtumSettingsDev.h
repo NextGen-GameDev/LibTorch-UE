@@ -40,7 +40,7 @@ public:
 	 * 
 	 * @return Localisable section text
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetSectionText() const override;
 	
 	/**
@@ -48,20 +48,20 @@ public:
 	 * 
 	 * @return Localisable section description
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetSectionDescription() const override;
 #endif
 	
 	/**
 	 * Getter for bLogAtumEnabled
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE bool IsLogAtumEnabled() const noexcept { return bLogAtumEnabled; }
 	
 	/**
 	 * Setter for bLogAtumEnabled
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void SetLogAtumEnabled(const bool bValue) noexcept { bLogAtumEnabled = bValue; }
 };
 

@@ -37,7 +37,7 @@ protected:
 	 * @param InputSizes Given input sizes
 	 * @return Is the calculated output tensor size valid?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool IsCalculatedOutputTensorSizeValid(const TArray<int64>& InputSizes) const noexcept;
 	
 	/**

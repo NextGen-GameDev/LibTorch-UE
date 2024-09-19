@@ -43,7 +43,7 @@ struct ATUM_API FAtumLayerFlattenOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::FlattenOptions() const noexcept
 	{ return torch::nn::FlattenOptions().start_dim(StartDimension).end_dim(EndDimension); }
 	

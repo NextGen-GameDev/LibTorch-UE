@@ -24,25 +24,25 @@ public: \
 	/**
 	 * Getter for Options as its base class
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	virtual const FAtumLayerBaseOptions* GetBaseLayerOptions() const noexcept override { return &Options; } \
 	\
 	/**
 	 * Getter for Options as its base class
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	virtual FAtumLayerBaseOptions* GetBaseLayerOptions() noexcept override { return &Options; } \
 	\
 	/**
 	 * Getter for Options
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	FORCEINLINE const OptionsClass& GetLayerOptions() const noexcept { return Options; } \
 	\
 	/**
 	 * Getter for Options
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	FORCEINLINE OptionsClass& GetLayerOptions() noexcept { return Options; } \
 	\
 private:
@@ -104,20 +104,20 @@ public: \
 	/**
 	 * Getter for Module as its base class
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	virtual const torch::nn::Module* GetBaseModule() const noexcept override \
 	{ return Module ? Module->get() : nullptr; } \
 	\
 	/**
 	 * Getter for Module
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	FORCEINLINE TSharedPtr<const ModuleClass> GetModule() const noexcept { return Module; } \
 	\
 	/**
 	 * Getter for Module
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	FORCEINLINE TSharedPtr<ModuleClass> GetModule() noexcept { return Module; } \
 	\
 private:

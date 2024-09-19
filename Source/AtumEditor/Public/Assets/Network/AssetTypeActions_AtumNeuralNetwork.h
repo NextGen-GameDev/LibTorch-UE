@@ -18,7 +18,7 @@ public:
 	 * 
 	 * @return The asset's class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual UClass* GetSupportedClass() const override;
 	
 	/**
@@ -26,7 +26,7 @@ public:
 	 * 
 	 * @return Localisable asset name
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetName() const override;
 	
 	/**
@@ -34,7 +34,7 @@ public:
 	 * 
 	 * @return Assigned asset colour
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FColor GetTypeColor() const override;
 	
 	/**
@@ -42,7 +42,7 @@ public:
 	 * 
 	 * @return Asset categories as a number
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual uint32 GetCategories() override;
 	
 	/**

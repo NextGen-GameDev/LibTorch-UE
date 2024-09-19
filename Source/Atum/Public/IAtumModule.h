@@ -65,7 +65,7 @@ public:
 	 * 
 	 * @return Is the module loaded in memory?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE bool IsModuleLoaded() noexcept { return FModuleManager::Get().IsModuleLoaded(ModuleName); }
 	
 	/**
@@ -73,14 +73,14 @@ public:
 	 * 
 	 * @return Reference to this module
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE IAtumModule& GetModule() { return FModuleManager::LoadModuleChecked<IAtumModule>(ModuleName); }
 	
 #if PLATFORM_WINDOWS
 	/**
 	 * Getter for DllHandles
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE const TArray<TUniquePtr<uint8, FDllDeleter>>& GetDllHandles() noexcept { return DllHandles; }
 #endif
 };

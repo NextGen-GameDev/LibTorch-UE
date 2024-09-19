@@ -43,7 +43,7 @@ public:
 	 * @param Warn Controls how warnings should be dealt with if an issue was encountered
 	 * @return 
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual UObject* FactoryCreateNew(
 		UClass* InClass,
 		UObject* InParent,
@@ -63,13 +63,13 @@ public:
 	/**
 	 * Getter for NeuralNetworkClass
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE TSubclassOf<UAtumNeuralNetwork> GetNeuralNetworkClass() const noexcept { return NeuralNetworkClass; }
 	
 	/**
 	 * Setter for NeuralNetworkClass
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void SetNeuralNetworkClass(const TSubclassOf<UAtumNeuralNetwork> Value) noexcept
 	{ NeuralNetworkClass = Value; }
 };

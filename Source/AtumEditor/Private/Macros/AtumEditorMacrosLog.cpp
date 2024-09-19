@@ -16,7 +16,7 @@ namespace
 	 * 
 	 * @return Can messages be logged?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE bool AreLogsEnabled() noexcept { return GetDefault<UAtumSettingsEditor>()->IsLogAtumEditorEnabled(); }
 }
 const IsLogAtumEditorEnabledCheck IsLogAtumEditorEnabled = &AreLogsEnabled;

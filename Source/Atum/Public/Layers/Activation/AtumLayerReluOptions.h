@@ -37,7 +37,7 @@ struct ATUM_API FAtumLayerReluOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::ReLUOptions() const noexcept { return torch::nn::ReLUOptions(bInplace); }
 	
 	/**

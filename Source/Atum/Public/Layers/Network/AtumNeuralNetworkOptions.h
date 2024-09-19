@@ -44,7 +44,7 @@ struct ATUM_API FAtumNeuralNetworkOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::AtumNetworkOptions() const noexcept
 	{ return torch::nn::AtumNetworkOptions(); }
 };

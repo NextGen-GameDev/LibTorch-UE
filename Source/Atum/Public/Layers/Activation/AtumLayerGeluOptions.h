@@ -23,7 +23,7 @@ struct ATUM_API FAtumLayerOptionsGelu : public FAtumLayerBaseOptions
 	UE_NODISCARD_CTOR
 	FAtumLayerOptionsGelu() noexcept;
 	
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::GELUOptions() const noexcept
 	{ return torch::nn::GELUOptions().approximate(TCHAR_TO_UTF8(*Approximate)); }
 	

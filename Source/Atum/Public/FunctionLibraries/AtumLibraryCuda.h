@@ -28,7 +28,7 @@ public:
 	 * 
 	 * @return Is CUDA available?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintPure, Category = "ATUM|CUDA")
 	static FORCEINLINE bool IsCudaAvailable() noexcept { return torch::cuda::is_available(); }
 	
@@ -37,7 +37,7 @@ public:
 	 * 
 	 * @return Is cuDNN available?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintPure, Category = "ATUM|CUDA")
 	static FORCEINLINE bool IsCudnnAvailable() noexcept { return torch::cuda::cudnn_is_available(); }
 };

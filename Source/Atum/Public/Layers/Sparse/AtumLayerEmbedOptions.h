@@ -26,7 +26,7 @@ struct ATUM_API FAtumLayerEmbedOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD_CTOR
 	FAtumLayerEmbedOptions() noexcept;
 
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::EmbeddingOptions() const noexcept
 	{ return torch::nn::EmbeddingOptions(NumEmbeddings, EmbeddingDim); }
 

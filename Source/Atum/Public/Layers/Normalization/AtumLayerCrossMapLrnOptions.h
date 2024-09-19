@@ -55,7 +55,7 @@ struct ATUM_API FAtumLayerCrossMapLrnOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::CrossMapLRN2dOptions() const noexcept
 	{ return torch::nn::CrossMapLRN2dOptions(Size).alpha(Alpha).beta(Beta).k(K); }
 	

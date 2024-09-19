@@ -80,7 +80,7 @@ struct ATUM_API FAtumLlamaOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD_CTOR
 	FAtumLlamaOptions() noexcept;
 	
-	UE_NODISCARD
+	[[nodiscard]]
 	explicit operator  LlamaConfig() const noexcept
 	{
 		LlamaConfig config =  LlamaConfig();

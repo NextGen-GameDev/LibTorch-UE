@@ -55,7 +55,7 @@ struct ATUM_API FAtumLayerLocalResponseNormOptions : public FAtumLayerBaseOption
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::LocalResponseNormOptions() const noexcept
 	{ return torch::nn::LocalResponseNormOptions(Size).alpha(Alpha).beta(Beta).k(K); }
 	

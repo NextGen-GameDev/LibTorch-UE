@@ -60,7 +60,7 @@ public:
 	 * 
 	 * @return Is the tensor defined?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual bool IsDefined() const noexcept;
 	
@@ -70,7 +70,7 @@ public:
 	 * @param BroadcastTensor Tensor to test broadcasting
 	 * @return Are the two tensors broadcastable with each other?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable With")
 	virtual bool IsBroadcastableWith(const TScriptInterface<IAtumTensor>& BroadcastTensor) const noexcept;
 	
@@ -103,7 +103,7 @@ public:
 	 * 
 	 * @return Must the gradient of this tensor be computed?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual bool DoesRequireGradient() const noexcept;
 	
@@ -120,7 +120,7 @@ public:
 	 * 
 	 * @param OutSizes Array of sizes
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void GetSizes(TArray<int64>& OutSizes) const noexcept;
 	
@@ -129,7 +129,7 @@ public:
 	 * 
 	 * @return This tensor's device type
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual EAtumTensorDeviceType GetDeviceType() const noexcept;
 	
@@ -146,7 +146,7 @@ public:
 	 * 
 	 * @return This tensor's scalar type
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual EAtumTensorScalarType GetScalarType() const noexcept;
 
@@ -155,7 +155,7 @@ public:
 	 *
 	 * @param Value Scalar type
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void SetScalarType(EAtumTensorScalarType Value) noexcept;
 	
@@ -164,7 +164,7 @@ public:
 	 * 
 	 * @return Number of elements
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual int64 GetElementCount() const noexcept;
 	
@@ -173,7 +173,7 @@ public:
 	 * 
 	 * @return An element's size
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual int64 GetElementSize() const noexcept;
 	
@@ -229,7 +229,7 @@ public:
 	 * 
 	 * @return This tensor's LibTorch device type
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE c10::DeviceType GetTorchDeviceType() const noexcept { return AtumEnums::Cast(GetDeviceType()); }
 	
 	/**
@@ -237,7 +237,7 @@ public:
 	 * 
 	 * @return This tensor's LibTorch scalar type
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
 	{ return Data ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
 	
@@ -248,7 +248,7 @@ public:
 	 * @param Class Class of resulting tensor
 	 * @return Sum of the tensors
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	TScriptInterface<IAtumTensor> Add(
 		const TScriptInterface<IAtumTensor>& Other,
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class = nullptr
@@ -260,14 +260,14 @@ public:
 	 * @param Other Tensor to add with the original
 	 * @return Sum of the tensors
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE TScriptInterface<IAtumTensor> operator+(const TScriptInterface<IAtumTensor>& Other) const noexcept
 	{ return Add(Other); }
 	
 	/**
 	 * Returns the tensor as a string by overloading the FString cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	explicit operator FString() const noexcept;
 	
 	/**
@@ -275,7 +275,7 @@ public:
 	 * 
 	 * @return This tensor as a string
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE FString ToString() const noexcept { return static_cast<FString>(*this); }
 	
 	/**
@@ -284,7 +284,7 @@ public:
 	 * @param Index Long integer
 	 * @return Inner tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE at::Tensor operator[](const int64 Index) { return (*Data)[Index]; }
 	
 	/**
@@ -293,7 +293,7 @@ public:
 	 * @param Scalar Any type of scalar
 	 * @return Inner tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE at::Tensor operator[](const c10::Scalar& Scalar) { return (*Data)[Scalar]; }
 	
 	/**
@@ -302,7 +302,7 @@ public:
 	 * @param Tensor 0D tensor
 	 * @return Inner tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE at::Tensor operator[](const at::Tensor& Tensor) { return (*Data)[Tensor]; }
 	
 	/**
@@ -311,7 +311,7 @@ public:
 	 * @param Tensor 0D tensor
 	 * @return Inner tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE at::Tensor operator[](const IAtumTensor& Tensor) { return (*Data)[*Tensor.Data]; }
 	
 	/**
@@ -381,7 +381,7 @@ private:
 	 * @param Type LibTorch scalar type
 	 * @return Generic pointer to the data
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void* GetUncastedValues(const c10::ScalarType Type) const noexcept
 	{ return IsDefined() ? Data->to(Type).data_ptr() : nullptr; }
 	
@@ -391,7 +391,7 @@ private:
 	 * @param Type ATUM scalar type
 	 * @return Generic pointer to the data
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void* GetUncastedValues(const EAtumTensorScalarType Type) const noexcept
 	{ return GetUncastedValues(AtumEnums::Cast(Type)); }
 
@@ -417,7 +417,7 @@ public:
 	/**
 	 * Getter for DefaultDeviceType
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE EAtumTensorDeviceType GetDefaultDeviceType() noexcept { return DefaultDeviceType; }
 	
 	/**
@@ -429,13 +429,13 @@ public:
 	/**
 	 * Getter for Data as a pointer
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE const at::Tensor* GetData() const noexcept { return Data.Get(); }
 	
 	/**
 	 * Getter for Data as a reference
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE const at::Tensor& GetDataChecked() const { return *GetData(); }
 	
 	/**
@@ -477,7 +477,7 @@ public:
 	/**
 	 * Getter for InternalValues
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE const TArray<T>& GetInternalValues() const noexcept { return InternalValues; }
 	
 	/**

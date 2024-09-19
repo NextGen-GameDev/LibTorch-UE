@@ -34,7 +34,7 @@ protected:
 	 * @param Groups Number of groups
 	 * @return Can both channel counts be divisible by the group count?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static bool AreChannelsDivisibleByGroups(int64 InChannels, int64 OutChannels, int64 Groups) noexcept;
 	
 	/**
@@ -45,7 +45,7 @@ protected:
 	 * @param bAllowZero Determines if 0 should be ignored
 	 * @return Are the sizes positive?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool AreSizesPositive(const TArray<int64>& Sizes, const FString& Name, bool bAllowZero = false) const noexcept;
 };
 

@@ -37,7 +37,7 @@ protected:
 	 * @param InputSizes Given input sizes
 	 * @return Is the dilated kernel bigger than the padded input?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept;
 	
 	/**
@@ -46,7 +46,7 @@ protected:
 	 * @param InputSizes Given input sizes
 	 * @return Is the padding bigger than or equal to the input sizes?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& InputSizes) const noexcept;
 	
 	/**
@@ -55,7 +55,7 @@ protected:
 	 * @param InputSizes Given input sizes
 	 * @return Does the padding cause multiple wrappings?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	bool DoesPaddingCauseMultipleWrappings(const TArray<int64>& InputSizes) const noexcept;
 	
 	/**

@@ -31,7 +31,7 @@ struct ATUM_API FAtumLayerDropoutOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD_CTOR
 	FAtumLayerDropoutOptions() noexcept;
 
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::DropoutOptions() const noexcept
 	{ return torch::nn::DropoutOptions(P).inplace(bInplace); }
 

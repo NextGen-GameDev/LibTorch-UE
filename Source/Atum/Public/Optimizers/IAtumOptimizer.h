@@ -130,13 +130,13 @@ public:
 	/**
 	 * Getter for Options as its base class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual const FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() const noexcept;
 	
 	/**
 	 * Getter for Options as its base class
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() noexcept;
 	
 protected:
@@ -240,19 +240,19 @@ public:
 	/**
 	 * Getter for bInitialized
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE bool IsInitialized() const noexcept { return bInitialized; }
 	
 	/**
 	 * Getter for Optimizer
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE TSharedPtr<const torch::optim::Optimizer> GetOptimizer() const noexcept { return Optimizer; }
 	
 	/**
 	 * Getter for Optimizer
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE TSharedPtr<torch::optim::Optimizer> GetOptimizer() noexcept { return Optimizer; }
 };
 

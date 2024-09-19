@@ -58,7 +58,7 @@ public:
 	 * 
 	 * @return Localisable section text
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetSectionText() const override;
 	
 	/**
@@ -66,39 +66,39 @@ public:
 	 * 
 	 * @return Localisable section description
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual FText GetSectionDescription() const override;
 #endif
 	
 	/**
 	 * Getter for bLogAtumEditorEnabled
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE bool IsLogAtumEditorEnabled() const noexcept { return bLogAtumEditorEnabled; }
 	
 	/**
 	 * Setter for bLogAtumEditorEnabled
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void SetLogAtumEditorEnabled(const bool bValue) noexcept { bLogAtumEditorEnabled = bValue; }
 	
 	/**
 	 * Getter for bBlueprintableClassesAllowed
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE bool AreBlueprintableClassesAllowed() const noexcept { return bBlueprintableClassesAllowed; }
 	
 	/**
 	 * Setter for bBlueprintableClassesAllowed
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void SetBlueprintableClassesAllowed(const bool bValue) noexcept
 	{ bBlueprintableClassesAllowed = bValue; }
 	
 	/**
 	 * Getter for NeuralNetworkAssetTypeColor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE FColor GetNeuralNetworkAssetTypeColor() const noexcept { return NeuralNetworkAssetTypeColor; }
 };
 

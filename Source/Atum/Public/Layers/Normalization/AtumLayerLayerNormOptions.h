@@ -49,7 +49,7 @@ struct ATUM_API FAtumLayerLayerNormOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	explicit operator torch::nn::LayerNormOptions() const noexcept;
 	
 	/**

@@ -32,25 +32,25 @@ public: \
 	/**
 	 * Getter for Options as its base class
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	virtual const FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() const noexcept override { return &Options; } \
 	\
 	/**
 	 * Getter for Options as its base class
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	virtual FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() noexcept override { return &Options; } \
 	\
 	/**
 	 * Getter for Options
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	FORCEINLINE const OptionsClass& GetOptimizerOptions() const noexcept { return Options; } \
 	\
 	/**
 	 * Getter for Options
 	 */ \
-	UE_NODISCARD \
+	[[nodiscard]] \
 	FORCEINLINE OptionsClass& GetOptimizerOptions() noexcept { return Options; } \
 	\
 private:

@@ -57,7 +57,7 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 	 * 
 	 * @return The device on which tensors are created by default
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Default Device Type", meta = (
 		Keywords = "ATUM Tensor Get Default Device Type"
 	))
@@ -80,7 +80,7 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 	 * 
 	 * @return The LibTorch default device type
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE c10::DeviceType GetDefaultTorchDeviceType() noexcept
 	{ return AtumEnums::Cast(K2_GetDefaultDeviceType()); }
 	
@@ -100,7 +100,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Empty Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -119,7 +119,7 @@ public:
 	 * @param Size Square matrix size
 	 * @return The created tensor
 	 */
-	UE_NODISCARD
+	UE_NODISCARD_CTOR
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Eye Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Eye Tensor",
@@ -137,7 +137,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Zeros Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -156,7 +156,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Ones Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -175,7 +175,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Random Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -195,7 +195,7 @@ public:
 	 * @param DeviceType Device on which the tensor is created
 	 * @return The created tensor
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make RandN Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -214,7 +214,7 @@ public:
 	 * @param Tensor Generic tensor object
 	 * @return The tensor as a string
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintPure, Category = "ATUM|Cast", DisplayName = "Tensor To String", CustomThunk, meta = (
 		BlueprintAutocast,
 		CompactNodeTitle = "->",
@@ -231,7 +231,7 @@ public:
 	 * @param Class Type of tensor implementation for the result
 	 * @return The sum of the two tensors
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintPure, Category = "ATUM|Operator", DisplayName = "Add Tensors", meta = (
 		CompactNodeTitle = "+",
 		Keywords = "ATUM Operator Overload + Add Plus Tensor Left Right Class"
@@ -251,7 +251,7 @@ public:
 	 * @param Class Type of tensor implementation of the result
 	 * @return The loss
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", meta = (
 		Keywords = "ATUM Tensor Binary Cross Entropy Output Label Class"
 	))
@@ -269,7 +269,7 @@ public:
 	 * @param Class Type of tensor implementation of the result
 	 * @return The loss
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", meta = (
 		Keywords = "ATUM Tensor Mean Square Error Output Label Class"
 	))

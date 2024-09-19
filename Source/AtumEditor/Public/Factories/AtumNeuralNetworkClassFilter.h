@@ -37,7 +37,7 @@ public:
 	 * @param InFilterFuncs Reference to collection of functions to filter the class
 	 * @return Is the given class allowed?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual bool IsClassAllowed(
 		const FClassViewerInitializationOptions& InInitOptions,
 		const UClass* InClass,
@@ -52,7 +52,7 @@ public:
 	 * @param InFilterFuncs Reference to collection of functions to filter the class
 	 * @return Is the given unloaded class allowed?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	virtual bool IsUnloadedClassAllowed(
 		const FClassViewerInitializationOptions& InInitOptions,
 		TSharedRef<const IUnloadedBlueprintData> InUnloadedClassData,
@@ -69,25 +69,25 @@ public:
 	/**
 	 * Getter for AllowedClasses
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE const TSet<const UClass*>& GetAllowedClasses() const noexcept { return AllowedClasses; }
 	
 	/**
 	 * Setter for AllowedClasses
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE TSet<const UClass*>& GetAllowedClasses() noexcept { return AllowedClasses; }
 	
 	/**
 	 * Getter for BannedClassFlags
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE EClassFlags GetBannedClassFlags() const noexcept { return BannedClassFlags; }
 	
 	/**
 	 * Setter for BannedClassFlags
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE void SetBannedClassFlags(const EClassFlags Value) noexcept { BannedClassFlags = Value; }
 };
 

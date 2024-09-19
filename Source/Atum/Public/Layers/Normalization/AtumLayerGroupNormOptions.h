@@ -55,7 +55,7 @@ struct ATUM_API FAtumLayerGroupNormOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::GroupNormOptions() const noexcept
 	{ return torch::nn::GroupNormOptions(NumGroups, NumChannels).eps(Eps).affine(bAffine); }
 	

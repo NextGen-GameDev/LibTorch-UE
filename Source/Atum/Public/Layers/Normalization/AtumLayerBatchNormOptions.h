@@ -61,7 +61,7 @@ struct ATUM_API FAtumLayerBatchNormOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::BatchNormOptions() const noexcept
 	{
 		return torch::nn::BatchNormOptions(NumFeatures)

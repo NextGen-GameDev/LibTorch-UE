@@ -49,7 +49,7 @@ struct ATUM_API FAtumLayerLinearOptions : public FAtumLayerBaseOptions
 	/**
 	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE explicit operator torch::nn::LinearOptions() const noexcept
 	{ return torch::nn::LinearOptions(InFeatures, OutFeatures).bias(bBias); }
 	

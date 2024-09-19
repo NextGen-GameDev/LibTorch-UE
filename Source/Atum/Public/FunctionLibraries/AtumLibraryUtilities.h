@@ -86,7 +86,7 @@ public:
 	 * @return Pretty string made out of the vector's separated values
 	 */
 	template <typename T>
-	UE_NODISCARD
+	[[nodiscard]]
 	static std::string FormatWithConjunction(
 		const std::vector<T>& Values,
 		const std::string& Separator,

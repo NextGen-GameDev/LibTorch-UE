@@ -43,7 +43,7 @@ public:
 	 * 
 	 * @return Is the module loaded in memory?
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE bool IsModuleLoaded() noexcept { return FModuleManager::Get().IsModuleLoaded(ModuleName); }
 	
 	/**
@@ -51,20 +51,20 @@ public:
 	 * 
 	 * @return Reference to this module
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	static FORCEINLINE IAtumEditorModule& GetModule()
 	{ return FModuleManager::LoadModuleChecked<IAtumEditorModule>(ModuleName); }
 	
 	/**
 	 * Getter for AtumAssetCategoryBit
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE EAssetTypeCategories::Type GetAtumAssetCategoryBit() const noexcept { return AtumAssetCategoryBit; }
 	
 	/**
 	 * Getter for AtumNeuralNetworkAssetTypeActions
 	 */
-	UE_NODISCARD
+	[[nodiscard]]
 	FORCEINLINE TSharedRef<const FAssetTypeActions_AtumNeuralNetwork>
 	GetAtumNeuralNetworkAssetTypeActions() const noexcept { return AtumNeuralNetworkAssetTypeActions; }
 };

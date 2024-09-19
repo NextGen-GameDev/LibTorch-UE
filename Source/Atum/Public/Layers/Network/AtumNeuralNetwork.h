@@ -42,7 +42,7 @@ namespace torch::nn
 		 * @param input Tensor to operate on
 		 * @return The resulting tensor
 		 */
-		UE_NODISCARD
+		[[nodiscard]]
 		// ReSharper disable once CppMemberFunctionMayBeStatic
 		FORCEINLINE Tensor forward(const Tensor& input) { return input; }
 		

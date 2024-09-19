@@ -89,7 +89,7 @@ struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerBaseOptions
 	 */
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
-	UE_NODISCARD
+	[[nodiscard]]
 	explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept;
 	
 	/**
