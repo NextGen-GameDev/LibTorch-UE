@@ -9,6 +9,7 @@ on:
 jobs:
   download-compress-upload:
     runs-on: ubuntu-latest
+    environment: Actions Release
 
     steps:
       # Step 1: Check out the repository
@@ -67,7 +68,15 @@ jobs:
       - name: Compress LibTorch GPU with RAR
         run: rar a -r libtorch_gpu.rar libtorch_gpu
 
-      # Step 12: Create a release and upload the RAR files as assets
+      # Step 12: Generate a GitHub App token
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # Step 13: Create a release and upload the RAR files as assets
       - name: Upload libtorch_cpu.rar and libtorch_gpu.rar to the release
         uses: softprops/action-gh-release@v2
         with:
@@ -75,4 +84,4 @@ jobs:
             libtorch_cpu.rar
             libtorch_gpu.rar
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this secret automatically
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
