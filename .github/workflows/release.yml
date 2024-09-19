@@ -47,15 +47,27 @@ jobs:
       - name: Unzip LibTorch GPU
         run: unzip libtorch_gpu.zip -d libtorch_gpu
 
-      # Step 8: Compress the unzipped CPU folder using RAR
+      # Step 8: Run script to make required changes to LibTorch CPU headers
+      - name: Make changes to LibTorch CPU headers
+        run: |
+          LIBTORCH_ROOT_CPU=libtorch_cpu
+          ./Setup/modify_headers.sh $LIBTORCH_ROOT_CPU
+
+      # Step 9: Run script to make required changes to LibTorch GPU headers
+      - name: Make changes to LibTorch GPU headers
+        run: |
+          LIBTORCH_ROOT_GPU=libtorch_gpu
+          ./Setup/modify_headers.sh $LIBTORCH_ROOT_GPU
+
+      # Step 10: Compress the unzipped CPU folder using RAR
       - name: Compress LibTorch CPU with RAR
         run: rar a -r libtorch_cpu.rar libtorch_cpu
 
-      # Step 9: Compress the unzipped GPU folder using RAR
+      # Step 11: Compress the unzipped GPU folder using RAR
       - name: Compress LibTorch GPU with RAR
         run: rar a -r libtorch_gpu.rar libtorch_gpu
 
-      # Step 10: Create a release and upload the RAR files as assets
+      # Step 12: Create a release and upload the RAR files as assets
       - name: Upload libtorch_cpu.rar and libtorch_gpu.rar to the release
         uses: softprops/action-gh-release@v2
         with:
