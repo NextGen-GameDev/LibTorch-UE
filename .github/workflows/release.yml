@@ -19,25 +19,48 @@ jobs:
       - name: Install rar
         run: sudo apt-get install rar unrar -y
 
-      # Step 3: Download the libtorch zip file
-      - name: Download libtorch
+      # Step 3: Extract LibTorch version from tag
+      - name: Extract LibTorch version
+        id: extract_version
         run: |
-          LIBTORCH_VERSION=2.0.1  # Specify the libtorch version
-          LIBTORCH_URL=https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-${LIBTORCH_VERSION}%2Bcpu.zip
-          curl -L -o libtorch.zip $LIBTORCH_URL
+          TAG_NAME=${GITHUB_REF##*/}
+          LIBTORCH_VERSION=$(echo $TAG_NAME | sed -n 's/.*+libtorch\([0-9.]*\).*/\1/p')
+          echo "LIBTORCH_VERSION=$LIBTORCH_VERSION" >> $GITHUB_ENV
 
-      # Step 4: Unzip the libtorch zip file
-      - name: Unzip libtorch
-        run: unzip libtorch.zip -d libtorch
+      # Step 4: Download the LibTorch CPU zip file
+      - name: Download the LibTorch CPU distribution
+        run: |
+          LIBTORCH_CPU_URL=https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-${LIBTORCH_VERSION}%2Bcpu.zip
+          curl -L -o libtorch_cpu.zip $LIBTORCH_CPU_URL
 
-      # Step 5: Compress the unzipped folder using RAR
-      - name: Compress libtorch with RAR
-        run: rar a -r libtorch.rar libtorch
+      # Step 5: Download the LibTorch GPU (CUDA) zip file
+      - name: Download the LibTorch GPU (CUDA 12.1) distribution
+        run: |
+          LIBTORCH_GPU_URL=https://download.pytorch.org/libtorch/cu121/libtorch-win-shared-with-deps-${LIBTORCH_VERSION}%2Bcu121.zip
+          curl -L -o libtorch_gpu.zip $LIBTORCH_GPU_URL
 
-      # Step 6: Create a release and upload the RAR file as an asset
-      - name: Upload libtorch.rar to the release
+      # Step 6: Unzip the LibTorch CPU zip file
+      - name: Unzip LibTorch CPU
+        run: unzip libtorch_cpu.zip -d libtorch_cpu
+
+      # Step 7: Unzip the LibTorch GPU zip file
+      - name: Unzip LibTorch GPU
+        run: unzip libtorch_gpu.zip -d libtorch_gpu
+
+      # Step 8: Compress the unzipped CPU folder using RAR
+      - name: Compress LibTorch CPU with RAR
+        run: rar a -r libtorch_cpu.rar libtorch_cpu
+
+      # Step 9: Compress the unzipped GPU folder using RAR
+      - name: Compress LibTorch GPU with RAR
+        run: rar a -r libtorch_gpu.rar libtorch_gpu
+
+      # Step 10: Create a release and upload the RAR files as assets
+      - name: Upload libtorch_cpu.rar and libtorch_gpu.rar to the release
         uses: softprops/action-gh-release@v2
         with:
-          files: libtorch.rar
+          files: |
+            libtorch_cpu.rar
+            libtorch_gpu.rar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this secret automatically
