@@ -100,7 +100,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	[[nodiscard]]
+	UE_NODISCARD_CTOR
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Empty Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -137,7 +137,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	[[nodiscard]]
+	UE_NODISCARD_CTOR
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Zeros Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -156,7 +156,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	[[nodiscard]]
+	UE_NODISCARD_CTOR
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Ones Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -175,7 +175,7 @@ public:
 	 * @param Sizes Array of sizes
 	 * @return The created tensor
 	 */
-	[[nodiscard]]
+	UE_NODISCARD_CTOR
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Random Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
@@ -195,7 +195,7 @@ public:
 	 * @param DeviceType Device on which the tensor is created
 	 * @return The created tensor
 	 */
-	[[nodiscard]]
+	UE_NODISCARD_CTOR
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make RandN Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
