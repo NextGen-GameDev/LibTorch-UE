@@ -68,7 +68,7 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 ### Prerequisites
 
 * OS: Windows - 64 bit
-* UE: version 5.1 - 5.3
+* UE: version 5.1 - 5.4
 * GPU support is currently CUDA-only
 
 <div id="installation"></div>
